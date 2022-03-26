@@ -1,6 +1,6 @@
 <?php
 
-namespace Webaxones\Core\Concerns;
+namespace Webaxones\Core\Utils\Concerns;
 
 trait OptionalSettingsTrait
 {

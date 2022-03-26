@@ -1,6 +1,6 @@
 <?php
 
-namespace Webaxones\Core\Contracts;
+namespace Webaxones\Core\Utils\Contracts;
 
 defined( 'ABSPATH' ) || exit;
 
