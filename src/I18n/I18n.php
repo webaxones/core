@@ -1,6 +1,6 @@
 <?php
 
-namespace Webaxones\Core;
+namespace Webaxones\Core\I18n;
 
 defined( 'ABSPATH' ) || exit;
 

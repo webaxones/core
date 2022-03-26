@@ -1,6 +1,6 @@
 <?php
 
-namespace Webaxones\Core;
+namespace Webaxones\Core\Label;
 
 use Webaxones\Core\Contracts\LabelsInterface;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Webaxones\Core;
+namespace Webaxones\Core\Content;
 
 use Webaxones\Core\Contracts\ObjectTypesInterface;
 
