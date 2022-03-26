@@ -1,8 +1,8 @@
 <?php
 
-namespace WaxCustom;
+namespace Webaxones\Core;
 
-use WaxCustom\Contracts\ObjectTypesInterface;
+use Webaxones\Core\Contracts\ObjectTypesInterface;
 
 defined( 'ABSPATH' ) || exit;
 

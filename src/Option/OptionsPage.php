@@ -1,6 +1,6 @@
 <?php
 
-namespace WaxCustom;
+namespace Webaxones\Core;
 
 defined( 'ABSPATH' ) || exit;
 

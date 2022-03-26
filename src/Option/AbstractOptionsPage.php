@@ -1,13 +1,13 @@
 <?php
 
-namespace WaxCustom;
+namespace Webaxones\Core;
 
 use Exception;
 
-use WaxCustom\Contracts\OptionsPageInterface;
-use WaxCustom\Contracts\HooksInterface;
+use Webaxones\Core\Contracts\OptionsPageInterface;
+use Webaxones\Core\Contracts\HooksInterface;
 
-use WaxCustom\Concerns\ClassNameTrait;
+use Webaxones\Core\Concerns\ClassNameTrait;
 
 /**
  * Custom options pages declaration

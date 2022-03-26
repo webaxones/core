@@ -1,10 +1,10 @@
 <?php
 
-namespace WaxCustom;
+namespace Webaxones\Core;
 
-use WaxCustom\Contracts\LabelsInterface;
+use Webaxones\Core\Contracts\LabelsInterface;
 
-use WaxCustom\Concerns\OptionalSettingsTrait;
+use Webaxones\Core\Concerns\OptionalSettingsTrait;
 
 defined( 'ABSPATH' ) || exit;
 

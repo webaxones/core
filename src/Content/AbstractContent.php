@@ -1,14 +1,14 @@
 <?php
 
-namespace WaxCustom;
+namespace Webaxones\Core;
 
 use Exception;
 
-use WaxCustom\Contracts\ContentInterface;
-use WaxCustom\Contracts\HooksInterface;
+use Webaxones\Core\Contracts\ContentInterface;
+use Webaxones\Core\Contracts\HooksInterface;
 
-use WaxCustom\Concerns\OptionalSettingsTrait;
-use WaxCustom\Concerns\ClassNameTrait;
+use Webaxones\Core\Concerns\OptionalSettingsTrait;
+use Webaxones\Core\Concerns\ClassNameTrait;
 
 /**
  * Content declaration

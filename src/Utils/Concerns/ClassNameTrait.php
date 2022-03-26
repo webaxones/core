@@ -1,6 +1,6 @@
 <?php
 
-namespace WaxCustom\Concerns;
+namespace Webaxones\Core\Concerns;
 
 trait ClassNameTrait
 {
