@@ -1,0 +1,23 @@
+{
+    "name": "webaxones/core",
+    "description": "WordPress custom code",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Webaxones\\Core\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Loïc Antignac",
+            "email": "contact@webaxones.com"
+        }
+    ],
+    "require": {
+		"php": ">=7.4",
+        "php-di/php-di": "^6.3"
+	},
+	"minimum-stability": "stable",
+    "prefer-stable": true
+}

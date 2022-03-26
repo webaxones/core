@@ -1,0 +1,19 @@
+# Composer
+vendor
+composer.lock
+
+# Node
+node_modules
+
+# Visual Studio Code
+.vscode
+
+# WP-CLI
+wp-cli.local.yml
+
+
+# Hidden files
+*.DS_Store
+*Thumbs.db
+*.sass-cache*
+*~imageoptim*
