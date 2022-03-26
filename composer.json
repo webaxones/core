@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-		"php": ">=7.4",
+		"php": ">=8",
         "php-di/php-di": "^6.3"
 	},
 	"minimum-stability": "stable",
