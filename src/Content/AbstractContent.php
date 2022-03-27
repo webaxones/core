@@ -4,11 +4,13 @@ namespace Webaxones\Core\Content;
 
 use Exception;
 
-use Webaxones\Core\Contracts\ContentInterface;
-use Webaxones\Core\Contracts\HooksInterface;
+use Webaxones\Core\Utils\Contracts\ContentInterface;
+use Webaxones\Core\Utils\Contracts\HooksInterface;
 
-use Webaxones\Core\Concerns\OptionalSettingsTrait;
-use Webaxones\Core\Concerns\ClassNameTrait;
+use Webaxones\Core\Utils\Concerns\OptionalSettingsTrait;
+use Webaxones\Core\Utils\Concerns\ClassNameTrait;
+
+use Webaxones\Core\Label\Labels;
 
 /**
  * Content declaration
@@ -53,7 +55,7 @@ abstract class AbstractContent implements ContentInterface, HooksInterface
 	 *
 	 * @throws Exception
 	 */
-	public function __construct( array $parameters = [], Labels $labels )
+	public function __construct( array $parameters, Labels $labels )
 	{
 		if ( ! array_key_exists( 'settings', $parameters ) || empty( $parameters['settings'] ) ) {
 			throw new Exception( 'Settings missing in content ' . $this->getCurrentClassShortName() . ' declaration' );
@@ -118,7 +120,6 @@ abstract class AbstractContent implements ContentInterface, HooksInterface
 	public function processSlug(): string
 	{
 		$settings = $this->getSettings();
-
 		return sanitize_title( $settings['slug'] );
 	}
 

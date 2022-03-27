@@ -2,9 +2,9 @@
 
 namespace Webaxones\Core\Label;
 
-use Webaxones\Core\Contracts\LabelsInterface;
+use Webaxones\Core\Utils\Contracts\LabelsInterface;
 
-use Webaxones\Core\Concerns\OptionalSettingsTrait;
+use Webaxones\Core\Utils\Concerns\OptionalSettingsTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -14,20 +14,6 @@ defined( 'ABSPATH' ) || exit;
 class Labels implements LabelsInterface
 {
 	use OptionalSettingsTrait;
-
-	/**
-	 * Custom content global words
-	 *
-	 * @var array
-	 */
-	protected array $globalWords;
-
-	/**
-	 * Custom content labels
-	 *
-	 * @var array
-	 */
-	protected array $labels;
 
 	/**
 	 * Custom content type
@@ -44,6 +30,20 @@ class Labels implements LabelsInterface
 	protected string $contentSlug;
 
 	/**
+	 * Custom content labels
+	 *
+	 * @var array
+	 */
+	protected array $labels;
+
+	/**
+	 * Custom content global words
+	 *
+	 * @var array
+	 */
+	protected array $globalWords;
+
+	/**
 	 * Custom content gender
 	 *
 	 * @var bool
@@ -51,19 +51,20 @@ class Labels implements LabelsInterface
 	protected bool $contentGender;
 
 	/**
-	 * Abstract Custom Content Class Constructor
+	 * Label Constructor
 	 *
-	 * @param  array $parameters
 	 * @param  string $classShortName
+	 * @param  string $contentSlug
+	 * @param  array $labels
 	 * @param  array $globalWords
 	 */
-	public function __construct( array $parameters, string $classShortName, array $globalWords )
+	public function __construct( string $classShortName, string $contentSlug, array $labels, array $globalWords )
 	{
-		$this->globalWords       = $globalWords;
-		$this->labels            = $parameters['labels'];
-		$this->contentSlug       = array_key_exists( 'slug', $parameters['settings'] ) ? $parameters['settings']['slug'] : '';
-		$this->contentGender     = array_key_exists( 'gender', $parameters['settings'] ) && 'f' === $parameters['settings']['gender'] ? 1 : 0;
 		$this->customContentType = $classShortName;
+		$this->contentSlug       = $contentSlug;
+		$this->labels            = $labels;
+		$this->globalWords       = $globalWords;
+		$this->contentGender     = array_key_exists( 'gender', $labels ) && 'f' === $labels['gender'] ? 1 : 0;
 	}
 
 	/**

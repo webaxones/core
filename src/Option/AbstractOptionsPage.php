@@ -4,10 +4,12 @@ namespace Webaxones\Core\Option;
 
 use Exception;
 
-use Webaxones\Core\Contracts\OptionsPageInterface;
-use Webaxones\Core\Contracts\HooksInterface;
+use Webaxones\Core\Utils\Contracts\OptionsPageInterface;
+use Webaxones\Core\Utils\Contracts\HooksInterface;
 
-use Webaxones\Core\Concerns\ClassNameTrait;
+use Webaxones\Core\Utils\Concerns\ClassNameTrait;
+
+use Webaxones\Core\Label\Labels;
 
 /**
  * Custom options pages declaration
@@ -52,7 +54,7 @@ abstract class AbstractOptionsPage implements OptionsPageInterface, HooksInterfa
 	 *
 	 * @throws Exception
 	 */
-	public function __construct( array $parameters = [], Labels $labels )
+	public function __construct( array $parameters, Labels $labels )
 	{
 		if ( ! array_key_exists( 'settings', $parameters ) || empty( $parameters['settings'] ) ) {
 			throw new Exception( 'Settings missing in custom content ' . $this->getCurrentClassShortName() . ' declaration' );

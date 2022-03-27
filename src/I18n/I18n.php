@@ -5,7 +5,7 @@ namespace Webaxones\Core\I18n;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Plugin's internationalization
+ * Labels internationalization
  */
 class I18n
 {
@@ -14,8 +14,8 @@ class I18n
 	 *
 	 * @return void
 	 */
-	public function loadPluginTextdomain()
+	public function loadPluginTextdomain( $textDomain )
 	{
-		load_plugin_textdomain( 'wax-custom-content', false, plugin_dir_path( __FILE__ ) . 'languages' );
+		load_plugin_textdomain( $textDomain, false, plugin_dir_path( __FILE__ ) . 'languages' );
 	}
 }

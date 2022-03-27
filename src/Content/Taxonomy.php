@@ -2,8 +2,6 @@
 
 namespace Webaxones\Core\Content;
 
-use Webaxones\Core\Contracts\ObjectTypesInterface;
-
 defined( 'ABSPATH' ) || exit;
 
 /**
