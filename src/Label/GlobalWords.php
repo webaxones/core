@@ -5,19 +5,19 @@ namespace Webaxones\Core\Label;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Global words used in labels: no changes needed.
+ * Global words used in labels: no changes needed
  */
 class GlobalWords
 {
 	/**
-	 * Self instance.
+	 * Self instance
 	 *
 	 * @var object
 	 */
 	private static $instance;
 
 	/**
-	 * Global words used in labels: no changes needed.
+	 * Global words used in labels: no changes needed
 	 *
 	 * @var array
 	 */
@@ -72,7 +72,7 @@ class GlobalWords
 	}
 
 	/**
-	 * Singleton pattern.
+	 * Singleton pattern
 	 *
 	 * @return self
 	 */

@@ -1,13 +1,15 @@
 <?php
 
-namespace Webaxones\Core\Content;
+namespace Webaxones\Core\Classification;
+
+use Webaxones\Core\Label\Labels;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Custom taxonomy declaration
  */
-class Taxonomy extends AbstractContent
+class Taxonomy extends AbstractClassification
 {
 	/**
 	 * Custom Taxonomy Object Type

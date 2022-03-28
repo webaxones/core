@@ -26,7 +26,7 @@ class AcfOptionsPage extends AbstractOptionsPage
 		$this->args = [
 			'page_title'  => $this->labels->getLabel( 'page_title' ),
 			'menu_title'  => $this->labels->getLabel( 'menu_title' ),
-			'menu_slug'   => $this->settings['menu_slug'],
+			'menu_slug'   => $this->settings['slug'],
 			'capability'  => $this->settings['capability'],
 			'position'    => $this->settings['position'],
 			'parent_slug' => $this->settings['parent_slug'],

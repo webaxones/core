@@ -35,7 +35,7 @@ class ContentFactory
 	 */
 	public function __construct( string $type = '', array $settings = [] )
 	{
-		$this->className = 'Webaxones\\Core\\Content\\' . $type;
+		$this->className = ( 'PostType' === $type || 'Taxonomy' === $type ) ? 'Webaxones\\Core\\Classification\\' . $type : 'Webaxones\\Core\\Option\\' . $type;
 		$this->settings  = $settings;
 	}
 

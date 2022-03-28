@@ -1,10 +1,10 @@
 <?php
 
-namespace Webaxones\Core\Content;
+namespace Webaxones\Core\Classification;
 
 use Exception;
 
-use Webaxones\Core\Utils\Contracts\ContentInterface;
+use Webaxones\Core\Utils\Contracts\ClassificationInterface;
 use Webaxones\Core\Utils\Contracts\HooksInterface;
 
 use Webaxones\Core\Utils\Concerns\OptionalSettingsTrait;
@@ -13,43 +13,43 @@ use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 use Webaxones\Core\Label\Labels;
 
 /**
- * Content declaration
+ * Classification declaration
  */
-abstract class AbstractContent implements ContentInterface, HooksInterface
+abstract class AbstractClassification implements ClassificationInterface, HooksInterface
 {
 	use OptionalSettingsTrait;
 	use ClassNameTrait;
 
 	/**
-	 * Content input settings
+	 * Classification input settings
 	 *
 	 * @var array
 	 */
 	protected array $settings;
 
 	/**
-	 * Content input labels
+	 * Classification input labels
 	 *
 	 * @var object
 	 */
 	protected object $labels;
 
 	/**
-	 * Content output args
+	 * Classification output args
 	 *
 	 * @var array
 	 */
 	protected array $args;
 
 	/**
-	 * Content slug
+	 * Classification slug
 	 *
 	 * @var string
 	 */
 	protected string $slug;
 
 	/**
-	 * Abstract Content Class Constructor
+	 * Abstract Classification Class Constructor
 	 *
 	 * @param  array $parameters
 	 *

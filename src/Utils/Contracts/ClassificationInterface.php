@@ -4,59 +4,59 @@ namespace Webaxones\Core\Utils\Contracts;
 
 defined( 'ABSPATH' ) || exit;
 
-interface ContentInterface
+interface ClassificationInterface
 {
 	/**
-	 * Get content input settings
+	 * Get classification input settings
 	 *
 	 * @return array
 	 */
 	public function getSettings(): array;
 
 	/**
-	 * Get content slug
+	 * Get classification slug
 	 *
 	 * @return string
 	 */
 	public function getSlug(): string;
 
 	/**
-	 * Process content slug
+	 * Process classification slug
 	 *
 	 * @return string
 	 */
 	public function processSlug(): string;
 
 	/**
-	 * Process content visibilities
+	 * Process classification visibilities
 	 *
 	 * @return array
 	 */
 	public function processVisibilities(): array;
 
 	/**
-	 * Process content data accessibilities
+	 * Process classification data accessibilities
 	 *
 	 * @return array
 	 */
 	public function processAccessibilities(): array;
 
 	/**
-	 * Process content capabilities types
+	 * Process classification capabilities types
 	 *
 	 * @return array
 	 */
 	public function processCapabilities(): array;
 
 	/**
-	 * Process content capacities
+	 * Process classification capacities
 	 *
 	 * @return array
 	 */
 	public function processCapacities(): array;
 
 	/**
-	 * Process content rewrite rules
+	 * Process classification rewrite rules
 	 *
 	 * @return array
 	 */

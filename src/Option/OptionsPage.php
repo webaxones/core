@@ -27,7 +27,7 @@ class OptionsPage extends AbstractOptionsPage
 			$this->labels->getLabel( 'page_title' ),
 			$this->labels->getLabel( 'menu_title' ),
 			$this->settings['capability'],
-			$this->settings['menu_slug'],
+			$this->settings['slug'],
 			[ $this, 'optionsPageContent' ],
 		];
 		if ( 'add_menu_page' === $this->getAddPageFunction() ) {

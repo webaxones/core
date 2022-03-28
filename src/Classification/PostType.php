@@ -1,13 +1,13 @@
 <?php
 
-namespace Webaxones\Core\Content;
+namespace Webaxones\Core\Classification;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Custom post type declaration
  */
-class PostType extends AbstractContent
+class PostType extends AbstractClassification
 {
 	/**
 	 * {@inheritdoc}
