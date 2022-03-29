@@ -48,7 +48,7 @@ class ContentFactory
 	 */
 	public function createCustomContent(): object
 	{
-		$classShortName = substr( $this->className, strpos( $this->className, '\\' ) + 1 );
+		$classShortName = $this->settings['type'];
 		if ( ! class_exists( $this->className ) ) {
 			throw new Exception( '« ' . $classShortName . ' » doesn’t exist. Wrong content type name passed as parameter.' );
 		}
