@@ -34,13 +34,13 @@ class EntityFactory
 	/**
 	 * Entity factory declaration
 	 *
-	 * @param  string $type
+	 * @param  string $entity
 	 * @param  array  $settings
 	 */
 	public function __construct( array $settings = [] )
 	{
 		$this->settings  = $settings;
-		$this->className = $settings['type'];
+		$this->className = $settings['entity'];
 	}
 
 	/**

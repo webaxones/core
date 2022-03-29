@@ -71,7 +71,7 @@ $i18n->loadPluginTextdomain( 'wax-custom-content' );
  */
 $declarations[] = new EntityFactory(
 	[
-		'type'     => 'Webaxones\Core\Classification\PostType',
+		'entity'   => 'Webaxones\Core\Classification\PostType',
 		'labels'   => [
 			'gender'            => 'm',
 			'plural_name'       => _x( 'Projects', 'Capitalized Plural Name', 'wax-custom-content' ),
@@ -101,7 +101,7 @@ $declarations[] = new EntityFactory(
  */
 $declarations[] = new EntityFactory(
 	[
-		'type'     => 'Webaxones\Core\Classification\Taxonomy',
+		'entity'   => 'Webaxones\Core\Classification\Taxonomy',
 		'labels'   => [
 			'gender'            => 'f',
 			'plural_name'       => _x( 'Project categories', 'Capitalized Plural Name', 'wax-custom-content' ),
@@ -128,7 +128,7 @@ $declarations[] = new EntityFactory(
  */
 $declarations[] = new EntityFactory(
 	[
-		'type'     => 'Webaxones\Core\Option\OptionsPage',
+		'entity'   => 'Webaxones\Core\Option\OptionsPage',
 		'labels'   => [
 			'page_title' => _x( 'Company data', 'Option page title', 'wax-custom-content' ),
 			'menu_title' => _x( 'Parameters', 'Option page menu title', 'wax-custom-content' ),
@@ -149,7 +149,7 @@ $declarations[] = new EntityFactory(
  */
 $declarations[] = new EntityFactory(
 	[
-		'type'     => 'Webaxones\Core\Option\AcfOptionsPage',
+		'entity'   => 'Webaxones\Core\Option\AcfOptionsPage',
 		'labels'   => [
 			'page_title' => _x( 'Projects archive', 'Option page title', 'wax-custom-content' ),
 			'menu_title' => _x( 'Projects page', 'Option page menu title', 'wax-custom-content' ),
