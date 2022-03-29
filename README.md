@@ -69,9 +69,9 @@ $i18n->loadPluginTextdomain( 'wax-custom-content' );
 /**
  * Custom Post Type: Project
  */
-$customContents[] = new ContentFactory(
+$declarations[] = new EntityFactory(
 	[
-		'type'     => 'PostType',
+		'type'     => 'Webaxones\Core\Classification\PostType',
 		'labels'   => [
 			'gender'            => 'm',
 			'plural_name'       => _x( 'Projects', 'Capitalized Plural Name', 'wax-custom-content' ),
@@ -99,9 +99,9 @@ $customContents[] = new ContentFactory(
 /**
  * Custom Taxonomy: Project category
  */
-$customContents[] = new ContentFactory(
+$declarations[] = new EntityFactory(
 	[
-		'type'     => 'Taxonomy',
+		'type'     => 'Webaxones\Core\Classification\Taxonomy',
 		'labels'   => [
 			'gender'            => 'f',
 			'plural_name'       => _x( 'Project categories', 'Capitalized Plural Name', 'wax-custom-content' ),
@@ -126,9 +126,9 @@ $customContents[] = new ContentFactory(
 /**
  * Custom native option page: Company data
  */
-$customContents[] = new ContentFactory(
+$declarations[] = new EntityFactory(
 	[
-		'type'     => 'OptionsPage',
+		'type'     => 'Webaxones\Core\Option\OptionsPage',
 		'labels'   => [
 			'page_title' => _x( 'Company data', 'Option page title', 'wax-custom-content' ),
 			'menu_title' => _x( 'Parameters', 'Option page menu title', 'wax-custom-content' ),
@@ -147,9 +147,9 @@ $customContents[] = new ContentFactory(
 /**
  * Custom ACF option page: Projects archive
  */
-$customContents[] = new ContentFactory(
+$declarations[] = new EntityFactory(
 	[
-		'type'     => 'AcfOptionsPage',
+		'type'     => 'Webaxones\Core\Option\AcfOptionsPage',
 		'labels'   => [
 			'page_title' => _x( 'Projects archive', 'Option page title', 'wax-custom-content' ),
 			'menu_title' => _x( 'Projects page', 'Option page menu title', 'wax-custom-content' ),
@@ -165,14 +165,13 @@ $customContents[] = new ContentFactory(
 	]
 );
 
-
 array_walk(
-	$customContents,
-	function( $customContent )
+	$declarations,
+	function( $declaration )
 	{
 		try {
-			$content = $customContent->createCustomContent();
-			$content->hook();
+			$entity = $declaration->createEntity();
+			$entity->hook();
 		} catch ( Exception $e ) {
 			error_log( $e->getMessage() );
 		}

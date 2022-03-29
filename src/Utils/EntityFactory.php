@@ -4,53 +4,58 @@ namespace Webaxones\Core\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
+use Webaxones\Core\Utils\Concerns\ClassNameTrait;
+
 use Exception;
 use Webaxones\Core\Label\GlobalWords;
 use Webaxones\Core\Label\Labels;
 
 /**
- * Content factory
+ * Entity factory
  */
-class ContentFactory
+class EntityFactory
 {
+	use ClassNameTrait;
+
 	/**
-	 * Content name
+	 * Entity name
 	 *
 	 * @var string
 	 */
 	protected string $className;
 
 	/**
-	 * Content settings
+	 * Entity settings
 	 *
 	 * @var array
 	 */
 	protected array $settings;
 
 	/**
-	 * Content factory declaration
+	 * Entity factory declaration
 	 *
 	 * @param  string $type
 	 * @param  array  $settings
 	 */
 	public function __construct( array $settings = [] )
 	{
-		$this->className = ( 'PostType' === $settings['type'] || 'Taxonomy' === $settings['type'] ) ? 'Webaxones\\Core\\Classification\\' . $settings['type'] : 'Webaxones\\Core\\Option\\' . $settings['type'];
 		$this->settings  = $settings;
+		$this->className = $settings['type'];
 	}
 
 	/**
-	 * Create custom content
+	 * Create entity
 	 *
 	 * @return object
 	 *
 	 * @throws Exception
 	 */
-	public function createCustomContent(): object
+	public function createEntity(): object
 	{
-		$classShortName = $this->settings['type'];
+		$classShortName = substr( $this->className, strrpos( $this->className, '\\' ) + 1 );
+
 		if ( ! class_exists( $this->className ) ) {
-			throw new Exception( '« ' . $classShortName . ' » doesn’t exist. Wrong content type name passed as parameter.' );
+			throw new Exception( '« ' . $this->className . ' » doesn’t exist. Wrong content type name passed as parameter.' );
 		}
 
 		$globalWords = GlobalWords::getValues();
