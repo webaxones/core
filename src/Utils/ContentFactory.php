@@ -33,9 +33,9 @@ class ContentFactory
 	 * @param  string $type
 	 * @param  array  $settings
 	 */
-	public function __construct( string $type = '', array $settings = [] )
+	public function __construct( array $settings = [] )
 	{
-		$this->className = ( 'PostType' === $type || 'Taxonomy' === $type ) ? 'Webaxones\\Core\\Classification\\' . $type : 'Webaxones\\Core\\Option\\' . $type;
+		$this->className = ( 'PostType' === $settings['type'] || 'Taxonomy' === $settings['type'] ) ? 'Webaxones\\Core\\Classification\\' . $settings['type'] : 'Webaxones\\Core\\Option\\' . $settings['type'];
 		$this->settings  = $settings;
 	}
 

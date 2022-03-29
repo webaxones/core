@@ -70,8 +70,8 @@ $i18n->loadPluginTextdomain( 'wax-custom-content' );
  * Custom Post Type: Project
  */
 $customContents[] = new ContentFactory(
-	'PostType',
 	[
+		'type'     => 'PostType',
 		'labels'   => [
 			'gender'            => 'm',
 			'plural_name'       => _x( 'Projects', 'Capitalized Plural Name', 'wax-custom-content' ),
@@ -100,9 +100,9 @@ $customContents[] = new ContentFactory(
  * Custom Taxonomy: Project category
  */
 $customContents[] = new ContentFactory(
-	'Taxonomy',
 	[
-		'labels'      => [
+		'type'     => 'Taxonomy',
+		'labels'   => [
 			'gender'            => 'f',
 			'plural_name'       => _x( 'Project categories', 'Capitalized Plural Name', 'wax-custom-content' ),
 			'singular_name'     => _x( 'Project category', 'Capitalized Singular Name', 'wax-custom-content' ),
@@ -112,7 +112,7 @@ $customContents[] = new ContentFactory(
 			'the_singular'      => __( 'The project category', 'wax-custom-content' ),
 			'the_plural'        => __( 'The project categories', 'wax-custom-content' ),
 		],
-		'settings'    => [
+		'settings' => [
 			'slug'              => 'project-category',
 			'hierarchical'      => false,
 			'public'            => true,
@@ -127,8 +127,8 @@ $customContents[] = new ContentFactory(
  * Custom native option page: Company data
  */
 $customContents[] = new ContentFactory(
-	'OptionsPage',
 	[
+		'type'     => 'OptionsPage',
 		'labels'   => [
 			'page_title' => _x( 'Company data', 'Option page title', 'wax-custom-content' ),
 			'menu_title' => _x( 'Parameters', 'Option page menu title', 'wax-custom-content' ),
@@ -148,8 +148,8 @@ $customContents[] = new ContentFactory(
  * Custom ACF option page: Projects archive
  */
 $customContents[] = new ContentFactory(
-	'AcfOptionsPage',
 	[
+		'type'     => 'AcfOptionsPage',
 		'labels'   => [
 			'page_title' => _x( 'Projects archive', 'Option page title', 'wax-custom-content' ),
 			'menu_title' => _x( 'Projects page', 'Option page menu title', 'wax-custom-content' ),
@@ -164,6 +164,7 @@ $customContents[] = new ContentFactory(
 		],
 	]
 );
+
 
 array_walk(
 	$customContents,
