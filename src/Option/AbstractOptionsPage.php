@@ -9,6 +9,7 @@ use Webaxones\Core\Utils\Contracts\HooksInterface;
 
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
+use Webaxones\Core\Admin\AdminMenuSlugs;
 use Webaxones\Core\Label\Labels;
 
 /**
@@ -40,11 +41,11 @@ abstract class AbstractOptionsPage implements OptionsPageInterface, HooksInterfa
 	protected string $location;
 
 	/**
-	 * Locations menu slugs
+	 * Admin menu slugs
 	 *
 	 * @var array
 	 */
-	protected array $slugLocations;
+	protected array $adminMenuSlugs;
 
 
 	/**
@@ -60,21 +61,11 @@ abstract class AbstractOptionsPage implements OptionsPageInterface, HooksInterfa
 			throw new Exception( 'Settings missing in custom content ' . $this->getCurrentClassShortName() . ' declaration' );
 		}
 
-		$this->settings      = $parameters['settings'];
-		$this->labels        = $labels;
-		$this->settings      = array_merge( $this->settings, $this->labels->processLabels() );
-		$this->location      = $parameters['settings']['location'];
-		$this->slugLocations = [
-			'dashboard'  => 'index.php',
-			'posts'      => 'edit.php',
-			'pages'      => 'edit.php?post_type=page',
-			'comments'   => 'edit-comments.php',
-			'theme'      => 'themes.php',
-			'plugins'    => 'plugins.php',
-			'users'      => 'users.php',
-			'management' => 'tools.php',
-			'options'    => 'options-general.php',
-		];
+		$this->settings       = $parameters['settings'];
+		$this->labels         = $labels;
+		$this->settings       = array_merge( $this->settings, $this->labels->processLabels() );
+		$this->location       = $parameters['settings']['location'];
+		$this->adminMenuSlugs = AdminMenuSlugs::getValues();
 	}
 
 	/**
@@ -96,9 +87,9 @@ abstract class AbstractOptionsPage implements OptionsPageInterface, HooksInterfa
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getSlugLocations(): array
+	public function getAdminMenuSlugs(): array
 	{
-		return $this->slugLocations;
+		return $this->adminMenuSlugs;
 	}
 
 	/**
@@ -112,7 +103,7 @@ abstract class AbstractOptionsPage implements OptionsPageInterface, HooksInterfa
 		if ( 'custom' === $this->getLocation() ) {
 			return 'add_menu_page';
 		}
-		if ( in_array( $this->getLocation(), $this->getSlugLocations(), true ) ) {
+		if ( in_array( $this->getLocation(), $this->getAdminMenuSlugs(), true ) ) {
 			return 'add_' . $this->getLocation() . '_page';
 		}
 		return '';

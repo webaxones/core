@@ -14,11 +14,11 @@ interface OptionsPageInterface
 	public function getLocation(): string;
 
 	/**
-	 * Get locations menu slugs
+	 * Get admin menu slugs
 	 *
 	 * @return array
 	 */
-	public function getSlugLocations(): array;
+	public function getAdminMenuSlugs(): array;
 
 	/**
  	 * Function to add the options page: determines the location

@@ -21,7 +21,7 @@ interface HooksInterface
 	public function registerCustomDeclarations(): void;
 
 	/**
-	 * Get hook name depending on current location and current process
+	 * Get hook name depending on current entity
 	 *
 	 * @return string
 	 */

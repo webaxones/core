@@ -7,27 +7,6 @@ defined( 'ABSPATH' ) || exit;
 interface ClassificationInterface
 {
 	/**
-	 * Get classification input settings
-	 *
-	 * @return array
-	 */
-	public function getSettings(): array;
-
-	/**
-	 * Get classification slug
-	 *
-	 * @return string
-	 */
-	public function getSlug(): string;
-
-	/**
-	 * Process classification slug
-	 *
-	 * @return string
-	 */
-	public function processSlug(): string;
-
-	/**
 	 * Process classification visibilities
 	 *
 	 * @return array
@@ -61,4 +40,11 @@ interface ClassificationInterface
 	 * @return array
 	 */
 	public function processRewrite(): array;
+
+	/**
+	 * Get messages hook name depending on current entity
+	 *
+	 * @return string
+	 */
+	public function getMessagesHookName(): string;
 }

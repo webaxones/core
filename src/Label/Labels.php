@@ -170,6 +170,7 @@ class Labels implements LabelsInterface
 			'item_link_description',
 			'page_title',
 			'menu_title',
+			'role_name',
 		];
 
 		$labels = $this->AddPassedOptions( $options, $labels, $this->getLabels() );

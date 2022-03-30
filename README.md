@@ -167,6 +167,43 @@ $declarations[] = new EntityFactory(
 	]
 );
 
+/**
+ * Custom role: Contributor
+ */
+$declarations[] = new EntityFactory(
+	[
+		'entity'   => 'Webaxones\Core\Role\CustomRole',
+		'labels'   => [
+			'role_name' => _x( 'Owner', 'Custom role name', 'wax-custom-content' ),
+		],
+		'settings' => [
+			'slug'                   => 'owner',
+			'role_to_clone_slug'     => 'administrator',
+			'capabilities_to_remove' => [
+				'manage_options',
+				'switch_themes',
+				'remove_users',
+				'activate_plugins',
+				'delete_others_pages',
+				'delete_site',
+				'delete_pages',
+				'delete_private_pages',
+				'delete_published_pages',
+				'delete_others_posts',
+				'delete_posts',
+				'delete_private_posts',
+				'edit_theme_options',
+				'export',
+				'import',
+				'edit_private_pages',
+				'edit_private_posts',
+				'promote_users',
+				'customize',
+			],
+		],
+	]
+);
+
 array_walk(
 	$declarations,
 	function( $declaration )
