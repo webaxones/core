@@ -9,7 +9,7 @@ use Webaxones\Core\Utils\Contracts\HooksInterface;
 
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
-use Webaxones\Core\Admin\AdminMenuSlugs;
+use Webaxones\Core\Config\AdminMenuSlugs;
 use Webaxones\Core\Label\Labels;
 
 /**

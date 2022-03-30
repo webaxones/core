@@ -1,6 +1,6 @@
 <?php
 
-namespace Webaxones\Core\Admin;
+namespace Webaxones\Core\Config;
 
 defined( 'ABSPATH' ) || exit;
 
