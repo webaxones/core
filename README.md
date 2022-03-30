@@ -8,7 +8,7 @@ Custom declarations
 wp-content\plugins\my-example-plugin\
 ```
 
-Using a library allows you to make as many plugins as you want for your declarations.
+Using a library allows you to make as many plugins as you want for your declarations
 
 ## 2- Add library
 
