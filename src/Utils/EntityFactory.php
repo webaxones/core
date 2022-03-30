@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
 use Exception;
-use Webaxones\Core\Label\GlobalWords;
+use Webaxones\Core\Config\GlobalWords;
 use Webaxones\Core\Label\Labels;
 
 /**

@@ -6,7 +6,7 @@ use Webaxones\Core\Utils\Contracts\LabelsInterface;
 
 use Webaxones\Core\Utils\Concerns\OptionalSettingsTrait;
 
-use Webaxones\Core\Config\OptionalLabels;
+use Webaxones\Core\Config\OptionalSettingsWithLabel;
 
 
 defined( 'ABSPATH' ) || exit;
@@ -135,7 +135,7 @@ class Labels implements LabelsInterface
 			];
 		}
 
-		$labels = $this->AddPassedOptions( OptionalLabels::getValues(), $labels, $this->getLabels() );
+		$labels = $this->AddPassedOptions( OptionalSettingsWithLabel::getValues(), $labels, $this->getLabels() );
 		return $labels;
 	}
 

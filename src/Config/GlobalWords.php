@@ -1,6 +1,6 @@
 <?php
 
-namespace Webaxones\Core\Label;
+namespace Webaxones\Core\Config;
 
 defined( 'ABSPATH' ) || exit;
 

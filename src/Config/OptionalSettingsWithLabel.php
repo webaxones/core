@@ -5,9 +5,9 @@ namespace Webaxones\Core\Config;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Admin menu slugs
+ * Slugs of optional settings whose labels can be translated
  */
-class OptionalLabels
+class OptionalSettingsWithLabel
 {
 	/**
 	 * Self instance
