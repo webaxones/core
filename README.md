@@ -15,7 +15,7 @@ Using a library allows you to make as many plugins as you want for your declarat
 Add Webaxones Core library to the global composer if you have one:
 
 ```bash
-composer require wax/custom-content
+composer require webaxones/core
 ```
 
 If you don’t have one, you can initialize composer inside plugin folder with `composer init` or create a `composer.json` file manually:
@@ -39,7 +39,7 @@ If you don’t have one, you can initialize composer inside plugin folder with `
 Then add the Webaxones Core library to it:
 
 ```bash
-composer require wax/custom-content
+composer require webaxones/core
 ```
 
 ## 3- Create the plugin
