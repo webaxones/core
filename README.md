@@ -168,7 +168,7 @@ $declarations[] = new EntityFactory(
 );
 
 /**
- * Custom role: Contributor
+ * Custom role: Owner
  */
 $declarations[] = new EntityFactory(
 	[
