@@ -2,6 +2,8 @@
 
 namespace Webaxones\Core\Option;
 
+defined( 'ABSPATH' ) || exit;
+
 use Exception;
 
 use Webaxones\Core\Utils\Contracts\OptionsPageInterface;
@@ -73,7 +75,7 @@ abstract class AbstractOptionsPage implements OptionsPageInterface, HooksInterfa
 	 */
 	public function hook(): void
 	{
-		add_action( $this->getHookName(), [ $this, 'executeCustomDeclarations' ] );
+		add_action( $this->getHookName(), [ $this, 'finalProcess' ] );
 	}
 
 	/**

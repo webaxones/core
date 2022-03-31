@@ -1,5 +1,4 @@
 <?php
-
 namespace Webaxones\Core\Config;
 
 defined( 'ABSPATH' ) || exit;
@@ -26,48 +25,48 @@ class GlobalWords
 	public function __construct()
 	{
 		self::$globalWords = [
-			'view'                           => _x( 'View', 'Infinitive verb', 'wax-custom-content' ),
-			'edit'                           => _x( 'Edit', 'Infinitive verb', 'wax-custom-content' ),
-			'update'                         => _x( 'Update', 'Infinitive verb', 'wax-custom-content' ),
-			'updated_masculine'              => _x( 'updated', 'Masculine gender', 'wax-custom-content' ),
-			'updated_feminine'               => _x( 'updated', 'Feminine gender', 'wax-custom-content' ),
-			'a_masculine'                    => _x( 'a', 'Masculine indefinite article', 'wax-custom-content' ),
-			'a_feminine'                     => _x( 'a', 'Feminine indefinite article', 'wax-custom-content' ),
-			'a_plural'                       => _x( 'a', 'Plural indefinite article', 'wax-custom-content' ),
-			'not_updated_masculine'          => _x( 'not updated', 'Masculine gender', 'wax-custom-content' ),
-			'not_updated_feminine'           => _x( 'not updated', 'Feminine gender', 'wax-custom-content' ),
-			'draft_updated_masculine'        => _x( 'draft updated', 'Masculine gender', 'wax-custom-content' ),
-			'draft_updated_feminine'         => _x( 'draft updated', 'Feminine gender', 'wax-custom-content' ),
-			'deleted_masculine'              => _x( 'deleted', 'Masculine gender', 'wax-custom-content' ),
-			'deleted_feminine'               => _x( 'deleted', 'Feminine gender', 'wax-custom-content' ),
-			'deleted_plural_masculine'       => _x( 'deleted', 'Plural masculine gender', 'wax-custom-content' ),
-			'deleted_plural_feminine'        => _x( 'deleted', 'Plural feminine gender', 'wax-custom-content' ),
-			'added_masculine'                => _x( 'added', 'Masculine gender', 'wax-custom-content' ),
-			'added_feminine'                 => _x( 'added', 'Feminine gender', 'wax-custom-content' ),
-			'not_added_masculine'            => _x( 'not added', 'Masculine gender', 'wax-custom-content' ),
-			'not_added_feminine'             => _x( 'not added', 'Feminine gender', 'wax-custom-content' ),
-			'published_masculine'            => _x( 'published', 'Masculine gender', 'wax-custom-content' ),
-			'published_feminine'             => _x( 'published', 'Feminine gender', 'wax-custom-content' ),
-			'saved_masculine'                => _x( 'saved', 'Masculine gender', 'wax-custom-content' ),
-			'saved_feminine'                 => _x( 'saved', 'Feminine gender', 'wax-custom-content' ),
-			'custom_field_updated'           => __( 'Custom field updated', 'wax-custom-content' ),
+			'view'                           => _x( 'View', 'Infinitive verb', 'webaxones-core' ),
+			'edit'                           => _x( 'Edit', 'Infinitive verb', 'webaxones-core' ),
+			'update'                         => _x( 'Update', 'Infinitive verb', 'webaxones-core' ),
+			'updated_masculine'              => _x( 'updated', 'Masculine gender', 'webaxones-core' ),
+			'updated_feminine'               => _x( 'updated', 'Feminine gender', 'webaxones-core' ),
+			'a_masculine'                    => _x( 'a', 'Masculine indefinite article', 'webaxones-core' ),
+			'a_feminine'                     => _x( 'a', 'Feminine indefinite article', 'webaxones-core' ),
+			'a_plural'                       => _x( 'a', 'Plural indefinite article', 'webaxones-core' ),
+			'not_updated_masculine'          => _x( 'not updated', 'Masculine gender', 'webaxones-core' ),
+			'not_updated_feminine'           => _x( 'not updated', 'Feminine gender', 'webaxones-core' ),
+			'draft_updated_masculine'        => _x( 'draft updated', 'Masculine gender', 'webaxones-core' ),
+			'draft_updated_feminine'         => _x( 'draft updated', 'Feminine gender', 'webaxones-core' ),
+			'deleted_masculine'              => _x( 'deleted', 'Masculine gender', 'webaxones-core' ),
+			'deleted_feminine'               => _x( 'deleted', 'Feminine gender', 'webaxones-core' ),
+			'deleted_plural_masculine'       => _x( 'deleted', 'Plural masculine gender', 'webaxones-core' ),
+			'deleted_plural_feminine'        => _x( 'deleted', 'Plural feminine gender', 'webaxones-core' ),
+			'added_masculine'                => _x( 'added', 'Masculine gender', 'webaxones-core' ),
+			'added_feminine'                 => _x( 'added', 'Feminine gender', 'webaxones-core' ),
+			'not_added_masculine'            => _x( 'not added', 'Masculine gender', 'webaxones-core' ),
+			'not_added_feminine'             => _x( 'not added', 'Feminine gender', 'webaxones-core' ),
+			'published_masculine'            => _x( 'published', 'Masculine gender', 'webaxones-core' ),
+			'published_feminine'             => _x( 'published', 'Feminine gender', 'webaxones-core' ),
+			'saved_masculine'                => _x( 'saved', 'Masculine gender', 'webaxones-core' ),
+			'saved_feminine'                 => _x( 'saved', 'Feminine gender', 'webaxones-core' ),
+			'custom_field_updated'           => __( 'Custom field updated', 'webaxones-core' ),
 			/* translators: %s: date and time of the revision */
-			'restored_to_revision_masculine' => _x( 'restored to revision from %s', 'Masculine gender', 'wax-custom-content' ),
+			'restored_to_revision_masculine' => _x( 'restored to revision from %s', 'Masculine gender', 'webaxones-core' ),
 			/* translators: %s: date and time of the revision */
-			'restored_to_revision_feminine'  => _x( 'restored to revision from %s', 'Feminine gender', 'wax-custom-content' ),
+			'restored_to_revision_feminine'  => _x( 'restored to revision from %s', 'Feminine gender', 'webaxones-core' ),
 			// translators: Publish box date format, see http://php.net/date
-			'scheduled_for_masculine'        => _x( 'scheduled for: <strong>%1$s</strong>.', 'Masculine gender', 'wax-custom-content' ),
+			'scheduled_for_masculine'        => _x( 'scheduled for: <strong>%1$s</strong>.', 'Masculine gender', 'webaxones-core' ),
 			// translators: Publish box date format, see http://php.net/date
-			'scheduled_for_feminine'         => _x( 'scheduled for: <strong>%1$s</strong>.', 'Feminine gender', 'wax-custom-content' ),
-			'date_i18n'                      => __( 'M j, Y @ G:i', 'wax-custom-content' ),
-			'submitted_masculine'            => _x( 'submitted', 'Masculine gender', 'wax-custom-content' ),
-			'submitted_feminine'             => _x( 'submitted', 'Feminine gender', 'wax-custom-content' ),
-			'add'                            => _x( 'Add', 'Infinitive verb', 'wax-custom-content' ),
-			'list_of'                        => _x( 'List of', '« List of Custom content »: Archive in nav menus', 'wax-custom-content' ),
-			'attributes_of'                  => _x( 'Attributes of', '« Attributes of Custom content »: Attributes meta box title', 'wax-custom-content' ),
-			'not_found'                      => _x( 'No item found', '« item »: Custom content item', 'wax-custom-content' ),
-			'not_found_in_trash'             => _x( 'No item found in trash', '« item »: Custom content item', 'wax-custom-content' ),
-			'search_items'                   => _x( 'Search', 'Infinitive verb', 'wax-custom-content' ),
+			'scheduled_for_feminine'         => _x( 'scheduled for: <strong>%1$s</strong>.', 'Feminine gender', 'webaxones-core' ),
+			'date_i18n'                      => __( 'M j, Y @ G:i', 'webaxones-core' ),
+			'submitted_masculine'            => _x( 'submitted', 'Masculine gender', 'webaxones-core' ),
+			'submitted_feminine'             => _x( 'submitted', 'Feminine gender', 'webaxones-core' ),
+			'add'                            => _x( 'Add', 'Infinitive verb', 'webaxones-core' ),
+			'list_of'                        => _x( 'List of', '« List of Custom content »: Archive in nav menus', 'webaxones-core' ),
+			'attributes_of'                  => _x( 'Attributes of', '« Attributes of Custom content »: Attributes meta box title', 'webaxones-core' ),
+			'not_found'                      => _x( 'No item found', '« item »: Custom content item', 'webaxones-core' ),
+			'not_found_in_trash'             => _x( 'No item found in trash', '« item »: Custom content item', 'webaxones-core' ),
+			'search_items'                   => _x( 'Search', 'Infinitive verb', 'webaxones-core' ),
 		];
 	}
 
@@ -79,6 +78,7 @@ class GlobalWords
 	private static function init(): self
 	{
 		if ( is_null( self::$instance ) ) {
+			load_textdomain( 'webaxones-core', WAX_ROOT_DIR . '\vendor\webaxones\core\src\Languages\webaxones-core-fr_FR.mo' );
 			self::$instance = new self();
 		}
 

@@ -12,7 +12,7 @@ class PostType extends AbstractClassification
 	/**
 	 * {@inheritdoc}
 	 */
-	public function executeCustomDeclarations(): void
+	public function finalProcess(): void
 	{
 		register_post_type( $this->slug, $this->args );
 	}

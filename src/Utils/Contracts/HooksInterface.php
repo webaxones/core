@@ -7,18 +7,18 @@ defined( 'ABSPATH' ) || exit;
 interface HooksInterface
 {
 	/**
-	 * Adds callback functions to hooks
+	 * Adds callback function to hook
 	 *
 	 * @return void
 	 */
 	public function hook(): void;
 
 	/**
-	 * Register custom declarations
+	 * Final process callback function
 	 *
 	 * @return array
 	 */
-	public function executeCustomDeclarations(): void;
+	public function finalProcess(): void;
 
 	/**
 	 * Get hook name depending on current entity

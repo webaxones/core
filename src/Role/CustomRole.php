@@ -2,6 +2,8 @@
 
 namespace Webaxones\Core\Role;
 
+defined( 'ABSPATH' ) || exit;
+
 use Exception;
 
 use Webaxones\Core\Utils\Contracts\EntityInterface;
@@ -95,7 +97,7 @@ class CustomRole implements EntityInterface, RoleInterface, HooksInterface
 	 */
 	public function hook(): void
 	{
-		add_action( $this->getHookName(), [ $this, 'executeCustomDeclarations' ] );
+		add_action( $this->getHookName(), [ $this, 'finalProcess' ] );
 	}
 
 	/**
@@ -219,7 +221,7 @@ class CustomRole implements EntityInterface, RoleInterface, HooksInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function executeCustomDeclarations(): void
+	public function finalProcess(): void
 	{
 		if ( 'add' === $this->getAction() && ! $this->roleAlreadyExists( $this->getSlug() ) ) {
 			$this->addRole();

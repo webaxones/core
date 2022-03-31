@@ -66,8 +66,8 @@ require_once wp_normalize_path( WAX_ROOT_DIR ) . '/vendor/autoload.php';
 use Webaxones\Core\I18n\I18n;
 use Webaxones\Core\Utils\ContentFactory;
 
-$i18n = new I18n();
-$i18n->loadPluginTextdomain( 'wax-custom-content' );
+$i18n = new I18n( 'webaxones-content' );
+$i18n->hook();
 
 /**
  * Custom Post Type: Project

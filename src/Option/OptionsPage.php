@@ -72,7 +72,7 @@ class OptionsPage extends AbstractOptionsPage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function executeCustomDeclarations(): void
+	public function finalProcess(): void
 	{
 		$this->setArgs();
 

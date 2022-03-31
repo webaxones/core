@@ -2,9 +2,9 @@
 
 namespace Webaxones\Core\Classification;
 
-use Webaxones\Core\Label\Labels;
-
 defined( 'ABSPATH' ) || exit;
+
+use Webaxones\Core\Label\Labels;
 
 /**
  * Custom taxonomy declaration
@@ -28,7 +28,7 @@ class Taxonomy extends AbstractClassification
 	/**
 	 * {@inheritdoc}
 	 */
-	public function executeCustomDeclarations(): void
+	public function finalProcess(): void
 	{
 		register_taxonomy( $this->slug, $this->objectType, $this->args );
 	}

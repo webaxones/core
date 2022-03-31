@@ -2,6 +2,8 @@
 
 namespace Webaxones\Core\Classification;
 
+defined( 'ABSPATH' ) || exit;
+
 use Exception;
 
 use Webaxones\Core\Utils\Contracts\EntityInterface;
@@ -78,7 +80,7 @@ abstract class AbstractClassification implements EntityInterface, Classification
 	 */
 	public function hook(): void
 	{
-		add_action( $this->getHookName(), [ $this, 'executeCustomDeclarations' ] );
+		add_action( $this->getHookName(), [ $this, 'finalProcess' ] );
 
 		add_filter( $this->getMessagesHookName(), [ $this->labels, 'processMessagesLabels' ] );
 	}
@@ -253,10 +255,4 @@ abstract class AbstractClassification implements EntityInterface, Classification
 
 		return $capacities;
 	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function executeCustomDeclarations(): void {}
-
 }

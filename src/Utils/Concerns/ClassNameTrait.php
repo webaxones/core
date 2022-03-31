@@ -2,6 +2,8 @@
 
 namespace Webaxones\Core\Utils\Concerns;
 
+defined( 'ABSPATH' ) || exit;
+
 trait ClassNameTrait
 {
 	/**

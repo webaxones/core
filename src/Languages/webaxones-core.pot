@@ -1,0 +1,205 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-03-31T13:10:31+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: webaxones-core\n"
+
+#: GlobalWords.php:32
+msgctxt "Infinitive verb"
+msgid "View"
+msgstr ""
+
+#: GlobalWords.php:33
+msgctxt "Infinitive verb"
+msgid "Edit"
+msgstr ""
+
+#: GlobalWords.php:34
+msgctxt "Infinitive verb"
+msgid "Update"
+msgstr ""
+
+#: GlobalWords.php:35
+msgctxt "Masculine gender"
+msgid "updated"
+msgstr ""
+
+#: GlobalWords.php:36
+msgctxt "Feminine gender"
+msgid "updated"
+msgstr ""
+
+#: GlobalWords.php:37
+msgctxt "Masculine indefinite article"
+msgid "a"
+msgstr ""
+
+#: GlobalWords.php:38
+msgctxt "Feminine indefinite article"
+msgid "a"
+msgstr ""
+
+#: GlobalWords.php:39
+msgctxt "Plural indefinite article"
+msgid "a"
+msgstr ""
+
+#: GlobalWords.php:40
+msgctxt "Masculine gender"
+msgid "not updated"
+msgstr ""
+
+#: GlobalWords.php:41
+msgctxt "Feminine gender"
+msgid "not updated"
+msgstr ""
+
+#: GlobalWords.php:42
+msgctxt "Masculine gender"
+msgid "draft updated"
+msgstr ""
+
+#: GlobalWords.php:43
+msgctxt "Feminine gender"
+msgid "draft updated"
+msgstr ""
+
+#: GlobalWords.php:44
+msgctxt "Masculine gender"
+msgid "deleted"
+msgstr ""
+
+#: GlobalWords.php:45
+msgctxt "Feminine gender"
+msgid "deleted"
+msgstr ""
+
+#: GlobalWords.php:46
+msgctxt "Plural masculine gender"
+msgid "deleted"
+msgstr ""
+
+#: GlobalWords.php:47
+msgctxt "Plural feminine gender"
+msgid "deleted"
+msgstr ""
+
+#: GlobalWords.php:48
+msgctxt "Masculine gender"
+msgid "added"
+msgstr ""
+
+#: GlobalWords.php:49
+msgctxt "Feminine gender"
+msgid "added"
+msgstr ""
+
+#: GlobalWords.php:50
+msgctxt "Masculine gender"
+msgid "not added"
+msgstr ""
+
+#: GlobalWords.php:51
+msgctxt "Feminine gender"
+msgid "not added"
+msgstr ""
+
+#: GlobalWords.php:52
+msgctxt "Masculine gender"
+msgid "published"
+msgstr ""
+
+#: GlobalWords.php:53
+msgctxt "Feminine gender"
+msgid "published"
+msgstr ""
+
+#: GlobalWords.php:54
+msgctxt "Masculine gender"
+msgid "saved"
+msgstr ""
+
+#: GlobalWords.php:55
+msgctxt "Feminine gender"
+msgid "saved"
+msgstr ""
+
+#: GlobalWords.php:56
+msgid "Custom field updated"
+msgstr ""
+
+#. translators: %s: date and time of the revision
+#: GlobalWords.php:58
+msgctxt "Masculine gender"
+msgid "restored to revision from %s"
+msgstr ""
+
+#. translators: %s: date and time of the revision
+#: GlobalWords.php:60
+msgctxt "Feminine gender"
+msgid "restored to revision from %s"
+msgstr ""
+
+#. translators: Publish box date format, see http://php.net/date
+#: GlobalWords.php:62
+msgctxt "Masculine gender"
+msgid "scheduled for: <strong>%1$s</strong>."
+msgstr ""
+
+#. translators: Publish box date format, see http://php.net/date
+#: GlobalWords.php:64
+msgctxt "Feminine gender"
+msgid "scheduled for: <strong>%1$s</strong>."
+msgstr ""
+
+#: GlobalWords.php:65
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: GlobalWords.php:66
+msgctxt "Masculine gender"
+msgid "submitted"
+msgstr ""
+
+#: GlobalWords.php:67
+msgctxt "Feminine gender"
+msgid "submitted"
+msgstr ""
+
+#: GlobalWords.php:68
+msgctxt "Infinitive verb"
+msgid "Add"
+msgstr ""
+
+#: GlobalWords.php:69
+msgctxt "« List of Custom content »: Archive in nav menus"
+msgid "List of"
+msgstr ""
+
+#: GlobalWords.php:70
+msgctxt "« Attributes of Custom content »: Attributes meta box title"
+msgid "Attributes of"
+msgstr ""
+
+#: GlobalWords.php:71
+msgctxt "« item »: Custom content item"
+msgid "No item found"
+msgstr ""
+
+#: GlobalWords.php:72
+msgctxt "« item »: Custom content item"
+msgid "No item found in trash"
+msgstr ""
+
+#: GlobalWords.php:73
+msgctxt "Infinitive verb"
+msgid "Search"
+msgstr ""
