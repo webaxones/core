@@ -18,7 +18,7 @@ interface HooksInterface
 	 *
 	 * @return array
 	 */
-	public function registerCustomDeclarations(): void;
+	public function executeCustomDeclarations(): void;
 
 	/**
 	 * Get hook name depending on current entity

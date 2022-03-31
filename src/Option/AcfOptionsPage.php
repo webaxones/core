@@ -47,7 +47,7 @@ class AcfOptionsPage extends AbstractOptionsPage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function registerCustomDeclarations(): void
+	public function executeCustomDeclarations(): void
 	{
 		$this->setArgs();
 

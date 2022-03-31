@@ -78,7 +78,7 @@ abstract class AbstractClassification implements EntityInterface, Classification
 	 */
 	public function hook(): void
 	{
-		add_action( $this->getHookName(), [ $this, 'registerCustomDeclarations' ] );
+		add_action( $this->getHookName(), [ $this, 'executeCustomDeclarations' ] );
 
 		add_filter( $this->getMessagesHookName(), [ $this->labels, 'processMessagesLabels' ] );
 	}
@@ -257,6 +257,6 @@ abstract class AbstractClassification implements EntityInterface, Classification
 	/**
 	 * {@inheritdoc}
 	 */
-	public function registerCustomDeclarations(): void {}
+	public function executeCustomDeclarations(): void {}
 
 }

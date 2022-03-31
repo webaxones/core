@@ -32,6 +32,13 @@ class EntityFactory
 	protected array $settings;
 
 	/**
+	 * Entity labels
+	 *
+	 * @var array
+	 */
+	protected array $labels;
+
+	/**
 	 * Entity factory declaration
 	 *
 	 * @param  string $entity
@@ -41,6 +48,7 @@ class EntityFactory
 	{
 		$this->settings  = $settings;
 		$this->className = $settings['entity'];
+		$this->labels    = $settings['labels'] ?? [];
 	}
 
 	/**
@@ -59,7 +67,7 @@ class EntityFactory
 		}
 
 		$globalWords = GlobalWords::getValues();
-		$labels      = new Labels( $classShortName, $this->settings['settings']['slug'], $this->settings['labels'], $globalWords );
+		$labels      = new Labels( $classShortName, $this->settings['settings']['slug'], $this->labels, $globalWords );
 		return new $this->className( $this->settings, $labels );
 	}
 }

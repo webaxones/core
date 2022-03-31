@@ -8,7 +8,8 @@ Custom declarations
 wp-content\plugins\my-example-plugin\
 ```
 
-Using a library allows you to make as many plugins as you want for your declarations.
+The example below integrates all the declarations in 1 single plugin for simplification but:
+using a library allows you to make as many plugins as you want for your declarations.
 
 ## 2- Add library
 
@@ -168,7 +169,7 @@ $declarations[] = new EntityFactory(
 );
 
 /**
- * Custom role: Owner
+ * Add Custom role: Owner
  */
 $declarations[] = new EntityFactory(
 	[
@@ -178,6 +179,7 @@ $declarations[] = new EntityFactory(
 		],
 		'settings' => [
 			'slug'                   => 'owner',
+			'action'                 => 'add',
 			'role_to_clone_slug'     => 'administrator',
 			'capabilities_to_remove' => [
 				'manage_options',
@@ -197,6 +199,46 @@ $declarations[] = new EntityFactory(
 				'import',
 				'edit_private_pages',
 				'edit_private_posts',
+				'promote_users',
+				'customize',
+			],
+		],
+	]
+);
+
+/**
+ * Remove Custom role: Test
+ */
+$declarations[] = new EntityFactory(
+	[
+		'entity'   => 'Webaxones\Core\Role\CustomRole',
+		'labels'   => [],
+		'settings' => [
+			'slug'                   => 'test',
+			'action'                 => 'remove',
+			'role_to_clone_slug'     => '',
+			'capabilities_to_remove' => [],
+		],
+	]
+);
+
+/**
+ * Update Custom role by changing capabilities: Owner
+ */
+$declarations[] = new EntityFactory(
+	[
+		'entity'   => 'Webaxones\Core\Role\CustomRole',
+		'labels'   => [
+			'role_name' => _x( 'Owner', 'Custom role name', 'wax-custom-content' ),
+		],
+		'settings' => [
+			'slug'                   => 'owner',
+			'action'                 => 'update',
+			'role_to_clone_slug'     => 'administrator',
+			'capabilities_to_remove' => [
+				'manage_options',
+				'switch_themes',
+				'remove_users',
 				'promote_users',
 				'customize',
 			],

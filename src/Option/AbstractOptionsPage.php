@@ -73,7 +73,7 @@ abstract class AbstractOptionsPage implements OptionsPageInterface, HooksInterfa
 	 */
 	public function hook(): void
 	{
-		add_action( $this->getHookName(), [ $this, 'registerCustomDeclarations' ] );
+		add_action( $this->getHookName(), [ $this, 'executeCustomDeclarations' ] );
 	}
 
 	/**

@@ -55,6 +55,13 @@ class CustomRole implements EntityInterface, RoleInterface, HooksInterface
 	protected string $roleToCloneSlug;
 
 	/**
+	 * Action to execute
+	 *
+	 * @var string
+	 */
+	protected string $action;
+
+	/**
 	 * Cloned Role capabilities to remove
 	 *
 	 * @var array
@@ -79,7 +86,8 @@ class CustomRole implements EntityInterface, RoleInterface, HooksInterface
 		$this->args['labels']       = $this->labels->processLabels();
 		$this->slug                 = $this->processSlug();
 		$this->roleToCloneSlug      = $this->settings['role_to_clone_slug'];
-		$this->capabilitiesToRemove = $this->settings['capabilities_to_remove'];
+		$this->action               = $this->settings['action'];
+		$this->capabilitiesToRemove = $this->settings['capabilities_to_remove'] ?? [];
 	}
 
 	/**
@@ -87,7 +95,7 @@ class CustomRole implements EntityInterface, RoleInterface, HooksInterface
 	 */
 	public function hook(): void
 	{
-		add_action( $this->getHookName(), [ $this, 'registerCustomDeclarations' ] );
+		add_action( $this->getHookName(), [ $this, 'executeCustomDeclarations' ] );
 	}
 
 	/**
@@ -142,6 +150,14 @@ class CustomRole implements EntityInterface, RoleInterface, HooksInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	public function getAction(): string
+	{
+		return $this->action;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function roleAlreadyExists( string $role ): bool
 	{
 		if ( ! empty( $role ) ) {
@@ -151,16 +167,27 @@ class CustomRole implements EntityInterface, RoleInterface, HooksInterface
 		return false;
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
+	public function isPredefinedRole(): bool
+	{
+		$predefinedRoles = [
+			'administrator',
+			'editor',
+			'author',
+			'contributor',
+			'subscriber',
+		];
+
+		return in_array( $this->getSlug(), $predefinedRoles, true );
+	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function registerCustomDeclarations(): void
+	public function addRole(): void
 	{
-		if ( $this->roleAlreadyExists( $this->getSlug() ) ) {
-			return;
-		}
-
 		global $wp_roles;
 		$wpRoles = $wp_roles;
 
@@ -178,6 +205,35 @@ class CustomRole implements EntityInterface, RoleInterface, HooksInterface
 		$new_role = get_role( $this->getSlug() );
 		foreach ( $this->getCapabilitiesToRemove() as $cap ) {
 			$new_role->remove_cap( $cap );
+		}
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function removeRole(): void
+	{
+		remove_role( $this->getSlug() );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function executeCustomDeclarations(): void
+	{
+		if ( 'add' === $this->getAction() && ! $this->roleAlreadyExists( $this->getSlug() ) ) {
+			$this->addRole();
+		}
+
+		if ( 'remove' === $this->getAction() && $this->roleAlreadyExists( $this->getSlug() ) && ! $this->isPredefinedRole() ) {
+			$this->removeRole();
+		}
+
+		if ( 'update' === $this->getAction() && $this->roleAlreadyExists( $this->getSlug() ) ) {
+			$this->removeRole();
+			if ( ! $this->roleAlreadyExists( $this->getSlug() ) ) {
+				$this->addRole();
+			}
 		}
 	}
 

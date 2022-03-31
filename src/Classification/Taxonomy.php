@@ -28,7 +28,7 @@ class Taxonomy extends AbstractClassification
 	/**
 	 * {@inheritdoc}
 	 */
-	public function registerCustomDeclarations(): void
+	public function executeCustomDeclarations(): void
 	{
 		register_taxonomy( $this->slug, $this->objectType, $this->args );
 	}

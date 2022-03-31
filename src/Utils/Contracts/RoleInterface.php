@@ -21,6 +21,13 @@ interface RoleInterface
 	public function getCapabilitiesToRemove(): array;
 
 	/**
+	 * Get action to execute on role
+	 *
+	 * @return string
+	 */
+	public function getAction(): string;
+
+	/**
 	 * Check if role already exists
 	 *
 	 * @param  string $role
@@ -28,4 +35,25 @@ interface RoleInterface
 	 * @return bool
 	 */
 	public function roleAlreadyExists( string $role ): bool;
+
+	/**
+	 * Check is role to treat is a predefined role
+	 *
+	 * @return bool
+	 */
+	public function isPredefinedRole(): bool;
+
+	/**
+	 * Add new user role
+	 *
+	 * @return void
+	 */
+	public function addRole(): void;
+
+	/**
+	 * Remove user role
+	 *
+	 * @return void
+	 */
+	public function removeRole(): void;
 }
