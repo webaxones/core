@@ -135,7 +135,7 @@ class Labels implements LabelsInterface
 			];
 		}
 
-		$labels = $this->AddPassedOptions( OptionalSettingsWithLabel::getValues(), $labels, $this->getLabels() );
+		$labels = $this->AddPassedOptions( OptionalSettingsWithLabel::$optionalLabels, $labels, $this->getLabels() );
 		return $labels;
 	}
 

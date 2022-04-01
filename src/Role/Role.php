@@ -17,40 +17,40 @@ use Webaxones\Core\Label\Labels;
 /**
  * Custom Role declaration
  */
-class CustomRole implements EntityInterface, RoleInterface, HooksInterface
+class Role implements EntityInterface, RoleInterface, HooksInterface
 {
 	use ClassNameTrait;
 
 	/**
-	 * Custom Role input settings
+	 * Input settings
 	 *
 	 * @var array
 	 */
 	protected array $settings;
 
 	/**
-	 * Custom Role input labels
+	 * Input labels
 	 *
 	 * @var object
 	 */
 	protected object $labels;
 
 	/**
-	 * Custom Role output args
+	 * Output args
 	 *
 	 * @var array
 	 */
 	protected array $args;
 
 	/**
-	 * Custom Role slug
+	 * Role slug
 	 *
 	 * @var string
 	 */
 	protected string $slug;
 
 	/**
-	 * Custom Role to clone slug
+	 * Role to clone slug
 	 *
 	 * @var string
 	 */

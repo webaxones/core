@@ -18,7 +18,7 @@ class Taxonomy extends AbstractClassification
 	 */
 	protected array $objectType;
 
-	public function __construct( array $parameters = [], Labels $labels )
+	public function __construct( array $parameters, Labels $labels )
 	{
 		parent::__construct( $parameters, $labels );
 
