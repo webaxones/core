@@ -246,6 +246,22 @@ $declarations[] = new EntityFactory(
 	]
 );
 
+/**
+ * Custom block pattern category: Webaxones Patterns
+ */
+$declarations[] = new EntityFactory(
+	[
+		'entity'   => 'Webaxones\Core\Block\BlockPatternCategory',
+		'labels'   => [
+			'label' => _x( 'Webaxones Patterns', 'Custom block pattern name', 'webaxones-content' ),
+		],
+		'settings' => [
+			'slug'   => 'webaxones_patterns',
+			'action' => 'add',
+		],
+	]
+);
+
 array_walk(
 	$declarations,
 	function( $declaration )
