@@ -70,7 +70,9 @@ class OptionsPage extends AbstractOptionsPage
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Final process callback function
+	 *
+	 * @return array
 	 */
 	public function finalProcess(): void
 	{

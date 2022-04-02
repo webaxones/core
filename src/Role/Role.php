@@ -86,7 +86,7 @@ class Role implements EntityInterface, RoleInterface, HooksInterface
 		$this->settings             = $parameters['settings'];
 		$this->labels               = $labels;
 		$this->args['labels']       = $this->labels->processLabels();
-		$this->slug                 = $this->processSlug();
+		$this->slug                 = $this->sanitizeSlug();
 		$this->roleToCloneSlug      = $this->settings['role_to_clone_slug'];
 		$this->action               = $this->settings['action'];
 		$this->capabilitiesToRemove = $this->settings['capabilities_to_remove'] ?? [];
@@ -127,7 +127,7 @@ class Role implements EntityInterface, RoleInterface, HooksInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function processSlug(): string
+	public function sanitizeSlug(): string
 	{
 		$settings = $this->getSettings();
 		return sanitize_title( $settings['slug'] );
@@ -219,7 +219,9 @@ class Role implements EntityInterface, RoleInterface, HooksInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Final process callback function
+	 *
+	 * @return array
 	 */
 	public function finalProcess(): void
 	{

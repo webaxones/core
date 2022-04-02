@@ -14,13 +14,6 @@ interface HooksInterface
 	public function hook(): void;
 
 	/**
-	 * Final process callback function
-	 *
-	 * @return array
-	 */
-	public function finalProcess(): void;
-
-	/**
 	 * Get hook name depending on current entity
 	 *
 	 * @return string

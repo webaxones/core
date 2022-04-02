@@ -5,12 +5,14 @@ namespace Webaxones\Core\Block;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Custom block pattern declaration
+ * Custom block pattern category declaration
  */
 class BlockPatternCategory extends AbstractEditorCategory
 {
 	/**
-	 * {@inheritdoc}
+	 * Get action to execute on block pattern category
+	 *
+	 * @return string
 	 */
 	public function getAction(): string
 	{
@@ -18,40 +20,48 @@ class BlockPatternCategory extends AbstractEditorCategory
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Check if editor category already exists
+	 *
+	 * @return bool
 	 */
-	public function blockPatternCategoryAlreadyExists(): bool
+	public function editorCategoryAlreadyExists(): bool
 	{
 		return \WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( $this->slug );
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Add editor category
+	 *
+	 * @return void
 	 */
-	public function addBlockPatternCategory(): void
+	public function addEditorCategory(): void
 	{
-		register_block_pattern_category( $this->slug, $this->args['labels'] );
+		register_block_pattern_category( $this->slug, $this->args );
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Remove editor category
+	 *
+	 * @return void
 	 */
-	public function removeBlockPatternCategory(): void
+	public function removeEditorCategory(): void
 	{
 		unregister_block_pattern_category( $this->slug );
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Final process callback function
+	 *
+	 * @return array
 	 */
 	public function finalProcess(): void
 	{
-		if ( 'add' === $this->getAction() && ! $this->blockPatternCategoryAlreadyExists() ) {
-			$this->addBlockPatternCategory();
+		if ( 'add' === $this->getAction() && ! $this->editorCategoryAlreadyExists() ) {
+			$this->addEditorCategory();
 		}
 
-		if ( 'remove' === $this->getAction() && $this->blockPatternCategoryAlreadyExists() ) {
-			$this->removeBlockPatternCategory();
+		if ( 'remove' === $this->getAction() && $this->editorCategoryAlreadyExists() ) {
+			$this->removeEditorCategory();
 		}
 	}
 }

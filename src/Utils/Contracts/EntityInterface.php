@@ -25,5 +25,5 @@ interface EntityInterface
 	 *
 	 * @return string
 	 */
-	public function processSlug(): string;
+	public function sanitizeSlug(): string;
 }

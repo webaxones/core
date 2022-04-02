@@ -67,7 +67,7 @@ abstract class AbstractClassification implements EntityInterface, Classification
 		$this->settings        = $parameters['settings'];
 		$this->labels          = $labels;
 		$this->args['labels']  = $this->labels->processLabels();
-		$this->slug            = $this->processSlug();
+		$this->slug            = $this->sanitizeSlug();
 		$this->args['rewrite'] = $this->processRewrite();
 		$this->args            = array_merge( $this->args, $this->processVisibilities() );
 		$this->args            = array_merge( $this->args, $this->processCapabilities() );
@@ -128,7 +128,7 @@ abstract class AbstractClassification implements EntityInterface, Classification
 	/**
 	 * {@inheritdoc}
 	 */
-	public function processSlug(): string
+	public function sanitizeSlug(): string
 	{
 		$settings = $this->getSettings();
 		return sanitize_title( $settings['slug'] );

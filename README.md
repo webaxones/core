@@ -276,6 +276,22 @@ $declarations[] = new EntityFactory(
 	]
 );
 
+/**
+ * Add custom block category: Custom category
+ */
+$declarations[] = new EntityFactory(
+	[
+		'entity'   => 'Webaxones\Core\Block\BlockCategory',
+		'labels'   => [
+			'title' => _x( 'Custom category', 'Custom block category name', 'webaxones-content' ),
+		],
+		'settings' => [
+			'slug' => 'webaxones_custom_category',
+			'icon' => 'dashicons-admin-generic', /* Slug of a WordPress Dashicon or custom SVG */
+		],
+	]
+);
+
 array_walk(
 	$declarations,
 	function( $declaration )

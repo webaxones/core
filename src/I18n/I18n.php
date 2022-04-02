@@ -55,7 +55,9 @@ class I18n implements HooksInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Final process callback function
+	 *
+	 * @return array
 	 */
 	public function finalProcess(): void
 	{

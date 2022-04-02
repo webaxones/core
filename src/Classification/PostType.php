@@ -10,7 +10,9 @@ defined( 'ABSPATH' ) || exit;
 class PostType extends AbstractClassification
 {
 	/**
-	 * {@inheritdoc}
+	 * Final process callback function
+	 *
+	 * @return array
 	 */
 	public function finalProcess(): void
 	{

@@ -12,12 +12,11 @@ use Webaxones\Core\Utils\Contracts\EntityInterface;
 use Webaxones\Core\Utils\Contracts\HooksInterface;
 
 use Webaxones\Core\Label\Labels;
-use Webaxones\Core\Utils\Contracts\BlockPatternCategoryInterface;
 
 /**
  * Editor category declaration
  */
-abstract class AbstractEditorCategory implements EntityInterface, HooksInterface, BlockPatternCategoryInterface
+abstract class AbstractEditorCategory implements EntityInterface, HooksInterface
 {
 	use ClassNameTrait;
 
@@ -48,7 +47,7 @@ abstract class AbstractEditorCategory implements EntityInterface, HooksInterface
 	 * @var array
 	 */
 	protected array $args;
-	
+
 	/**
 	 * Action to execute
 	 *
@@ -69,11 +68,11 @@ abstract class AbstractEditorCategory implements EntityInterface, HooksInterface
 			throw new Exception( 'Settings missing in content ' . $this->getCurrentClassShortName() . ' declaration' );
 		}
 
-		$this->settings       = $parameters['settings'];
-		$this->labels         = $labels;
-		$this->slug           = $this->processSlug();
-		$this->args['labels'] = $this->labels->processLabels();
-		$this->action         = $this->settings['action'];
+		$this->settings = $parameters['settings'];
+		$this->labels   = $labels;
+		$this->slug     = $this->sanitizeSlug();
+		$this->args     = $this->labels->processLabels();
+		$this->action   = $this->settings['action'] ?? '';
 	}
 
 	/**
@@ -95,7 +94,7 @@ abstract class AbstractEditorCategory implements EntityInterface, HooksInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function processSlug(): string
+	public function sanitizeSlug(): string
 	{
 		$settings = $this->getSettings();
 		return sanitize_title( $settings['slug'] );

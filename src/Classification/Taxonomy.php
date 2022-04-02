@@ -26,7 +26,9 @@ class Taxonomy extends AbstractClassification
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Final process callback function
+	 *
+	 * @return array
 	 */
 	public function finalProcess(): void
 	{
