@@ -77,13 +77,13 @@ $declarations[] = new EntityFactory(
 		'entity'   => 'Webaxones\Core\Classification\PostType',
 		'labels'   => [
 			'gender'            => 'm',
-			'plural_name'       => _x( 'Projects', 'Capitalized Plural Name', 'wax-custom-content' ),
-			'singular_name'     => _x( 'Project', 'Capitalized Singular Name', 'wax-custom-content' ),
-			'parent_item_colon' => __( 'Parent project: ', 'wax-custom-content' ),
-			'all_items'         => __( 'All projects', 'wax-custom-content' ),
-			'new_item'          => __( 'New project', 'wax-custom-content' ),
-			'the_singular'      => __( 'The project', 'wax-custom-content' ),
-			'the_plural'        => __( 'The projects', 'wax-custom-content' ),
+			'plural_name'       => _x( 'Projects', 'Capitalized Plural Name', 'webaxones-content' ),
+			'singular_name'     => _x( 'Project', 'Capitalized Singular Name', 'webaxones-content' ),
+			'parent_item_colon' => __( 'Parent project: ', 'webaxones-content' ),
+			'all_items'         => __( 'All projects', 'webaxones-content' ),
+			'new_item'          => __( 'New project', 'webaxones-content' ),
+			'the_singular'      => __( 'The project', 'webaxones-content' ),
+			'the_plural'        => __( 'The projects', 'webaxones-content' ),
 		],
 		'settings' => [
 			'slug'          => 'project',
@@ -107,13 +107,13 @@ $declarations[] = new EntityFactory(
 		'entity'   => 'Webaxones\Core\Classification\Taxonomy',
 		'labels'   => [
 			'gender'            => 'f',
-			'plural_name'       => _x( 'Project categories', 'Capitalized Plural Name', 'wax-custom-content' ),
-			'singular_name'     => _x( 'Project category', 'Capitalized Singular Name', 'wax-custom-content' ),
-			'parent_item_colon' => __( 'Parent project category: ', 'wax-custom-content' ),
-			'all_items'         => __( 'All project categories', 'wax-custom-content' ),
-			'new_item'          => __( 'New project category', 'wax-custom-content' ),
-			'the_singular'      => __( 'The project category', 'wax-custom-content' ),
-			'the_plural'        => __( 'The project categories', 'wax-custom-content' ),
+			'plural_name'       => _x( 'Project categories', 'Capitalized Plural Name', 'webaxones-content' ),
+			'singular_name'     => _x( 'Project category', 'Capitalized Singular Name', 'webaxones-content' ),
+			'parent_item_colon' => __( 'Parent project category: ', 'webaxones-content' ),
+			'all_items'         => __( 'All project categories', 'webaxones-content' ),
+			'new_item'          => __( 'New project category', 'webaxones-content' ),
+			'the_singular'      => __( 'The project category', 'webaxones-content' ),
+			'the_plural'        => __( 'The project categories', 'webaxones-content' ),
 		],
 		'settings' => [
 			'slug'              => 'project-category',
@@ -133,8 +133,8 @@ $declarations[] = new EntityFactory(
 	[
 		'entity'   => 'Webaxones\Core\Option\OptionsPage',
 		'labels'   => [
-			'page_title' => _x( 'Company data', 'Option page title', 'wax-custom-content' ),
-			'menu_title' => _x( 'Parameters', 'Option page menu title', 'wax-custom-content' ),
+			'page_title' => _x( 'Company data', 'Option page title', 'webaxones-content' ),
+			'menu_title' => _x( 'Parameters', 'Option page menu title', 'webaxones-content' ),
 		],
 		'settings' => [
 			'slug'        => 'wax-company-settings',
@@ -154,8 +154,8 @@ $declarations[] = new EntityFactory(
 	[
 		'entity'   => 'Webaxones\Core\Option\AcfOptionsPage',
 		'labels'   => [
-			'page_title' => _x( 'Projects archive', 'Option page title', 'wax-custom-content' ),
-			'menu_title' => _x( 'Projects page', 'Option page menu title', 'wax-custom-content' ),
+			'page_title' => _x( 'Projects archive', 'Option page title', 'webaxones-content' ),
+			'menu_title' => _x( 'Projects page', 'Option page menu title', 'webaxones-content' ),
 		],
 		'settings' => [
 			'slug'        => 'wax-projects-settings',
@@ -173,9 +173,9 @@ $declarations[] = new EntityFactory(
  */
 $declarations[] = new EntityFactory(
 	[
-		'entity'   => 'Webaxones\Core\Role\CustomRole',
+		'entity'   => 'Webaxones\Core\Role\Role',
 		'labels'   => [
-			'role_name' => _x( 'Owner', 'Custom role name', 'wax-custom-content' ),
+			'role_name' => _x( 'Owner', 'Custom role name', 'webaxones-content' ),
 		],
 		'settings' => [
 			'slug'                   => 'owner',
@@ -211,7 +211,7 @@ $declarations[] = new EntityFactory(
  */
 $declarations[] = new EntityFactory(
 	[
-		'entity'   => 'Webaxones\Core\Role\CustomRole',
+		'entity'   => 'Webaxones\Core\Role\Role',
 		'labels'   => [],
 		'settings' => [
 			'slug'                   => 'test',
@@ -223,13 +223,13 @@ $declarations[] = new EntityFactory(
 );
 
 /**
- * Update Custom role by changing capabilities: Owner
+ * Update Custom role: Owner
  */
 $declarations[] = new EntityFactory(
 	[
-		'entity'   => 'Webaxones\Core\Role\CustomRole',
+		'entity'   => 'Webaxones\Core\Role\Role',
 		'labels'   => [
-			'role_name' => _x( 'Owner', 'Custom role name', 'wax-custom-content' ),
+			'role_name' => _x( 'Owner', 'Custom role name', 'webaxones-content' ),
 		],
 		'settings' => [
 			'slug'                   => 'owner',
@@ -247,7 +247,7 @@ $declarations[] = new EntityFactory(
 );
 
 /**
- * Custom block pattern category: Webaxones Patterns
+ * Add custom block pattern category: Webaxones Patterns
  */
 $declarations[] = new EntityFactory(
 	[
@@ -258,6 +258,20 @@ $declarations[] = new EntityFactory(
 		'settings' => [
 			'slug'   => 'webaxones_patterns',
 			'action' => 'add',
+		],
+	]
+);
+
+/**
+ * Remove custom block pattern category: test
+ */
+$declarations[] = new EntityFactory(
+	[
+		'entity'   => 'Webaxones\Core\Block\BlockPatternCategory',
+		'labels'   => [],
+		'settings' => [
+			'slug'   => 'test',
+			'action' => 'remove',
 		],
 	]
 );

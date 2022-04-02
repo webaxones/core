@@ -12,11 +12,12 @@ use Webaxones\Core\Utils\Contracts\EntityInterface;
 use Webaxones\Core\Utils\Contracts\HooksInterface;
 
 use Webaxones\Core\Label\Labels;
+use Webaxones\Core\Utils\Contracts\BlockPatternCategoryInterface;
 
 /**
  * Editor category declaration
  */
-abstract class AbstractEditorCategory implements EntityInterface, HooksInterface
+abstract class AbstractEditorCategory implements EntityInterface, HooksInterface, BlockPatternCategoryInterface
 {
 	use ClassNameTrait;
 
@@ -47,6 +48,13 @@ abstract class AbstractEditorCategory implements EntityInterface, HooksInterface
 	 * @var array
 	 */
 	protected array $args;
+	
+	/**
+	 * Action to execute
+	 *
+	 * @var string
+	 */
+	protected string $action;
 
 	/**
 	 * Abstract Class Constructor
@@ -65,6 +73,7 @@ abstract class AbstractEditorCategory implements EntityInterface, HooksInterface
 		$this->labels         = $labels;
 		$this->slug           = $this->processSlug();
 		$this->args['labels'] = $this->labels->processLabels();
+		$this->action         = $this->settings['action'];
 	}
 
 	/**
