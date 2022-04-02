@@ -67,7 +67,7 @@ abstract class AbstractOptionsPage implements OptionsPageInterface, HooksInterfa
 		$this->labels         = $labels;
 		$this->settings       = array_merge( $this->settings, $this->labels->processLabels() );
 		$this->location       = $parameters['settings']['location'];
-		$this->adminMenuSlugs = AdminMenuSlugs::getValues();
+		$this->adminMenuSlugs = AdminMenuSlugs::$adminMenuSlugs;
 	}
 
 	/**
