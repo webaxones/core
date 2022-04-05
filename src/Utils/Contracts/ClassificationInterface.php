@@ -42,6 +42,13 @@ interface ClassificationInterface
 	public function processRewrite(): array;
 
 	/**
+	 * Set classification declaration arguments
+	 *
+	 * @return void
+	 */
+	public function setArgs(): void;
+
+	/**
 	 * Get messages hook name depending on current entity
 	 *
 	 * @return string

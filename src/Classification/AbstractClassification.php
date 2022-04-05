@@ -64,15 +64,10 @@ abstract class AbstractClassification implements EntityInterface, Classification
 			throw new Exception( 'Settings missing in content ' . $this->getCurrentClassShortName() . ' declaration' );
 		}
 
-		$this->settings        = $parameters['settings'];
-		$this->labels          = $labels;
-		$this->args['labels']  = $this->labels->processLabels();
-		$this->slug            = $this->sanitizeSlug();
-		$this->args['rewrite'] = $this->processRewrite();
-		$this->args            = array_merge( $this->args, $this->processVisibilities() );
-		$this->args            = array_merge( $this->args, $this->processCapabilities() );
-		$this->args            = array_merge( $this->args, $this->processAccessibilities() );
-		$this->args            = array_merge( $this->args, $this->processCapacities() );
+		$this->settings = $parameters['settings'];
+		$this->slug     = $this->sanitizeSlug();
+		$this->labels   = $labels;
+		$this->setArgs();
 	}
 
 	/**
@@ -107,6 +102,24 @@ abstract class AbstractClassification implements EntityInterface, Classification
 		}
 
 		return '';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setArgs(): void
+	{
+		$args            = [];
+		$args['labels']  = $this->labels->processLabels();
+		$args['rewrite'] = $this->processRewrite();
+		$args            = array_merge(
+			$args,
+			$this->processVisibilities(),
+			$this->processCapabilities(),
+			$this->processAccessibilities(),
+			$this->processCapacities(),
+		);
+		$this->args      = $args;
 	}
 
 	/**
