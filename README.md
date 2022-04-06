@@ -9,7 +9,8 @@ wp-content\plugins\my-example-plugin\
 ```
 
 The example below integrates all the declarations in 1 single plugin for simplification but:<br>
-**using a library inside a main global composer/vendor like in Bedrock allows you to make as many plugins as you want.**
+**using a library inside a main global composer/vendor like in Bedrock allows you to make as many plugins as you want.**<br>
+And it is recommended to be able to deactivate this or that functionality.
 
 ## 2- Add library
 
