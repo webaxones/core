@@ -26,11 +26,9 @@ class Taxonomy extends AbstractClassification
 	}
 
 	/**
-	 * Final process callback function
-	 *
-	 * @return array
+	 * {@inheritdoc}
 	 */
-	public function finalProcess(): void
+	public function registerClassification(): void
 	{
 		register_taxonomy( $this->slug, $this->objectType, $this->args );
 	}

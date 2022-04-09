@@ -75,7 +75,7 @@ abstract class AbstractClassification implements EntityInterface, Classification
 	 */
 	public function hook(): void
 	{
-		add_action( $this->getHookName(), [ $this, 'finalProcess' ] );
+		add_action( $this->getHookName(), [ $this, 'registerClassification' ] );
 
 		add_filter( $this->getMessagesHookName(), [ $this->labels, 'processMessagesLabels' ] );
 	}
@@ -268,4 +268,11 @@ abstract class AbstractClassification implements EntityInterface, Classification
 
 		return $capacities;
 	}
+
+	/**
+	 * Register classification
+	 *
+	 * @return void
+	 */
+	abstract public function registerClassification(): void;
 }

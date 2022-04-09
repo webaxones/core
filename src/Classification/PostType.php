@@ -10,11 +10,9 @@ defined( 'ABSPATH' ) || exit;
 class PostType extends AbstractClassification
 {
 	/**
-	 * Final process callback function
-	 *
-	 * @return array
+	 * {@inheritdoc}
 	 */
-	public function finalProcess(): void
+	public function registerClassification(): void
 	{
 		register_post_type( $this->slug, $this->args );
 	}

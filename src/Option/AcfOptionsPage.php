@@ -45,11 +45,11 @@ class AcfOptionsPage extends AbstractOptionsPage
 	}
 
 	/**
-	 * Final process callback function
+	 * Add options page
 	 *
-	 * @return array
+	 * @return void
 	 */
-	public function finalProcess(): void
+	public function addOptionsPage(): void
 	{
 		$this->setArgs();
 

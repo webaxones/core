@@ -75,7 +75,7 @@ abstract class AbstractOptionsPage implements OptionsPageInterface, HooksInterfa
 	 */
 	public function hook(): void
 	{
-		add_action( $this->getHookName(), [ $this, 'finalProcess' ] );
+		add_action( $this->getHookName(), [ $this, 'addOptionsPage' ] );
 	}
 
 	/**
@@ -126,4 +126,11 @@ abstract class AbstractOptionsPage implements OptionsPageInterface, HooksInterfa
 
 		return '';
 	}
+
+	/**
+	 * Add options page
+	 *
+	 * @return void
+	 */
+	abstract public function addOptionsPage(): void;
 }
