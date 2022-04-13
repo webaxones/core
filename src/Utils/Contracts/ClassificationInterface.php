@@ -47,11 +47,4 @@ interface ClassificationInterface
 	 * @return void
 	 */
 	public function setArgs(): void;
-
-	/**
-	 * Get messages hook name depending on current entity
-	 *
-	 * @return string
-	 */
-	public function getMessagesHookName(): string;
 }

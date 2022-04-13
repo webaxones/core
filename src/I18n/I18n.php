@@ -4,12 +4,12 @@ namespace Webaxones\Core\I18n;
 
 defined( 'ABSPATH' ) || exit;
 
-use Webaxones\Core\Utils\Contracts\HooksInterface;
+use Webaxones\Core\Utils\Contracts\HookInterface;
 
 /**
  * Labels internationalization
  */
-class I18n implements HooksInterface
+class I18n implements HookInterface
 {
 	/**
 	 * Text domain

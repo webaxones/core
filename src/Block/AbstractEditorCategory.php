@@ -9,14 +9,15 @@ use Exception;
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
 use Webaxones\Core\Utils\Contracts\EntityInterface;
-use Webaxones\Core\Utils\Contracts\HooksInterface;
+use Webaxones\Core\Utils\Contracts\HookInterface;
+use Webaxones\Core\Utils\Contracts\ActionInterface;
 
 use Webaxones\Core\Label\Labels;
 
 /**
  * Editor category declaration
  */
-abstract class AbstractEditorCategory implements EntityInterface, HooksInterface
+abstract class AbstractEditorCategory implements EntityInterface, HookInterface, ActionInterface
 {
 	use ClassNameTrait;
 
@@ -78,6 +79,22 @@ abstract class AbstractEditorCategory implements EntityInterface, HooksInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	public function getHookName(): string
+	{
+		return 'init';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getActions(): array
+	{
+		return [ $this->getHookName() => [ 'processCategory', 10, 1 ] ];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function getSettings(): array
 	{
 		return $this->settings;
@@ -98,21 +115,5 @@ abstract class AbstractEditorCategory implements EntityInterface, HooksInterface
 	{
 		$settings = $this->getSettings();
 		return sanitize_title( $settings['slug'] );
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function hook(): void
-	{
-		add_action( $this->getHookName(), [ $this, 'finalProcess' ] );
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getHookName(): string
-	{
-		return 'init';
 	}
 }

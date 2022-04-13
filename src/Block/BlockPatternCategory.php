@@ -50,11 +50,11 @@ class BlockPatternCategory extends AbstractEditorCategory
 	}
 
 	/**
-	 * Final process callback function
+	 * Process block pattern category
 	 *
 	 * @return array
 	 */
-	public function finalProcess(): void
+	public function processCategory(): void
 	{
 		if ( 'add' === $this->getAction() && ! $this->editorCategoryAlreadyExists() ) {
 			$this->addEditorCategory();

@@ -3,6 +3,8 @@
 namespace Webaxones\Core\Label;
 
 use Webaxones\Core\Utils\Contracts\LabelsInterface;
+use Webaxones\Core\Utils\Contracts\FilterInterface;
+use Webaxones\Core\Utils\Contracts\HookInterface;
 
 use Webaxones\Core\Utils\Concerns\OptionalSettingsTrait;
 
@@ -14,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Internationalized labels declaration
  */
-class Labels implements LabelsInterface
+class Labels implements LabelsInterface, HookInterface, FilterInterface
 {
 	use OptionalSettingsTrait;
 
@@ -68,6 +70,30 @@ class Labels implements LabelsInterface
 		$this->labels            = $labels;
 		$this->globalWords       = $globalWords;
 		$this->contentGender     = array_key_exists( 'gender', $labels ) && 'f' === $labels['gender'] ? 1 : 0;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getHookName(): string
+	{
+		if ( 'PostType' === $this->getCustomContentType() ) {
+			return 'post_updated_messages';
+		}
+
+		if ( 'Taxonomy' === $this->getCustomContentType() ) {
+			return 'term_updated_messages';
+		}
+
+		return '';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getFilters(): array
+	{
+		return [ $this->getHookName() => [ 'processMessagesLabels', 10, 1 ] ];
 	}
 
 	/**

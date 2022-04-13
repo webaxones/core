@@ -293,18 +293,16 @@ $declarations[] = new EntityFactory(
 	]
 );
 
-array_walk(
-	$declarations,
-	function( $declaration )
-	{
-		try {
-			$entity = $declaration->createEntity();
-			$entity->hook();
-		} catch ( Exception $e ) {
-			error_log( $e->getMessage() );
-		}
+$hook = new Hook();
+
+foreach ( $declarations as $declaration ) {
+	try {
+		$entity = $declaration->createEntity();
+		$hook->register( $entity );
+	} catch ( Exception $e ) {
+		error_log( $e->getMessage() );
 	}
-);
+}
 
 ```
 

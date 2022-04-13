@@ -8,7 +8,8 @@ use Exception;
 
 use Webaxones\Core\Utils\Contracts\EntityInterface;
 use Webaxones\Core\Utils\Contracts\RoleInterface;
-use Webaxones\Core\Utils\Contracts\HooksInterface;
+use Webaxones\Core\Utils\Contracts\HookInterface;
+use Webaxones\Core\Utils\Contracts\ActionInterface;
 
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
@@ -17,7 +18,7 @@ use Webaxones\Core\Label\Labels;
 /**
  * Custom Role declaration
  */
-class Role implements EntityInterface, RoleInterface, HooksInterface
+class Role implements EntityInterface, RoleInterface, HookInterface, ActionInterface
 {
 	use ClassNameTrait;
 
@@ -95,17 +96,17 @@ class Role implements EntityInterface, RoleInterface, HooksInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function hook(): void
+	public function getHookName(): string
 	{
-		add_action( $this->getHookName(), [ $this, 'finalProcess' ] );
+		return 'init';
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getHookName(): string
+	public function getActions(): array
 	{
-		return 'init';
+		return [ $this->getHookName() => [ 'finalProcess', 10, 1 ] ];
 	}
 
 	/**

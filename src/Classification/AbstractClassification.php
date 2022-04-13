@@ -8,7 +8,8 @@ use Exception;
 
 use Webaxones\Core\Utils\Contracts\EntityInterface;
 use Webaxones\Core\Utils\Contracts\ClassificationInterface;
-use Webaxones\Core\Utils\Contracts\HooksInterface;
+use Webaxones\Core\Utils\Contracts\HookInterface;
+use Webaxones\Core\Utils\Contracts\ActionInterface;
 
 use Webaxones\Core\Utils\Concerns\OptionalSettingsTrait;
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
@@ -18,7 +19,7 @@ use Webaxones\Core\Label\Labels;
 /**
  * Classification declaration
  */
-abstract class AbstractClassification implements EntityInterface, ClassificationInterface, HooksInterface
+abstract class AbstractClassification implements EntityInterface, ClassificationInterface, HookInterface, ActionInterface
 {
 	use OptionalSettingsTrait;
 	use ClassNameTrait;
@@ -73,16 +74,6 @@ abstract class AbstractClassification implements EntityInterface, Classification
 	/**
 	 * {@inheritdoc}
 	 */
-	public function hook(): void
-	{
-		add_action( $this->getHookName(), [ $this, 'registerClassification' ] );
-
-		add_filter( $this->getMessagesHookName(), [ $this->labels, 'processMessagesLabels' ] );
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
 	public function getHookName(): string
 	{
 		return 'init';
@@ -91,17 +82,9 @@ abstract class AbstractClassification implements EntityInterface, Classification
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getMessagesHookName(): string
+	public function getActions(): array
 	{
-		if ( 'PostType' === $this->getCurrentClassShortName() ) {
-			return 'post_updated_messages';
-		}
-
-		if ( 'Taxonomy' === $this->getCurrentClassShortName() ) {
-			return 'term_updated_messages';
-		}
-
-		return '';
+		return [ $this->getHookName() => [ 'registerClassification', 10, 1 ] ];
 	}
 
 	/**

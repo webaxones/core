@@ -7,7 +7,8 @@ defined( 'ABSPATH' ) || exit;
 use Exception;
 
 use Webaxones\Core\Utils\Contracts\OptionsPageInterface;
-use Webaxones\Core\Utils\Contracts\HooksInterface;
+use Webaxones\Core\Utils\Contracts\HookInterface;
+use Webaxones\Core\Utils\Contracts\ActionInterface;
 
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
@@ -17,7 +18,7 @@ use Webaxones\Core\Label\Labels;
 /**
  * Custom options pages declaration
  */
-abstract class AbstractOptionsPage implements OptionsPageInterface, HooksInterface
+abstract class AbstractOptionsPage implements OptionsPageInterface, HookInterface, ActionInterface
 {
 	use ClassNameTrait;
 
@@ -73,9 +74,25 @@ abstract class AbstractOptionsPage implements OptionsPageInterface, HooksInterfa
 	/**
 	 * {@inheritdoc}
 	 */
-	public function hook(): void
+	public function getHookName(): string
 	{
-		add_action( $this->getHookName(), [ $this, 'addOptionsPage' ] );
+		if ( 'OptionsPage' === $this->getCurrentClassShortName() ) {
+			return 'admin_menu';
+		}
+
+		if ( 'AcfOptionsPage' === $this->getCurrentClassShortName() ) {
+			return 'acf/init';
+		}
+
+		return '';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getActions(): array
+	{
+		return [ $this->getHookName() => [ 'addOptionsPage', 10, 1 ] ];
 	}
 
 	/**
@@ -108,22 +125,6 @@ abstract class AbstractOptionsPage implements OptionsPageInterface, HooksInterfa
 		if ( in_array( $this->getLocation(), $this->getAdminMenuSlugs(), true ) ) {
 			return 'add_' . $this->getLocation() . '_page';
 		}
-		return '';
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getHookName(): string
-	{
-		if ( 'OptionsPage' === $this->getCurrentClassShortName() ) {
-			return 'admin_menu';
-		}
-
-		if ( 'AcfOptionsPage' === $this->getCurrentClassShortName() ) {
-			return 'acf/init';
-		}
-
 		return '';
 	}
 

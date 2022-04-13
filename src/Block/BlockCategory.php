@@ -18,19 +18,11 @@ class BlockCategory extends AbstractEditorCategory
 	}
 
 	/**
-	 * {@inheritdoc}
-	 */
-	public function hook(): void
-	{
-		add_filter( $this->getHookName(), [ $this, 'finalProcess' ] );
-	}
-
-	/**
-	 * Final process callback function
+	 * Add block category
 	 *
 	 * @return array
 	 */
-	public function finalProcess( $block_categories ): array
+	public function processCategory( $block_categories ): array
 	{
 		return array_merge(
 			$block_categories,
