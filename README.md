@@ -64,11 +64,14 @@ defined( 'ABSPATH' ) || exit;
 
 require_once wp_normalize_path( WAX_ROOT_DIR ) . '/vendor/autoload.php';
 
+use Webaxones\Core\Hook\Hook;
 use Webaxones\Core\I18n\I18n;
-use Webaxones\Core\Utils\ContentFactory;
+use Webaxones\Core\Utils\EntityFactory;
+
+$hook = new Hook();
 
 $i18n = new I18n( 'webaxones-content' );
-$i18n->hook();
+$hook->register( $i18n );
 
 /**
  * Custom Post Type: Project
@@ -292,8 +295,6 @@ $declarations[] = new EntityFactory(
 		],
 	]
 );
-
-$hook = new Hook();
 
 foreach ( $declarations as $declaration ) {
 	try {

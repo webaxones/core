@@ -5,11 +5,12 @@ namespace Webaxones\Core\I18n;
 defined( 'ABSPATH' ) || exit;
 
 use Webaxones\Core\Utils\Contracts\HookInterface;
+use Webaxones\Core\Utils\Contracts\ActionInterface;
 
 /**
  * Labels internationalization
  */
-class I18n implements HookInterface
+class I18n implements HookInterface, ActionInterface
 {
 	/**
 	 * Text domain
@@ -31,9 +32,9 @@ class I18n implements HookInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function hook(): void
+	public function getActions(): array
 	{
-		add_action( $this->getHookName(), [ $this, 'finalProcess' ] );
+		return [ $this->getHookName() => [ 'loadPluginTextDomain', 10, 1 ] ];
 	}
 
 	/**
@@ -55,11 +56,11 @@ class I18n implements HookInterface
 	}
 
 	/**
-	 * Final process callback function
+	 * Load Plugin Text Domain
 	 *
 	 * @return array
 	 */
-	public function finalProcess(): void
+	public function loadPluginTextDomain(): void
 	{
 		load_plugin_textdomain( $this->getTextDomain(), false, plugin_dir_path( __FILE__ ) . 'languages' );
 	}
