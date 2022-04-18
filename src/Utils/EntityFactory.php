@@ -46,6 +46,7 @@ class EntityFactory
 	 */
 	public function __construct( array $settings = [] )
 	{
+		\DecaLog\Engine::initLibrary( 'webaxones-entities', 'Webaxones Entities Library', '1.0.0' );
 		$this->settings  = $settings;
 		$this->className = $settings['entity'];
 		$this->labels    = $settings['labels'] ?? [];
