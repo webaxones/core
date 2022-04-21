@@ -5,6 +5,7 @@ namespace Webaxones\Core\Utils;
 defined( 'ABSPATH' ) || exit;
 
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
+use Webaxones\Core\Utils\Contracts\EntityInterface;
 
 use Exception;
 use Webaxones\Core\Config\GlobalWords;
@@ -55,11 +56,11 @@ class EntityFactory
 	/**
 	 * Create entity
 	 *
-	 * @return object
+	 * @return EntityInterface
 	 *
 	 * @throws Exception
 	 */
-	public function createEntity(): object
+	public function createEntity(): EntityInterface
 	{
 		$classShortName = substr( $this->className, strrpos( $this->className, '\\' ) + 1 );
 

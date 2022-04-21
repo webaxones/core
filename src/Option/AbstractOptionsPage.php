@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
 
 use Exception;
 
+use Webaxones\Core\Utils\Contracts\EntityInterface;
 use Webaxones\Core\Utils\Contracts\OptionsPageInterface;
 use Webaxones\Core\Utils\Contracts\HookInterface;
 use Webaxones\Core\Utils\Contracts\ActionInterface;
@@ -18,7 +19,7 @@ use Webaxones\Core\Label\Labels;
 /**
  * Custom options pages declaration
  */
-abstract class AbstractOptionsPage implements OptionsPageInterface, HookInterface, ActionInterface
+abstract class AbstractOptionsPage implements EntityInterface, OptionsPageInterface, HookInterface, ActionInterface
 {
 	use ClassNameTrait;
 
@@ -27,7 +28,7 @@ abstract class AbstractOptionsPage implements OptionsPageInterface, HookInterfac
 	 *
 	 * @var array
 	 */
-	protected array $parameters;
+	protected array $settings;
 
 	/**
 	 * Option page input labels
@@ -65,6 +66,7 @@ abstract class AbstractOptionsPage implements OptionsPageInterface, HookInterfac
 		}
 
 		$this->settings       = $parameters['settings'];
+		$this->slug           = $this->sanitizeSlug();
 		$this->labels         = $labels;
 		$this->settings       = array_merge( $this->settings, $this->labels->processLabels() );
 		$this->location       = $parameters['settings']['location'];
@@ -134,4 +136,29 @@ abstract class AbstractOptionsPage implements OptionsPageInterface, HookInterfac
 	 * @return void
 	 */
 	abstract public function addOptionsPage(): void;
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getSettings(): array
+	{
+		return $this->settings;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getSlug(): string
+	{
+		return $this->slug;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function sanitizeSlug(): string
+	{
+		$settings = $this->getSettings();
+		return sanitize_title( $settings['slug'] );
+	}
 }

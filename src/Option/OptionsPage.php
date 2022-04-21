@@ -47,16 +47,6 @@ class OptionsPage extends AbstractOptionsPage
 	}
 
 	/**
-	 * Get options page menu slug
-	 *
-	 * @return string
-	 */
-	public function getSlug(): string
-	{
-		return $this->settings['menu_slug'];
-	}
-
-	/**
 	 * Display options page content
 	 *
 	 * @return void
