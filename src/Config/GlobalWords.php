@@ -9,20 +9,13 @@ defined( 'ABSPATH' ) || exit;
 class GlobalWords
 {
 	/**
-	 * Self instance
-	 *
-	 * @var object
-	 */
-	private static $instance;
-
-	/**
 	 * Global words used in labels: no changes needed
 	 *
 	 * @var array
 	 */
-	private static array $globalWords;
+	protected static array $globalWords;
 
-	public function __construct()
+	private static function init(): array
 	{
 		self::$globalWords = [
 			'view'                           => _x( 'View', 'Infinitive verb', 'webaxones-core' ),
@@ -68,21 +61,8 @@ class GlobalWords
 			'not_found_in_trash'             => _x( 'No item found in trash', '« item »: Custom content item', 'webaxones-core' ),
 			'search_items'                   => _x( 'Search', 'Infinitive verb', 'webaxones-core' ),
 		];
-	}
 
-	/**
-	 * Singleton pattern
-	 *
-	 * @return self
-	 */
-	private static function init(): self
-	{
-		if ( is_null( self::$instance ) ) {
-			load_textdomain( 'webaxones-core', WAX_ROOT_DIR . '\vendor\webaxones\core\src\Languages\webaxones-core-fr_FR.mo' );
-			self::$instance = new self();
-		}
-
-		return self::$instance;
+		return self::$globalWords;
 	}
 
 	/**
@@ -92,7 +72,11 @@ class GlobalWords
 	 */
 	public static function getValues(): array
 	{
-		self::init();
-		return self::$globalWords ?? [];
+		if ( ! is_textdomain_loaded( 'webaxones-core' ) ) {
+			load_textdomain( 'webaxones-core', WAX_ROOT_DIR . '\vendor\webaxones\core\src\Languages\webaxones-core-fr_FR.mo' );
+		}
+
+		return self::$globalWords ?? self::init();
 	}
 }
+

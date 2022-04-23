@@ -8,6 +8,7 @@ use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 use Webaxones\Core\Utils\Contracts\EntityInterface;
 
 use Exception;
+use \Decalog\Engine as Decalog;
 use Webaxones\Core\Config\GlobalWords;
 use Webaxones\Core\Label\Labels;
 
@@ -47,7 +48,7 @@ class EntityFactory
 	 */
 	public function __construct( array $settings = [] )
 	{
-		\DecaLog\Engine::initLibrary( 'webaxones-entities', 'Webaxones Entities Library', '1.0.0' );
+		DecaLog::initLibrary( 'webaxones-entities', 'Webaxones Entities Library', '1.0.0' );
 		$this->settings  = $settings;
 		$this->className = $settings['entity'];
 		$this->labels    = $settings['labels'] ?? [];
@@ -65,6 +66,7 @@ class EntityFactory
 		$classShortName = substr( $this->className, strrpos( $this->className, '\\' ) + 1 );
 
 		if ( ! class_exists( $this->className ) ) {
+			DecaLog::eventsLogger( 'webaxones-entities' )->error( 'This is an error with a code.', [ 'code' => 666 ] );
 			throw new Exception( '« ' . $this->className . ' » doesn’t exist. Wrong content type name passed as parameter.' );
 		}
 
