@@ -17,7 +17,6 @@ final class Entities
 	public static function process( array $declarations ): void
 	{
 		DecaLog::initLibrary( 'webaxones-entities', 'Webaxones Entities Library', '1.0.0' );
-		$logger = DecaLog::eventsLogger( 'webaxones-entities' );
 
 		foreach ( $declarations as $declaration ) {
 			try {
@@ -26,7 +25,7 @@ final class Entities
 				$hook         = new Hook();
 				$hook->register( $entityHandle );
 			} catch ( Exception $e ) {
-				$logger->info( 'Unable to create entity. ' . $e->getMessage() );
+				DecaLog::eventsLogger( 'webaxones-entities' )->error( $e->getMessage() );
 			}
 		}
 	}
