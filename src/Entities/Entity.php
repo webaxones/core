@@ -1,6 +1,6 @@
 <?php
 
-namespace Webaxones\Core\Utils;
+namespace Webaxones\Core\Entities;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -13,9 +13,9 @@ use Webaxones\Core\Config\GlobalWords;
 use Webaxones\Core\Label\Labels;
 
 /**
- * Entity factory
+ * Entity
  */
-class EntityFactory
+class Entity
 {
 	use ClassNameTrait;
 
@@ -41,14 +41,13 @@ class EntityFactory
 	protected array $labels;
 
 	/**
-	 * Entity factory declaration
+	 * Entity declaration
 	 *
 	 * @param  string $entity
 	 * @param  array  $settings
 	 */
 	public function __construct( array $settings = [] )
 	{
-		DecaLog::initLibrary( 'webaxones-entities', 'Webaxones Entities Library', '1.0.0' );
 		$this->settings  = $settings;
 		$this->className = $settings['entity'];
 		$this->labels    = $settings['labels'] ?? [];
@@ -66,8 +65,8 @@ class EntityFactory
 		$classShortName = substr( $this->className, strrpos( $this->className, '\\' ) + 1 );
 
 		if ( ! class_exists( $this->className ) ) {
-			DecaLog::eventsLogger( 'webaxones-entities' )->error( 'This is an error with a code.', [ 'code' => 666 ] );
-			throw new Exception( '« ' . $this->className . ' » doesn’t exist. Wrong content type name passed as parameter.' );
+			DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->className . ' » doesn’t exist. Wrong content type name passed as parameter.' );
+			// throw new Exception( '« ' . $this->className . ' » doesn’t exist. Wrong content type name passed as parameter.' );
 		}
 
 		$globalWords = GlobalWords::getValues();

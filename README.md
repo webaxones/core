@@ -66,244 +66,216 @@ require_once wp_normalize_path( WAX_ROOT_DIR ) . '/vendor/autoload.php';
 
 use Webaxones\Core\Hook\Hook;
 use Webaxones\Core\I18n\I18n;
-use Webaxones\Core\Utils\EntityFactory;
+use Webaxones\Core\Entities\Entities;
 
 $hook = new Hook();
-
 $i18n = new I18n( 'webaxones-content' );
 $hook->register( $i18n );
 
 /**
  * Custom Post Type: Project
  */
-$declarations[] = new EntityFactory(
-	[
-		'entity'   => 'Webaxones\Core\Classification\PostType',
-		'labels'   => [
-			'gender'            => 'm',
-			'plural_name'       => _x( 'Projects', 'Capitalized Plural Name', 'webaxones-content' ),
-			'singular_name'     => _x( 'Project', 'Capitalized Singular Name', 'webaxones-content' ),
-			'parent_item_colon' => __( 'Parent project: ', 'webaxones-content' ),
-			'all_items'         => __( 'All projects', 'webaxones-content' ),
-			'new_item'          => __( 'New project', 'webaxones-content' ),
-			'the_singular'      => __( 'The project', 'webaxones-content' ),
-			'the_plural'        => __( 'The projects', 'webaxones-content' ),
-		],
-		'settings' => [
-			'slug'          => 'project',
-			'taxonomies'    => [],
-			'supports'      => [ 'title', 'thumbnail', 'editor', /*'excerpt', 'author', 'comments', 'revisions', 'page-attributes', 'post-formats', 'custom-fields', 'trackbacks'*/ ],
-			'menu_icon'     => 'dashicons-portfolio',
-			'menu_position' => 7,
-			'hierarchical'  => false,
-			'public'        => true,
-			'show_in_rest'  => true,
-			'has_archive'   => true,
-		],
-	]
-);
+$declarations[] = [
+	'entity'   => 'Webaxones\Core\Classification\PostType',
+	'labels'   => [
+		'gender'            => 'm',
+		'plural_name'       => _x( 'Projects', 'Capitalized Plural Name', 'webaxones-content' ),
+		'singular_name'     => _x( 'Project', 'Capitalized Singular Name', 'webaxones-content' ),
+		'parent_item_colon' => __( 'Parent project: ', 'webaxones-content' ),
+		'all_items'         => __( 'All projects', 'webaxones-content' ),
+		'new_item'          => __( 'New project', 'webaxones-content' ),
+		'the_singular'      => __( 'The project', 'webaxones-content' ),
+		'the_plural'        => __( 'The projects', 'webaxones-content' ),
+	],
+	'settings' => [
+		'slug'          => 'project',
+		'taxonomies'    => [],
+		'supports'      => [ 'title', 'thumbnail', 'editor', /*'excerpt', 'author', 'comments', 'revisions', 'page-attributes', 'post-formats', 'custom-fields', 'trackbacks'*/ ],
+		'menu_icon'     => 'dashicons-portfolio',
+		'menu_position' => 7,
+		'hierarchical'  => false,
+		'public'        => true,
+		'show_in_rest'  => true,
+		'has_archive'   => true,
+	],
+];
 
 /**
  * Custom Taxonomy: Project category
  */
-$declarations[] = new EntityFactory(
-	[
-		'entity'   => 'Webaxones\Core\Classification\Taxonomy',
-		'labels'   => [
-			'gender'            => 'f',
-			'plural_name'       => _x( 'Project categories', 'Capitalized Plural Name', 'webaxones-content' ),
-			'singular_name'     => _x( 'Project category', 'Capitalized Singular Name', 'webaxones-content' ),
-			'parent_item_colon' => __( 'Parent project category: ', 'webaxones-content' ),
-			'all_items'         => __( 'All project categories', 'webaxones-content' ),
-			'new_item'          => __( 'New project category', 'webaxones-content' ),
-			'the_singular'      => __( 'The project category', 'webaxones-content' ),
-			'the_plural'        => __( 'The project categories', 'webaxones-content' ),
-		],
-		'settings' => [
-			'slug'              => 'project-category',
-			'hierarchical'      => false,
-			'public'            => true,
-			'show_admin_column' => true,
-			'show_in_rest'      => true,
-			'object_type'       => ['project'],
-		],
-	]
-);
+$declarations[] = [
+	'entity'   => 'Webaxones\Core\Classification\Taxonomy',
+	'labels'   => [
+		'gender'            => 'f',
+		'plural_name'       => _x( 'Project categories', 'Capitalized Plural Name', 'webaxones-content' ),
+		'singular_name'     => _x( 'Project category', 'Capitalized Singular Name', 'webaxones-content' ),
+		'parent_item_colon' => __( 'Parent project category: ', 'webaxones-content' ),
+		'all_items'         => __( 'All project categories', 'webaxones-content' ),
+		'new_item'          => __( 'New project category', 'webaxones-content' ),
+		'the_singular'      => __( 'The project category', 'webaxones-content' ),
+		'the_plural'        => __( 'The project categories', 'webaxones-content' ),
+	],
+	'settings' => [
+		'slug'              => 'project-category',
+		'hierarchical'      => false,
+		'public'            => true,
+		'show_admin_column' => true,
+		'show_in_rest'      => true,
+		'object_type'       => ['project'],
+	],
+];
 
 /**
  * Custom native option page: Company data
  */
-$declarations[] = new EntityFactory(
-	[
-		'entity'   => 'Webaxones\Core\Option\OptionsPage',
-		'labels'   => [
-			'page_title' => _x( 'Company data', 'Option page title', 'webaxones-content' ),
-			'menu_title' => _x( 'Parameters', 'Option page menu title', 'webaxones-content' ),
-		],
-		'settings' => [
-			'slug'        => 'wax-company-settings',
-			'location'    => 'top_level', /*'custom', 'dashboard', 'posts', 'pages', 'comments', 'theme', 'plugins', 'users', 'management', 'options'*/
-			'parent_slug' => '', /* if location is "custom" */
-			'capability'  => 'manage_options',
-			'icon_url'    => 'dashicons-admin-generic',
-			'position'    => 99,
-		],
-	]
-);
+$declarations[] = [
+	'entity'   => 'Webaxones\Core\Option\OptionsPage',
+	'labels'   => [
+		'page_title' => _x( 'Company data', 'Option page title', 'webaxones-content' ),
+		'menu_title' => _x( 'Parameters', 'Option page menu title', 'webaxones-content' ),
+	],
+	'settings' => [
+		'slug'        => 'wax-company-settings',
+		'location'    => 'top_level', /*'custom', 'dashboard', 'posts', 'pages', 'comments', 'theme', 'plugins', 'users', 'management', 'options'*/
+		'parent_slug' => '', /* if location is "custom" */
+		'capability'  => 'manage_options',
+		'icon_url'    => 'dashicons-admin-generic',
+		'position'    => 99,
+	],
+];
 
 /**
  * Custom ACF option page: Projects archive
  */
-$declarations[] = new EntityFactory(
-	[
-		'entity'   => 'Webaxones\Core\Option\AcfOptionsPage',
-		'labels'   => [
-			'page_title' => _x( 'Projects archive', 'Option page title', 'webaxones-content' ),
-			'menu_title' => _x( 'Projects page', 'Option page menu title', 'webaxones-content' ),
-		],
-		'settings' => [
-			'slug'        => 'wax-projects-settings',
-			'location'    => 'custom', /*'custom', 'dashboard', 'posts', 'pages', 'comments', 'theme', 'plugins', 'users', 'management', 'options'*/
-			'parent_slug' => 'edit.php?post_type=project', /* if location is "custom" */
-			'capability'  => 'manage_options',
-			'icon_url'    => '',
-			'position'    => 99,
-		],
-	]
-);
+$declarations[] = [
+	'entity'   => 'Webaxones\Core\Option\AcfOptionsPage',
+	'labels'   => [
+		'page_title' => _x( 'Projects archive', 'Option page title', 'webaxones-content' ),
+		'menu_title' => _x( 'Projects page', 'Option page menu title', 'webaxones-content' ),
+	],
+	'settings' => [
+		'slug'        => 'wax-projects-settings',
+		'location'    => 'custom', /*'custom', 'dashboard', 'posts', 'pages', 'comments', 'theme', 'plugins', 'users', 'management', 'options'*/
+		'parent_slug' => 'edit.php?post_type=project', /* if location is "custom" */
+		'capability'  => 'manage_options',
+		'icon_url'    => '',
+		'position'    => 99,
+	],
+];
 
 /**
  * Add Custom role: Owner
  */
-$declarations[] = new EntityFactory(
-	[
-		'entity'   => 'Webaxones\Core\Role\Role',
-		'labels'   => [
-			'role_name' => _x( 'Owner', 'Custom role name', 'webaxones-content' ),
+$declarations[] = [
+	'entity'   => 'Webaxones\Core\Role\Role',
+	'labels'   => [
+		'role_name' => _x( 'Owner', 'Custom role name', 'webaxones-content' ),
+	],
+	'settings' => [
+		'slug'                   => 'owner',
+		'action'                 => 'add',
+		'role_to_clone_slug'     => 'administrator',
+		'capabilities_to_remove' => [
+			'manage_options',
+			'switch_themes',
+			'remove_users',
+			'activate_plugins',
+			'delete_others_pages',
+			'delete_site',
+			'delete_pages',
+			'delete_private_pages',
+			'delete_published_pages',
+			'delete_others_posts',
+			'delete_posts',
+			'delete_private_posts',
+			'edit_theme_options',
+			'export',
+			'import',
+			'edit_private_pages',
+			'edit_private_posts',
+			'promote_users',
+			'customize',
 		],
-		'settings' => [
-			'slug'                   => 'owner',
-			'action'                 => 'add',
-			'role_to_clone_slug'     => 'administrator',
-			'capabilities_to_remove' => [
-				'manage_options',
-				'switch_themes',
-				'remove_users',
-				'activate_plugins',
-				'delete_others_pages',
-				'delete_site',
-				'delete_pages',
-				'delete_private_pages',
-				'delete_published_pages',
-				'delete_others_posts',
-				'delete_posts',
-				'delete_private_posts',
-				'edit_theme_options',
-				'export',
-				'import',
-				'edit_private_pages',
-				'edit_private_posts',
-				'promote_users',
-				'customize',
-			],
-		],
-	]
-);
+	],
+];
 
 /**
  * Remove Custom role: Test
  */
-$declarations[] = new EntityFactory(
-	[
-		'entity'   => 'Webaxones\Core\Role\Role',
-		'labels'   => [],
-		'settings' => [
-			'slug'                   => 'test',
-			'action'                 => 'remove',
-			'role_to_clone_slug'     => '',
-			'capabilities_to_remove' => [],
-		],
-	]
-);
+$declarations[] = [
+	'entity'   => 'Webaxones\Core\Role\Role',
+	'labels'   => [],
+	'settings' => [
+		'slug'                   => 'test',
+		'action'                 => 'remove',
+		'role_to_clone_slug'     => '',
+		'capabilities_to_remove' => [],
+	],
+];
 
 /**
  * Update Custom role: Owner
  */
-$declarations[] = new EntityFactory(
-	[
-		'entity'   => 'Webaxones\Core\Role\Role',
-		'labels'   => [
-			'role_name' => _x( 'Owner', 'Custom role name', 'webaxones-content' ),
+$declarations[] = [
+	'entity'   => 'Webaxones\Core\Role\Role',
+	'labels'   => [
+		'role_name' => _x( 'Owner', 'Custom role name', 'webaxones-content' ),
+	],
+	'settings' => [
+		'slug'                   => 'owner',
+		'action'                 => 'update',
+		'role_to_clone_slug'     => 'administrator',
+		'capabilities_to_remove' => [
+			'manage_options',
+			'switch_themes',
+			'remove_users',
+			'promote_users',
+			'customize',
 		],
-		'settings' => [
-			'slug'                   => 'owner',
-			'action'                 => 'update',
-			'role_to_clone_slug'     => 'administrator',
-			'capabilities_to_remove' => [
-				'manage_options',
-				'switch_themes',
-				'remove_users',
-				'promote_users',
-				'customize',
-			],
-		],
-	]
-);
+	],
+];
 
 /**
  * Add custom block pattern category: Webaxones Patterns
  */
-$declarations[] = new EntityFactory(
-	[
-		'entity'   => 'Webaxones\Core\Block\BlockPatternCategory',
-		'labels'   => [
-			'label' => _x( 'Webaxones Patterns', 'Custom block pattern name', 'webaxones-content' ),
-		],
-		'settings' => [
-			'slug'   => 'webaxones_patterns',
-			'action' => 'add',
-		],
-	]
-);
+$declarations[] = [
+	'entity'   => 'Webaxones\Core\Block\BlockPatternCategory',
+	'labels'   => [
+		'label' => _x( 'Webaxones Patterns', 'Custom block pattern name', 'webaxones-content' ),
+	],
+	'settings' => [
+		'slug'   => 'webaxones_patterns',
+		'action' => 'add',
+	],
+];
 
 /**
  * Remove custom block pattern category: test
  */
-$declarations[] = new EntityFactory(
-	[
-		'entity'   => 'Webaxones\Core\Block\BlockPatternCategory',
-		'labels'   => [],
-		'settings' => [
-			'slug'   => 'test',
-			'action' => 'remove',
-		],
-	]
-);
+$declarations[] = [
+	'entity'   => 'Webaxones\Core\Block\BlockPatternCategory',
+	'labels'   => [],
+	'settings' => [
+		'slug'   => 'test',
+		'action' => 'remove',
+	],
+];
 
 /**
  * Add custom block category: Custom category
  */
-$declarations[] = new EntityFactory(
-	[
-		'entity'   => 'Webaxones\Core\Block\BlockCategory',
-		'labels'   => [
-			'title' => _x( 'Custom category', 'Custom block category name', 'webaxones-content' ),
-		],
-		'settings' => [
-			'slug' => 'webaxones_custom_category',
-			'icon' => 'dashicons-admin-generic', /* Slug of a WordPress Dashicon or custom SVG */
-		],
-	]
-);
+$declarations[] = [
+	'entity'   => 'Webaxones\Core\Block\BlockCategory',
+	'labels'   => [
+		'title' => _x( 'Custom category', 'Custom block category name', 'webaxones-content' ),
+	],
+	'settings' => [
+		'slug' => 'webaxones_custom_category',
+		'icon' => 'dashicons-admin-generic', /* Slug of a WordPress Dashicon or custom SVG */
+	],
+];
 
-foreach ( $declarations as $declaration ) {
-	try {
-		$entity = $declaration->createEntity();
-		$hook->register( $entity );
-	} catch ( Exception $e ) {
-		error_log( $e->getMessage() );
-	}
-}
+Entities::process( $declarations );
 
 ```
 
