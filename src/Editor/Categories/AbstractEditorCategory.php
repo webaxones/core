@@ -1,6 +1,6 @@
 <?php
 
-namespace Webaxones\Core\Block;
+namespace Webaxones\Core\Editor\Categories;
 
 defined( 'ABSPATH' ) || exit;
 
