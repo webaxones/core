@@ -4,6 +4,8 @@ namespace Webaxones\Core\Option;
 
 defined( 'ABSPATH' ) || exit;
 
+use \Decalog\Engine as Decalog;
+
 /**
  * Custom ACF option page declaration
  */
@@ -54,5 +56,6 @@ class AcfOptionsPage extends AbstractOptionsPage
 		$this->setArgs();
 
 		acf_add_options_page( $this->getArgs() );
+		DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->slug . ' » ACF Options Page added.' );
 	}
 }
