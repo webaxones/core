@@ -1,6 +1,15 @@
 # Webaxones Core
 
-Custom declarations
+**Entity processing**<br><br>
+« An entity is an abstraction that we consider as a reality »<br>
+*Le Robert*
+
+Within this library, an entity can be:<br>
+
+a *Content Classification* like **Custom Post Types** or **Custom Taxonomies**<br>
+an *Option Page* like **(Native) Option Page** or **ACF Option Page**<br>
+an *Editor Category* like **Block Category** or **Block Pattern Category**<br>
+a **Custom Role**
 
 ## 1- Create a folder for your plugin
 
@@ -239,7 +248,7 @@ $declarations[] = [
  * Add custom block pattern category: Webaxones Patterns
  */
 $declarations[] = [
-	'entity'   => 'Webaxones\Core\Block\BlockPatternCategory',
+	'entity'   => 'Webaxones\Core\Editor\Categories\BlockPatternCategory',
 	'labels'   => [
 		'label' => _x( 'Webaxones Patterns', 'Custom block pattern name', 'webaxones-content' ),
 	],
@@ -253,7 +262,7 @@ $declarations[] = [
  * Remove custom block pattern category: test
  */
 $declarations[] = [
-	'entity'   => 'Webaxones\Core\Block\BlockPatternCategory',
+	'entity'   => 'Webaxones\Core\Editor\Categories\BlockPatternCategory',
 	'labels'   => [],
 	'settings' => [
 		'slug'   => 'test',
@@ -265,7 +274,7 @@ $declarations[] = [
  * Add custom block category: Custom category
  */
 $declarations[] = [
-	'entity'   => 'Webaxones\Core\Block\BlockCategory',
+	'entity'   => 'Webaxones\Core\Editor\Categories\BlockCategory',
 	'labels'   => [
 		'title' => _x( 'Custom category', 'Custom block category name', 'webaxones-content' ),
 	],

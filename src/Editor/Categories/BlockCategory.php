@@ -4,6 +4,8 @@ namespace Webaxones\Core\Editor\Categories;
 
 defined( 'ABSPATH' ) || exit;
 
+use \Decalog\Engine as Decalog;
+
 /**
  * Custom block category declaration
  */
@@ -24,6 +26,7 @@ class BlockCategory extends AbstractEditorCategory
 	 */
 	public function processCategory( $block_categories ): array
 	{
+		DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->getSlug() . ' » Block category declared.' );
 		return array_merge(
 			$block_categories,
 			[

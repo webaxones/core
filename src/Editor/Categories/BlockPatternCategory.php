@@ -4,6 +4,8 @@ namespace Webaxones\Core\Editor\Categories;
 
 defined( 'ABSPATH' ) || exit;
 
+use \Decalog\Engine as Decalog;
+
 /**
  * Custom block pattern category declaration
  */
@@ -58,10 +60,12 @@ class BlockPatternCategory extends AbstractEditorCategory
 	{
 		if ( 'add' === $this->getAction() && ! $this->editorCategoryAlreadyExists() ) {
 			$this->addEditorCategory();
+			DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->getSlug() . ' » Block pattern category registered.' );
 		}
 
 		if ( 'remove' === $this->getAction() && $this->editorCategoryAlreadyExists() ) {
 			$this->removeEditorCategory();
+			DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->getSlug() . ' » Block pattern category unregistered.' );
 		}
 	}
 }
