@@ -1,0 +1,25 @@
+{
+  "name": "Core",
+  "version": "1.0.0",
+  "description": "**Entity processing** « An entity is an abstraction that we consider as a reality » *Le Robert*",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build js/index.js --output-path=src/wax-assets/js",
+    "start": "wp-scripts start js/index.js --output-path=src/wax-assets/js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webaxones/core.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/webaxones/core/issues"
+  },
+  "homepage": "https://github.com/webaxones/core#readme",
+  "dependencies": {
+    "@wordpress/scripts": "^22.5.0"
+  }
+}

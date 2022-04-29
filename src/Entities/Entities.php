@@ -8,6 +8,7 @@ use Exception;
 use \Decalog\Engine as Decalog;
 use Webaxones\Core\Entities\Entity;
 use Webaxones\Core\Hook\Hook;
+use Webaxones\Core\Admin\Asset;
 
 /**
  * Entities processing
@@ -16,7 +17,10 @@ final class Entities
 {
 	public static function process( array $declarations ): void
 	{
-		DecaLog::initLibrary( 'webaxones-entities', 'Webaxones Entities Library', '1.0.0' );
+
+		$asset = new Asset();
+		$hook  = new Hook();
+		$hook->register( $asset );
 
 		foreach ( $declarations as $declaration ) {
 			try {

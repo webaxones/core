@@ -11,6 +11,8 @@ node_modules
 # WP-CLI
 wp-cli.local.yml
 
+# App
+js
 
 # Hidden files
 *.DS_Store

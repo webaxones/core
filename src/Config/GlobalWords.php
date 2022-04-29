@@ -72,7 +72,7 @@ class GlobalWords
 	 */
 	public static function getValues(): array
 	{
-		if ( ! is_textdomain_loaded( 'webaxones-core' ) ) {
+		if ( ! is_textdomain_loaded( 'webaxones-core' ) && defined( 'WAX_ROOT_DIR' ) ) {
 			load_textdomain( 'webaxones-core', WAX_ROOT_DIR . '\vendor\webaxones\core\src\Languages\webaxones-core-fr_FR.mo' );
 		}
 
