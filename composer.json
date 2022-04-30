@@ -16,8 +16,20 @@
     ],
     "require": {
 		"php": ">=8",
-        "perfopsone/decalog": "^3.0"
+        "perfopsone/decalog": "^3.0",
+        "inpsyde/composer-assets-compiler": "^2.5"
 	},
 	"minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "inpsyde/composer-assets-compiler": true
+        }
+    },
+	"extra": {
+		"composer-asset-compiler": {
+			"dependencies": "install",
+			"script": "install"
+		}
+	}
 }

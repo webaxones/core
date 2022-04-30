@@ -6,6 +6,7 @@
   "scripts": {
     "build": "wp-scripts build js/index.js --output-path=src/wax-assets/js",
     "start": "wp-scripts start js/index.js --output-path=src/wax-assets/js",
+	"install": "copyfiles --flat vendor/webaxones/core/src/wax-assets web/app/wax-assets",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/webaxones/core#readme",
   "dependencies": {
-    "@wordpress/scripts": "^22.5.0"
+    "@wordpress/scripts": "^22.5.0",
+    "copy-dir": "^1.3.0"
   }
 }

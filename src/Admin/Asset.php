@@ -31,16 +31,16 @@ class Asset implements HookInterface, ActionInterface
 
 	public function registerScripts(): void
 	{
-		$script_asset_path = WP_CONTENT_DIR . '\webaxones\index.asset.php';
+		$script_asset_path = WP_CONTENT_DIR . '\wax-assets\js\index.asset.php';
 		if ( ! file_exists( $script_asset_path ) ) {
-			throw new Exception( '« ' . WP_CONTENT_DIR . '\webaxones\index.asset.php » doesn’t exist.' );
+			throw new Exception( '« ' . WP_CONTENT_DIR . '\wax-assets\js\index.asset.php » doesn’t exist.' );
 		}
 
     	$script_asset = require( $script_asset_path );
 
 		wp_enqueue_script(
 			'webaxones-core',
-			content_url() . '/webaxones/index.js',
+			content_url() . '/wax-assets/js/index.js',
 			$script_asset['dependencies'],
 			$script_asset['version']
 		);
