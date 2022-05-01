@@ -125,6 +125,7 @@ class SettingsGroup implements EntityInterface, HookInterface, ActionInterface, 
 	 */
 	public function registerSettings(): void
 	{
+		$this->sendSettingsGroupToJS();
 		$fields = $this->getFields();
 		array_walk(
 			$fields,
@@ -140,5 +141,21 @@ class SettingsGroup implements EntityInterface, HookInterface, ActionInterface, 
 				DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $field['slug'] . ' » Settings field of « ' . $this->getSlug() . ' » Settings group registered.' );
 			}
 		);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function sendSettingsGroupToJS(): void
+	{
+		wp_add_inline_script( 'webaxones-core', $this->stringifySettings( $this->getSettings() ), 'before' );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function stringifySettings( array $settings ): string
+	{
+		return 'const settingsGroup = ' . wp_json_encode( $settings );
 	}
 }
