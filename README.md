@@ -67,10 +67,6 @@ Add desired content declarations to your `my-example-plugin.php` file:
  */
 defined( 'ABSPATH' ) || exit;
 
-// In this case, library is inside Bedrock root vendor so we just create a constant inside Config/Application.php just after $root_dir definition:
-// Config::define('WAX_ROOT_DIR', $root_dir);
-// So that we can use it now to load our classes inside plugin(s)
-
 use Webaxones\Core\Hook\Hook;
 use Webaxones\Core\I18n\I18n;
 use Webaxones\Core\Entities\Entities;

@@ -4,8 +4,8 @@
   "description": "**Entity processing** « An entity is an abstraction that we consider as a reality » *Le Robert*",
   "main": "index.js",
   "scripts": {
-    "build": "wp-scripts build js/index.js --output-path=src/wax-assets/js",
-    "start": "wp-scripts start js/index.js --output-path=src/wax-assets/js",
+    "build": "wp-scripts build js/index.js --output-path=src/assets/js",
+    "start": "wp-scripts start js/index.js --output-path=src/assets/js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
