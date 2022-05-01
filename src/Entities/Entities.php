@@ -17,6 +17,8 @@ final class Entities
 {
 	public static function process( array $declarations ): void
 	{
+		$vendorPath = substr( __FILE__, 0, strpos( __FILE__, 'vendor\\' ) ) . 'vendor\\';
+		define( 'WEBAXONES_VENDOR_PATH', $vendorPath );
 
 		$asset = new Asset();
 		$hook  = new Hook();

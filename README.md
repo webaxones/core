@@ -71,8 +71,6 @@ defined( 'ABSPATH' ) || exit;
 // Config::define('WAX_ROOT_DIR', $root_dir);
 // So that we can use it now to load our classes inside plugin(s)
 
-require_once wp_normalize_path( WAX_ROOT_DIR ) . '/vendor/autoload.php';
-
 use Webaxones\Core\Hook\Hook;
 use Webaxones\Core\I18n\I18n;
 use Webaxones\Core\Entities\Entities;

@@ -26,21 +26,93 @@ class Asset implements HookInterface, ActionInterface
 	 */
 	public function getActions(): array
 	{
-		return [ $this->getHookName() => [ 'registerScripts', 10, 1 ] ];
+		return [ $this->getHookName() => [ 'enqueueScript', 10, 1 ] ];
 	}
 
-	public function registerScripts(): void
+	/**
+	 * Check if cache directory exists in WP content directory and if not create it
+	 *
+	 * @return string
+	 */
+	public function checkCacheDirectory(): string
 	{
-		$script_asset_path = WP_CONTENT_DIR . '\wax-assets\js\index.asset.php';
+		$wpCacheDirectory = wp_normalize_path( WP_CONTENT_DIR . '/cache' );
+		if ( ! is_dir( $wpCacheDirectory ) ) {
+			global $wp_filesystem;
+			WP_Filesystem();
+			$wp_filesystem->mkdir( $wpCacheDirectory );
+		}
+		return $wpCacheDirectory;
+	}
+
+	/**
+	 * Check if webaxones assets directory exists in WP cache directory and if not copy it from vendor
+	 *
+	 * @param  string $wpCacheDirectory
+	 *
+	 * @return void
+	 */
+	public function checkAssetsDirectory( string $wpCacheDirectory ): void
+	{
+		$webaxonesAssetsDirectory = $wpCacheDirectory . '/wax-assets';
+		$vendorAssetsDirectory    = wp_normalize_path( WEBAXONES_VENDOR_PATH . 'webaxones/core/src/wax-assets' );
+
+		if ( is_dir( $vendorAssetsDirectory ) && ! is_dir( $webaxonesAssetsDirectory ) ) {
+			global $wp_filesystem;
+			WP_Filesystem();
+			$wp_filesystem->mkdir( $webaxonesAssetsDirectory );
+
+			$this->copyAssetsDirectory( $vendorAssetsDirectory, $webaxonesAssetsDirectory );
+		}
+	}
+
+	/**
+	 * Copy webaxones assets directory from vendor to WP content cache
+	 *
+	 * @param  string $vendorAssetsDirectory
+	 * @param  string $webaxonesAssetsDirectory
+	 *
+	 * @return void
+	 */
+	public function copyAssetsDirectory( string $vendorAssetsDirectory, string $webaxonesAssetsDirectory ): void
+	{
+		WP_Filesystem();
+		copy_dir( $vendorAssetsDirectory, $webaxonesAssetsDirectory );
+	}
+
+	/**
+	 * Check if assets folder is in cache folder and if not, copy it.
+	 *
+	 * @return void
+	 */
+	public function checkAndPrepareAssets(): void
+	{
+		$wpCacheDirectory = $this->checkCacheDirectory();
+
+		$this->checkAssetsDirectory( $wpCacheDirectory );
+	}
+
+	/**
+	 * Enqueue webaxones script
+	 *
+	 * @return void
+	 *
+	 * @throws Exception
+	 */
+	public function enqueueScript(): void
+	{
+		$this->checkAndPrepareAssets();
+
+		$script_asset_path = WP_CONTENT_DIR . '\cache\wax-assets\js\index.asset.php';
 		if ( ! file_exists( $script_asset_path ) ) {
-			throw new Exception( '« ' . WP_CONTENT_DIR . '\wax-assets\js\index.asset.php » doesn’t exist.' );
+			throw new Exception( '« ' . WP_CONTENT_DIR . '\cache\wax-assets\js\index.asset.php » doesn’t exist.' );
 		}
 
     	$script_asset = require( $script_asset_path );
 
 		wp_enqueue_script(
 			'webaxones-core',
-			content_url() . '/wax-assets/js/index.js',
+			content_url() . '/cache/wax-assets/js/index.js',
 			$script_asset['dependencies'],
 			$script_asset['version']
 		);
