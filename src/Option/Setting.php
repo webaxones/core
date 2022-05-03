@@ -10,6 +10,7 @@ use Webaxones\Core\Utils\Contracts\EntityInterface;
 use Webaxones\Core\Utils\Contracts\HookInterface;
 use Webaxones\Core\Utils\Contracts\ActionInterface;
 use Webaxones\Core\Utils\Contracts\SettingInterface;
+use Webaxones\Core\Utils\Contracts\PhpToJsInterface;
 
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
@@ -19,7 +20,7 @@ use \Decalog\Engine as Decalog;
 /**
  * Custom Setting declaration
  */
-class Setting implements EntityInterface, HookInterface, ActionInterface, SettingInterface
+class Setting implements EntityInterface, HookInterface, ActionInterface, SettingInterface, PhpToJsInterface
 {
 	use ClassNameTrait;
 
@@ -86,7 +87,7 @@ class Setting implements EntityInterface, HookInterface, ActionInterface, Settin
 	{
 		return [
 			$this->getHookName() => [ 'registerSetting', 10, 1 ],
-			'wp_print_scripts'   => [ 'sendSettingToJS', 10, 1 ],
+			'wp_print_scripts'   => [ 'sendDataToJS', 10, 1 ],
 		];
 	}
 
@@ -142,23 +143,23 @@ class Setting implements EntityInterface, HookInterface, ActionInterface, Settin
 	/**
 	 * {@inheritdoc}
 	 */
-	public function sendSettingToJS(): void
+	public function sendDataToJS(): void
 	{
-		wp_add_inline_script( 'webaxones-core', $this->stringifySetting( $this->prepareSetting() ), 'before' );
+		wp_add_inline_script( 'webaxones-core', $this->stringifyData( $this->prepareData() ), 'before' );
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function stringifySetting( array $setting ): string
+	public function stringifyData( array $data ): string
 	{
-		return 'const setting = ' . wp_json_encode( $setting );
+		return 'const setting = ' . wp_json_encode( $data );
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function prepareSetting(): array
+	public function prepareData(): array
 	{
 		return array_merge( $this->args['labels'], $this->getSettings() );
 	}

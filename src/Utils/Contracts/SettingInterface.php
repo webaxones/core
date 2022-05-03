@@ -19,27 +19,4 @@ interface SettingInterface
 	 * @return void
 	 */
 	public function registerSetting(): void;
-
-	/**
-	 * Send Setting to JS
-	 *
-	 * @return void
-	 */
-	public function sendSettingToJS(): void;
-
-	/**
-	 * Prepare setting to send to JS by merging labels and settings
-	 *
-	 * @return array
-	 */
-	public function prepareSetting(): array;
-
-	/**
-	 * Stringify Setting
-	 *
-	 * @param  array  $setting
-	 *
-	 * @return string
-	 */
-	public function stringifySetting( array $setting ): string;
 }

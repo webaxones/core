@@ -76,18 +76,7 @@ abstract class AbstractOptionsPage implements EntityInterface, OptionsPageInterf
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getHookName(): string
-	{
-		if ( 'OptionsPage' === $this->getCurrentClassShortName() ) {
-			return 'admin_menu';
-		}
-
-		if ( 'AcfOptionsPage' === $this->getCurrentClassShortName() ) {
-			return 'acf/init';
-		}
-
-		return '';
-	}
+	abstract public function getHookName(): string;
 
 	/**
 	 * {@inheritdoc}

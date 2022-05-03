@@ -19,6 +19,14 @@ class OptionsPage extends AbstractOptionsPage
 	protected array $args;
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function getHookName(): string
+	{
+		return 'admin_menu';
+	}
+
+	/**
 	 * Set options page arguments
 	 *
 	 * @return void

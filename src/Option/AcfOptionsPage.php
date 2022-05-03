@@ -19,6 +19,14 @@ class AcfOptionsPage extends AbstractOptionsPage
 	protected array $args;
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function getHookName(): string
+	{
+		return 'acf/init';
+	}
+
+	/**
 	 * Set options page arguments
 	 *
 	 * @return void
