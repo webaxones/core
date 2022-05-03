@@ -55,5 +55,7 @@ class OptionalSettingsWithLabel
 		'role_name',
 		'label',
 		'title',
+		'setting_label',
+		'setting_help',
 	];
 }

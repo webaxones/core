@@ -56,7 +56,8 @@ class OptionsPage extends AbstractOptionsPage
 	public function optionsPageContent(): void
 	{
 		printf(
-			'<div id="%s"></div>',
+			'<div class="wrap"><h1>%s</h1><div id="%s"></div></div>',
+			esc_html( $this->labels->getLabel( 'page_title' ) ),
 			esc_attr( $this->getSlug() . '__content' ),
 		);
 	}

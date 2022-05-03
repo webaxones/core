@@ -9,7 +9,7 @@ use Exception;
 use Webaxones\Core\Utils\Contracts\EntityInterface;
 use Webaxones\Core\Utils\Contracts\HookInterface;
 use Webaxones\Core\Utils\Contracts\ActionInterface;
-use Webaxones\Core\Utils\Contracts\SettingsGroupInterface;
+use Webaxones\Core\Utils\Contracts\SettingInterface;
 
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
@@ -17,9 +17,9 @@ use Webaxones\Core\Label\Labels;
 use \Decalog\Engine as Decalog;
 
 /**
- * Custom Settings group declaration
+ * Custom Setting declaration
  */
-class SettingsGroup implements EntityInterface, HookInterface, ActionInterface, SettingsGroupInterface
+class Setting implements EntityInterface, HookInterface, ActionInterface, SettingInterface
 {
 	use ClassNameTrait;
 
@@ -45,18 +45,18 @@ class SettingsGroup implements EntityInterface, HookInterface, ActionInterface, 
 	protected array $args;
 
 	/**
-	 * Settings group slug
+	 * Option page slug
+	 *
+	 * @var string
+	 */
+	protected string $pageSlug;
+
+	/**
+	 * Setting slug
 	 *
 	 * @var string
 	 */
 	protected string $slug;
-
-	/**
-	 * Settings group fields
-	 *
-	 * @var array
-	 */
-	protected array $fields;
 
 	public function __construct( array $parameters, Labels $labels )
 	{
@@ -68,7 +68,7 @@ class SettingsGroup implements EntityInterface, HookInterface, ActionInterface, 
 		$this->labels         = $labels;
 		$this->args['labels'] = $this->labels->processLabels();
 		$this->slug           = $this->sanitizeSlug();
-		$this->fields         = $this->settings['fields'];
+		$this->pageSlug       = $parameters['settings']['page_slug'];
 	}
 
 	/**
@@ -76,7 +76,7 @@ class SettingsGroup implements EntityInterface, HookInterface, ActionInterface, 
 	 */
 	public function getHookName(): string
 	{
-		return 'init';
+		return 'wp_enqueue_scripts';
 	}
 
 	/**
@@ -84,7 +84,10 @@ class SettingsGroup implements EntityInterface, HookInterface, ActionInterface, 
 	 */
 	public function getActions(): array
 	{
-		return [ $this->getHookName() => [ 'registerSettings', 10, 1 ] ];
+		return [
+			$this->getHookName() => [ 'registerSetting', 10, 1 ],
+			'wp_print_scripts'   => [ 'sendSettingToJS', 10, 1 ],
+		];
 	}
 
 	/**
@@ -106,6 +109,14 @@ class SettingsGroup implements EntityInterface, HookInterface, ActionInterface, 
 	/**
 	 * {@inheritdoc}
 	 */
+	public function getPageSlug(): string
+	{
+		return $this->pageSlug;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function sanitizeSlug(): string
 	{
 		$settings = $this->getSettings();
@@ -115,47 +126,40 @@ class SettingsGroup implements EntityInterface, HookInterface, ActionInterface, 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getFields(): array
+	public function registerSetting(): void
 	{
-		return $this->fields;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function registerSettings(): void
-	{
-		$this->sendSettingsGroupToJS();
-		$fields = $this->getFields();
-		array_walk(
-			$fields,
-			function( $field ) {
-				register_setting(
-					$this->getSlug(),
-					$field['slug'],
-					[
-						'default'      => '',
-						'show_in_rest' => true,
-					]
-				);
-				DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $field['slug'] . ' » Settings field of « ' . $this->getSlug() . ' » Settings group registered.' );
-			}
+		register_setting(
+			$this->getPageSlug(),
+			$this->getSlug(),
+			[
+				'default'      => '',
+				'show_in_rest' => true,
+			]
 		);
+		DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $field['slug'] . ' » Settings field of « ' . $this->getSlug() . ' » Settings group registered.' );
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function sendSettingsGroupToJS(): void
+	public function sendSettingToJS(): void
 	{
-		wp_add_inline_script( 'webaxones-core', $this->stringifySettings( $this->getSettings() ), 'before' );
+		wp_add_inline_script( 'webaxones-core', $this->stringifySetting( $this->prepareSetting() ), 'before' );
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function stringifySettings( array $settings ): string
+	public function stringifySetting( array $setting ): string
 	{
-		return 'const settingsGroup = ' . wp_json_encode( $settings );
+		return 'const setting = ' . wp_json_encode( $setting );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function prepareSetting(): array
+	{
+		return array_merge( $this->args['labels'], $this->getSettings() );
 	}
 }

@@ -8,7 +8,7 @@ use Exception;
 use \Decalog\Engine as Decalog;
 use Webaxones\Core\Entities\Entity;
 use Webaxones\Core\Hook\Hook;
-use Webaxones\Core\Admin\Asset;
+use Webaxones\Core\Admin\Script;
 
 /**
  * Entities processing
@@ -20,9 +20,9 @@ final class Entities
 		$vendorPath = substr( __FILE__, 0, strpos( __FILE__, 'vendor\\' ) ) . 'vendor\\';
 		define( 'WEBAXONES_VENDOR_PATH', $vendorPath );
 
-		$asset = new Asset();
-		$hook  = new Hook();
-		$hook->register( $asset );
+		$script = new Script();
+		$hook   = new Hook();
+		$hook->register( $script );
 
 		foreach ( $declarations as $declaration ) {
 			try {
