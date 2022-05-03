@@ -4,12 +4,14 @@ namespace Webaxones\Core\Option;
 
 defined( 'ABSPATH' ) || exit;
 
+use Webaxones\Core\Utils\Contracts\PhpToJsInterface;
+
 use \Decalog\Engine as Decalog;
 
 /**
  * Custom native option page declaration
  */
-class OptionsPage extends AbstractOptionsPage
+class OptionsPage extends AbstractOptionsPage implements PhpToJsInterface
 {
 	/**
 	 * Options page declaration arguments
@@ -78,8 +80,31 @@ class OptionsPage extends AbstractOptionsPage
 	public function addOptionsPage(): void
 	{
 		$this->setArgs();
-
 		$this->getAddPageFunction()( ...$this->getArgs() );
 		DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->slug . ' » Options Page added.' );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function sendDataToJS(): void
+	{
+		wp_add_inline_script( 'webaxones-core', $this->stringifyData( $this->prepareData() ), 'before' );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function stringifyData( array $data ): string
+	{
+		return 'let ' . $this->getSlug() . ' = ' . wp_json_encode( $data );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function prepareData(): array
+	{
+		return [];
 	}
 }
