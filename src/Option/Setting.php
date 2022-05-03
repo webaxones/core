@@ -153,7 +153,7 @@ class Setting implements EntityInterface, HookInterface, ActionInterface, Settin
 	 */
 	public function stringifyData( array $data ): string
 	{
-		return 'const setting = ' . wp_json_encode( $data );
+		return 'webaxonesData.push(' . wp_json_encode( $data ) . ')';
 	}
 
 	/**

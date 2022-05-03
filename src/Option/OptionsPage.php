@@ -29,6 +29,17 @@ class OptionsPage extends AbstractOptionsPage implements PhpToJsInterface
 	}
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function getActions(): array
+	{
+		return [
+			$this->getHookName() => [ 'addOptionsPage', 10, 1 ],
+			'wp_print_scripts'   => [ 'sendDataToJS', 10, 1 ],
+		];
+	}
+
+	/**
 	 * Set options page arguments
 	 *
 	 * @return void
@@ -97,7 +108,7 @@ class OptionsPage extends AbstractOptionsPage implements PhpToJsInterface
 	 */
 	public function stringifyData( array $data ): string
 	{
-		return 'let ' . $this->getSlug() . ' = ' . wp_json_encode( $data );
+		return 'let webaxonesData = ' . wp_json_encode( $data );
 	}
 
 	/**

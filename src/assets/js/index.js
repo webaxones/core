@@ -24,15 +24,13 @@ __webpack_require__.r(__webpack_exports__);
 
 const Field = _ref => {
   let {
-    slug
+    field
   } = _ref;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
-    help: 'This is an example text field.',
-    label: 'Example Text',
-    onChange: slug => undefined.setState({
-      slug
-    }),
-    value: slug
+    help: field.setting_help,
+    label: field.setting_label,
+    onChange: field => undefined.setState([field.slug]),
+    value: field.slug
   });
 };
 
@@ -194,7 +192,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-console.log(setting);
+console.log(webaxonesData);
 
 const Notices = () => {
   const notices = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select(_wordpress_notices__WEBPACK_IMPORTED_MODULE_5__.store).getNotices().filter(notice => notice.type === 'snackbar'), []);
@@ -211,10 +209,10 @@ const Notices = () => {
 class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Component {
   constructor() {
     super(...arguments);
-    this.state = {}; // settingsGroup.fields.forEach( field => {
-    // 	this.state[field.slug] = ''
-    // } )
-
+    this.state = {};
+    webaxonesData.forEach(field => {
+      this.state[field.slug] = '';
+    });
     this.state['isAPILoaded'] = false;
   }
 
@@ -226,32 +224,37 @@ class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Component {
       } = this.state;
 
       if (isAPILoaded === false) {
-        this.settings.fetch().then(response => {// settingsGroup.fields.forEach( field => {
-          // 	this.setState( {
-          // 		[field.slug]: response[ field.slug ],
-          // 	} )
-          // } )
+        this.settings.fetch().then(response => {
+          webaxonesData.forEach(field => {
+            this.setState({
+              [field.slug]: response[field.slug]
+            });
+          });
         });
       }
     });
   }
 
   render() {
-    // if ( ! this.state.isAPILoaded ) {
+    console.log(this.state); // if ( ! this.state.isAPILoaded ) {
     //     return (
     //         <Placeholder>
     //             <Spinner />
     //         </Placeholder>
     //     );
     // }
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, webaxonesData.map(data => {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_field_js__WEBPACK_IMPORTED_MODULE_6__.Field, {
+        field: data
+      });
+    }));
   }
 
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const htmlOutput = document.getElementById('wax-company-settings__content');
-  return;
 
   if (htmlOutput) {
     (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.render)((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(App, null), htmlOutput);
