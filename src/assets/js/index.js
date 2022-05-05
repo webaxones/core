@@ -30,7 +30,7 @@ const Field = _ref => {
     help: field.setting_help,
     label: field.setting_label,
     onChange: field => undefined.setState([field.slug]),
-    value: field.slug
+    value: undefined.state[field.slug]
   });
 };
 
@@ -225,10 +225,14 @@ class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Component {
 
       if (isAPILoaded === false) {
         this.settings.fetch().then(response => {
+          console.log(response);
           webaxonesData.forEach(field => {
             this.setState({
               [field.slug]: response[field.slug]
             });
+          });
+          this.setState({
+            ['isAPILoaded']: true
           });
         });
       }
@@ -236,19 +240,38 @@ class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Component {
   }
 
   render() {
-    console.log(this.state); // if ( ! this.state.isAPILoaded ) {
-    //     return (
-    //         <Placeholder>
-    //             <Spinner />
-    //         </Placeholder>
-    //     );
-    // }
+    if (!this.state.isAPILoaded) {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Placeholder, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Spinner, null));
+    }
 
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, webaxonesData.map(data => {
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_field_js__WEBPACK_IMPORTED_MODULE_6__.Field, {
-        field: data
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, webaxonesData.map((data, field) => {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+        key: field,
+        help: data.setting_help,
+        label: data.setting_label,
+        value: this.state[data.slug] || '',
+        onChange: value => this.setState({
+          [data.slug]: value
+        })
       });
-    }));
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+      isPrimary: true,
+      onClick: () => {
+        console.log('CLIC');
+        const values = {};
+        webaxonesData.forEach(field => {
+          values[field.slug] = this.state[field.slug];
+        });
+        console.log(values);
+        const settings = new (_wordpress_api__WEBPACK_IMPORTED_MODULE_1___default().models.Settings)(values);
+        console.log(settings);
+        settings.save();
+        (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.dispatch)('core/notices').createNotice('success', (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Settings Saved', 'webaxones-core'), {
+          type: 'snackbar',
+          isDismissible: true
+        });
+      }
+    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Save', 'webaxones-core')));
   }
 
 }
