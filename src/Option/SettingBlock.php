@@ -9,7 +9,7 @@ use Exception;
 use Webaxones\Core\Utils\Contracts\EntityInterface;
 use Webaxones\Core\Utils\Contracts\HookInterface;
 use Webaxones\Core\Utils\Contracts\ActionInterface;
-use Webaxones\Core\Utils\Contracts\SettingInterface;
+use Webaxones\Core\Utils\Contracts\SettingBlockInterface;
 use Webaxones\Core\Utils\Contracts\PhpToJsInterface;
 
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
@@ -18,9 +18,9 @@ use Webaxones\Core\Label\Labels;
 use \Decalog\Engine as Decalog;
 
 /**
- * Custom Setting group declaration
+ * Custom Setting block declaration
  */
-class SettingGroup implements EntityInterface, HookInterface, ActionInterface, SettingInterface, PhpToJsInterface
+class SettingBlock implements EntityInterface, HookInterface, ActionInterface, SettingBlockInterface, PhpToJsInterface
 {
 	use ClassNameTrait;
 
@@ -46,18 +46,18 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	protected array $args;
 
 	/**
-	 * Option page slug
-	 *
-	 * @var string
-	 */
-	protected string $pageSlug;
-
-	/**
-	 * Setting slug
+	 * Slug
 	 *
 	 * @var string
 	 */
 	protected string $slug;
+
+	/**
+	 * Settings block fields
+	 *
+	 * @var array
+	 */
+	protected array $fields;
 
 	public function __construct( array $parameters, Labels $labels )
 	{
@@ -69,7 +69,7 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 		$this->labels         = $labels;
 		$this->args['labels'] = $this->labels->processLabels();
 		$this->slug           = $this->sanitizeSlug();
-		$this->pageSlug       = $parameters['settings']['page_slug'];
+		$this->fields         = $this->settings['fields'];
 	}
 
 	/**
@@ -110,14 +110,6 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getPageSlug(): string
-	{
-		return $this->pageSlug;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
 	public function sanitizeSlug(): string
 	{
 		$settings = $this->getSettings();
@@ -127,17 +119,31 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	/**
 	 * {@inheritdoc}
 	 */
+	public function getFields(): array
+	{
+		return $this->fields;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function registerSetting(): void
 	{
-		register_setting(
-			$this->getPageSlug(),
-			$this->getSlug(),
-			[
-				'default'      => '',
-				'show_in_rest' => true,
-			]
+		$fields = $this->getFields();
+		array_walk(
+			$fields,
+			function( $field ) {
+				register_setting(
+					$this->getSlug(),
+					$field['slug'],
+					[
+						'default'      => '',
+						'show_in_rest' => true,
+					]
+				);
+				DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $field['slug'] . ' » Settings field of « ' . $this->getSlug() . ' » Settings block registered.' );
+			}
 		);
-		DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $field['slug'] . ' » Settings field of « ' . $this->getSlug() . ' » Settings group registered.' );
 	}
 
 	/**
@@ -153,7 +159,7 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	 */
 	public function stringifyData( array $data ): string
 	{
-		return 'webaxonesData.push(' . wp_json_encode( $data ) . ')';
+		return 'const settingsBlock = ' . wp_json_encode( $data );
 	}
 
 	/**

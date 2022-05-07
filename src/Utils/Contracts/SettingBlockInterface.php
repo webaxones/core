@@ -4,15 +4,8 @@ namespace Webaxones\Core\Utils\Contracts;
 
 defined( 'ABSPATH' ) || exit;
 
-interface SettingGroupInterface
+interface SettingBlockInterface
 {
-	/**
-	 * Get page slug
-	 *
-	 * @return string
-	 */
-	public function getPageSlug(): string;
-
 	/**
 	 * Register Setting
 	 *
