@@ -4,7 +4,7 @@ namespace Webaxones\Core\Utils\Contracts;
 
 defined( 'ABSPATH' ) || exit;
 
-interface SettingInterface
+interface SettingGroupInterface
 {
 	/**
 	 * Get page slug

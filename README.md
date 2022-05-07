@@ -67,13 +67,9 @@ Add desired content declarations to your `my-example-plugin.php` file:
  */
 defined( 'ABSPATH' ) || exit;
 
-use Webaxones\Core\Hook\Hook;
-use Webaxones\Core\I18n\I18n;
 use Webaxones\Core\Entities\Entities;
 
-$hook = new Hook();
-$i18n = new I18n( 'webaxones-content' );
-$hook->register( $i18n );
+Webaxones\Core\Library::init( 'webaxones-content' );
 
 /**
  * Custom Post Type: Project

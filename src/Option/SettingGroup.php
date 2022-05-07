@@ -18,9 +18,9 @@ use Webaxones\Core\Label\Labels;
 use \Decalog\Engine as Decalog;
 
 /**
- * Custom Setting declaration
+ * Custom Setting group declaration
  */
-class Setting implements EntityInterface, HookInterface, ActionInterface, SettingInterface, PhpToJsInterface
+class SettingGroup implements EntityInterface, HookInterface, ActionInterface, SettingInterface, PhpToJsInterface
 {
 	use ClassNameTrait;
 
