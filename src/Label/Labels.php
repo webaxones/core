@@ -8,9 +8,6 @@ use Webaxones\Core\Utils\Contracts\HookInterface;
 
 use Webaxones\Core\Utils\Concerns\OptionalSettingsTrait;
 
-use Webaxones\Core\Config\OptionalSettingsWithLabel;
-
-
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -140,28 +137,48 @@ class Labels implements LabelsInterface, HookInterface, FilterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function processLabels(): array
+	public function processClassificationLabels( array $labels ): array
 	{
-		$labels = [];
-		if ( array_key_exists( 'singular_name', $this->getLabels() ) && array_key_exists( 'plural_name', $this->getLabels() ) ) {
+		if ( array_key_exists( 'singular_name', $this->getLabels() ) && array_key_exists( 'name', $this->getLabels() ) ) {
 			$labels = [
-				'name'               => $this->getLabel( 'plural_name' ),
+				'name'               => $this->getLabel( 'name' ),
 				'singular_name'      => $this->getLabel( 'singular_name' ),
 				'edit_item'          => $this->getGlobalWord( 'edit' ) . ' ' . strtolower( $this->getLabel( 'the_singular' ) ),
 				'update_item'        => $this->getGlobalWord( 'update' ) . ' ' . strtolower( $this->getLabel( 'the_singular' ) ),
 				'view_item'          => $this->getGlobalWord( 'view' ) . ' ' . strtolower( $this->getLabel( 'the_singular' ) ),
 				'view_items'         => $this->getGlobalWord( 'view' ) . ' ' . strtolower( $this->getLabel( 'the_plural' ) ),
 				'add_new_item'       => $this->getGlobalWord( 'add' ) . ' ' . $this->getGlobalWord( $this->getGender() ? 'a_feminine' : 'a_masculine' ) . ' ' . strtolower( $this->getLabel( 'new_item' ) ),
-				'archives'           => $this->getGlobalWord( 'list_of' ) . ' ' . strtolower( $this->getLabel( 'plural_name' ) ),
-				'attributes'         => $this->getGlobalWord( 'attributes_of' ) . ' ' . strtolower( $this->getLabel( 'plural_name' ) ),
+				'archives'           => $this->getGlobalWord( 'list_of' ) . ' ' . strtolower( $this->getLabel( 'name' ) ),
+				'attributes'         => $this->getGlobalWord( 'attributes_of' ) . ' ' . strtolower( $this->getLabel( 'name' ) ),
 				'not_found'          => $this->getGlobalWord( 'not_found' ),
 				'not_found_in_trash' => $this->getGlobalWord( 'not_found_in_trash' ),
 				'search_items'       => $this->getGlobalWord( 'search_items' ),
-				'menu_name'          => $this->getLabel( 'plural_name' ),
+				'menu_name'          => $this->getLabel( 'name' ),
 			];
 		}
+		return $labels;
+	}
 
-		$labels = $this->AddPassedOptions( OptionalSettingsWithLabel::$optionalLabels, $labels, $this->getLabels() );
+	/**
+	 * {@inheritdoc}
+	 */
+	public function processOptionalLabels( array $labels ): array
+	{
+		$declarationLabels = $this->getLabels();
+		unset( $declarationLabels['gender'] );
+		$diff = array_diff( $declarationLabels, $labels );
+		return array_merge( $labels, $diff );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function processLabels(): array
+	{
+		$labels = [];
+		$labels = $this->processClassificationLabels( $labels );
+		$labels = $this->processOptionalLabels( $labels );
+
 		return $labels;
 	}
 
@@ -217,7 +234,7 @@ class Labels implements LabelsInterface, HookInterface, FilterInterface
 				3 => $this->getLabel( 'singular_name' ) . ' ' . $this->getGlobalWord( $this->getGender() ? 'updated_feminine' : 'updated_masculine' ) . '.',
 				4 => $this->getLabel( 'singular_name' ) . ' ' . $this->getGlobalWord( $this->getGender() ? 'not_added_feminine' : 'not_added_masculine' ) . '.',
 				5 => $this->getLabel( 'singular_name' ) . ' ' . $this->getGlobalWord( $this->getGender() ? 'not_updated_feminine' : 'not_updated_masculine' ) . '.',
-				6 => $this->getLabel( 'plural_name' ) . ' ' . $this->getGlobalWord( $this->getGender() ? 'deleted_plural_feminine' : 'deleted_plural_masculine' ) . '.',
+				6 => $this->getLabel( 'name' ) . ' ' . $this->getGlobalWord( $this->getGender() ? 'deleted_plural_feminine' : 'deleted_plural_masculine' ) . '.',
 			];
 		}
 

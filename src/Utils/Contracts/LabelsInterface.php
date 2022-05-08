@@ -15,6 +15,23 @@ interface LabelsInterface
 	 */
 	public function getGlobalWord( string $word ): string;
 
+	/**
+	 * Process classification labels by recomposing them with GlobalWords then adding results to $labels
+	 *
+	 * @param  array $labels
+	 *
+	 * @return array
+	 */
+	public function processClassificationLabels( array $labels ): array;
+
+	/**
+	 * Process optional labels added in declarations by adding them to $labels
+	 *
+	 * @param  array $labels
+	 *
+	 * @return array
+	 */
+	public function processOptionalLabels( array $labels ): array;
 
 	/**
 	 * Process custom content internationalized labels
