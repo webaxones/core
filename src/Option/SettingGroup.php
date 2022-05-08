@@ -167,7 +167,7 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	 */
 	public function sendDataToJS(): void
 	{
-		wp_add_inline_script( 'webaxones-core', $this->stringifyData( $this->prepareData() ), 'before' );
+		wp_add_inline_script( 'webaxones-core', $this->stringifyData( $this->formatData() ), 'before' );
 	}
 
 	/**
@@ -176,6 +176,26 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	public function stringifyData( array $data ): string
 	{
 		return 'const settingsGroup = ' . wp_json_encode( $data );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function formatData(): array
+	{
+		$settings = $this->prepareData();
+		$data     = $settings;
+
+		foreach ( $settings['fields'] as $key => $value ) {
+			$label = $settings[ $value['labels']['label'] ];
+			unset( $data[ $value['labels']['label'] ] );
+			$help = $settings[ $value['labels']['help'] ];
+			unset( $data[ $value['labels']['help'] ] );
+
+			$data['fields'][ $key ]['labels']['label'] = $label;
+			$data['fields'][ $key ]['labels']['help']  = $help;
+		}
+		return $data;
 	}
 
 	/**
