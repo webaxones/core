@@ -9,7 +9,7 @@ use Exception;
 use Webaxones\Core\Utils\Contracts\EntityInterface;
 use Webaxones\Core\Utils\Contracts\HookInterface;
 use Webaxones\Core\Utils\Contracts\ActionInterface;
-use Webaxones\Core\Utils\Contracts\SettingBlockInterface;
+use Webaxones\Core\Utils\Contracts\SettingGroupInterface;
 use Webaxones\Core\Utils\Contracts\PhpToJsInterface;
 
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
@@ -18,9 +18,9 @@ use Webaxones\Core\Label\Labels;
 use \Decalog\Engine as Decalog;
 
 /**
- * Custom Setting block declaration
+ * Custom Setting group declaration
  */
-class SettingBlock implements EntityInterface, HookInterface, ActionInterface, SettingBlockInterface, PhpToJsInterface
+class SettingGroup implements EntityInterface, HookInterface, ActionInterface, SettingGroupInterface, PhpToJsInterface
 {
 	use ClassNameTrait;
 
@@ -53,7 +53,14 @@ class SettingBlock implements EntityInterface, HookInterface, ActionInterface, S
 	protected string $slug;
 
 	/**
-	 * Settings block fields
+	 * Page slug
+	 *
+	 * @var string
+	 */
+	protected string $pageSlug;
+
+	/**
+	 * Settings group fields
 	 *
 	 * @var array
 	 */
@@ -69,6 +76,7 @@ class SettingBlock implements EntityInterface, HookInterface, ActionInterface, S
 		$this->labels         = $labels;
 		$this->args['labels'] = $this->labels->processLabels();
 		$this->slug           = $this->sanitizeSlug();
+		$this->pageSlug       = $parameters['settings']['page_slug'];
 		$this->fields         = $this->settings['fields'];
 	}
 
@@ -119,6 +127,14 @@ class SettingBlock implements EntityInterface, HookInterface, ActionInterface, S
 	/**
 	 * {@inheritdoc}
 	 */
+	public function getPageSlug(): string
+	{
+		return $this->pageSlug;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function getFields(): array
 	{
 		return $this->fields;
@@ -141,7 +157,7 @@ class SettingBlock implements EntityInterface, HookInterface, ActionInterface, S
 						'show_in_rest' => true,
 					]
 				);
-				DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $field['slug'] . ' » Settings field of « ' . $this->getSlug() . ' » Settings block registered.' );
+				DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $field['slug'] . ' » Settings field of « ' . $this->getSlug() . ' » Settings group registered.' );
 			}
 		);
 	}
@@ -159,7 +175,7 @@ class SettingBlock implements EntityInterface, HookInterface, ActionInterface, S
 	 */
 	public function stringifyData( array $data ): string
 	{
-		return 'const settingsBlock = ' . wp_json_encode( $data );
+		return 'const settingsGroup = ' . wp_json_encode( $data );
 	}
 
 	/**
