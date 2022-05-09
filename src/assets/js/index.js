@@ -192,14 +192,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-console.log(settingsGroup);
 
 const Notices = () => {
   const notices = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select(_wordpress_notices__WEBPACK_IMPORTED_MODULE_5__.store).getNotices().filter(notice => notice.type === 'snackbar'), []);
   const {
     removeNotice
   } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useDispatch)(_wordpress_notices__WEBPACK_IMPORTED_MODULE_5__.store);
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(SnackbarList, {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SnackbarList, {
     className: "edit-site-notices",
     notices: notices,
     onRemove: removeNotice
@@ -210,10 +209,12 @@ class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Component {
   constructor() {
     super(...arguments);
     this.state = {};
+    this.state['fields'] = [];
     settingsGroup.fields.forEach(field => {
-      this.state[field.slug] = '';
+      this.state['fields'][field.slug] = '';
     });
     this.state['isAPILoaded'] = false;
+    console.log(this.state);
   }
 
   componentDidMount() {
@@ -244,34 +245,33 @@ class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Component {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Placeholder, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Spinner, null));
     }
 
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, settingsGroup.fields.map((data, field) => {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, settingsGroup.fields.map(field => {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
-        key: field,
-        help: data.setting_help,
-        label: data.setting_label,
-        value: this.state[data.slug] || '',
+        key: field.slug,
+        help: field.labels.help,
+        label: field.labels.label,
+        value: this.state[field.slug] || '',
         onChange: value => this.setState({
-          [data.slug]: value
+          [field.slug]: value
         })
       });
     }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
       isPrimary: true,
       onClick: () => {
-        console.log('CLIC');
         const values = {};
         settingsGroup.fields.forEach(field => {
           values[field.slug] = this.state[field.slug];
         });
-        console.log(values);
         const settings = new (_wordpress_api__WEBPACK_IMPORTED_MODULE_1___default().models.Settings)(values);
-        console.log(settings);
         settings.save();
         (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.dispatch)('core/notices').createNotice('success', (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Settings Saved', 'webaxones-core'), {
           type: 'snackbar',
           isDismissible: true
         });
       }
-    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Save', 'webaxones-core')));
+    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Save', 'webaxones-core')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "wax-company-settings____notices"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Notices, null)));
   }
 
 }

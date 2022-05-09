@@ -7,6 +7,13 @@ defined( 'ABSPATH' ) || exit;
 interface PhpToJsInterface
 {
 	/**
+	 * Get hook name for inline script
+	 *
+	 * @return string
+	 */
+	public function getInlineScriptHookName(): string;
+
+	/**
 	 * Send Data to JS
 	 *
 	 * @return void

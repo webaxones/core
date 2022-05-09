@@ -85,7 +85,15 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	 */
 	public function getHookName(): string
 	{
-		return 'wp_enqueue_scripts';
+		return 'rest_api_init';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getInlineScriptHookName(): string
+	{
+		return 'wp_print_scripts';
 	}
 
 	/**
@@ -94,8 +102,8 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	public function getActions(): array
 	{
 		return [
-			$this->getHookName() => [ 'registerSetting', 10, 1 ],
-			'wp_print_scripts'   => [ 'sendDataToJS', 10, 1 ],
+			$this->getHookName()             => [ 'registerSetting', 10, 1 ],
+			$this->getInlineScriptHookName() => [ 'sendDataToJS', 10, 1 ],
 		];
 	}
 
