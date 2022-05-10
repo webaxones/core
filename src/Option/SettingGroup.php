@@ -197,11 +197,12 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 		foreach ( $settings['fields'] as $key => $value ) {
 			$label = $settings[ $value['labels']['label'] ];
 			unset( $data[ $value['labels']['label'] ] );
-			$help = $settings[ $value['labels']['help'] ];
-			unset( $data[ $value['labels']['help'] ] );
-
 			$data['fields'][ $key ]['labels']['label'] = $label;
-			$data['fields'][ $key ]['labels']['help']  = $help;
+			if ( '' !== $value['labels']['help'] ) {
+				$help = $settings[ $value['labels']['help'] ];
+				unset( $data[ $value['labels']['help'] ] );
+				$data['fields'][ $key ]['labels']['help'] = $help;
+			}
 		}
 		return $data;
 	}
