@@ -191,8 +191,11 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	 */
 	public function formatData(): array
 	{
-		$settings = $this->prepareData();
-		$data     = $settings;
+		$settings   = $this->prepareData();
+		$data       = $settings;
+		$groupLabel = $settings['group_label'];
+		unset( $settings['group_label'] );
+		$data['label'] = $groupLabel;
 
 		foreach ( $settings['fields'] as $key => $value ) {
 			$label = $settings[ $value['labels']['label'] ];

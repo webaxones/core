@@ -257,6 +257,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const settingsGroup = webaxonesApps[0];
 
 const onSelect = tabName => {
   console.log('Selecting tab', tabName);
@@ -272,12 +273,12 @@ class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
       });
     });
 
-    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "Tabs", (group, key) => {
-      return {
-        name: `${group['slug']}__tab${key}`,
-        key: key,
-        title: 'Tab',
-        className: `${group['slug']}__tab${key}`,
+    this.state = {};
+    this.tabs = [];
+    webaxonesApps.forEach(group => {
+      this.tabs.push({
+        name: group.slug,
+        title: group.label,
         content: group.fields.map(field => {
           return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_string_js__WEBPACK_IMPORTED_MODULE_6__.String, {
             key: field.slug,
@@ -286,12 +287,8 @@ class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
             field: field
           });
         })
-      };
-    });
-
-    this.state = {};
-    webaxonesApps.forEach(settingsGroup => {
-      settingsGroup.fields.forEach(field => {
+      });
+      group.fields.forEach(field => {
         this.state[field.slug] = '';
       });
     });
@@ -327,7 +324,7 @@ class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Placeholder, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Spinner, null));
     }
 
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, webaxonesApps.length !== 1 ? settingsGroup.fields.map(field => {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, webaxonesApps.length === 1 ? settingsGroup.fields.map(field => {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_string_js__WEBPACK_IMPORTED_MODULE_6__.String, {
         key: field.slug,
         onChange: this.handleOnChange,
@@ -338,12 +335,7 @@ class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
       className: `${webaxonesApps[0]['page_slug']}__panel`,
       activeClass: "active-tab",
       onSelect: onSelect,
-      tabs: [webaxonesApps.map((group, i) => {
-        return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(this.Tabs, {
-          group: group,
-          key: `tab${i}`
-        });
-      })]
+      tabs: this.tabs
     }, tab => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", null, tab.content)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
       isPrimary: true,
       onClick: () => {

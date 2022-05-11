@@ -6,6 +6,8 @@ import { __ } from '@wordpress/i18n'
 import { String } from './string.js'
 import { Notices } from './notices.js'
 
+const settingsGroup = webaxonesApps[0]
+
 const onSelect = ( tabName ) => {
 	console.log( 'Selecting tab', tabName );
 }
@@ -15,9 +17,17 @@ class App extends Component {
         super( ...arguments )
 
 		this.state = {}
+		this.tabs = []
 
-		webaxonesApps.forEach( settingsGroup => {
-			settingsGroup.fields.forEach( field => {
+		webaxonesApps.forEach( group => {
+			this.tabs.push({
+				name: group.slug,
+				title: group.label,
+				content: group.fields.map( field => {
+					return <String key={ field.slug } onChange={ this.handleOnChange } state={ this.state } field={ field } />
+				} )
+			},)
+			group.fields.forEach( field => {
 				this.state[field.slug] = ''
 			} )
 		} )
@@ -53,18 +63,6 @@ class App extends Component {
 		this.setState( { [fieldSlug]: value } )
 	}
 
-	Tabs = ( group, key ) => {
-		return {
-			name: `${group['slug']}__tab${key}`,
-			key: key,
-			title: 'Tab',
-			className: `${group['slug']}__tab${key}`,
-			content: group.fields.map( field => {
-				return <String key={ field.slug } onChange={ this.handleOnChange } state={ this.state } field={ field } />
-			} )
-		}
-	}
-
     render() {
 		if ( ! this.state.isAPILoaded ) {
             return (
@@ -76,7 +74,7 @@ class App extends Component {
 
 		return (
 			<>
-				{ ( webaxonesApps.length !== 1 ) 
+				{ ( webaxonesApps.length === 1 ) 
 					? settingsGroup.fields.map( field => {
 						return <String key={ field.slug } onChange={ this.handleOnChange } state={ this.state } field={ field } />
 					} )
@@ -84,13 +82,7 @@ class App extends Component {
 						className={ `${webaxonesApps[0]['page_slug']}__panel` }
 						activeClass='active-tab'
 						onSelect={ onSelect }
-						tabs={
-							[
-								webaxonesApps.map( ( group, i ) => {
-									return <this.Tabs group={ group } key={ `tab${i}` } />
-								} )
-							]
-						}
+						tabs={ this.tabs }
 					>
 					{ ( tab ) => <div>{ tab.content }</div> }
 					</TabPanel>
