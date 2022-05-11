@@ -1,32 +1,18 @@
 import api from '@wordpress/api'
-import { Button, Icon, TabPanel, Panel, PanelBody, PanelRow, Placeholder, SelectControl, Spinner, TextControl, ToggleControl, SnackbarList } from '@wordpress/components'
-import { dispatch, useDispatch, useSelect } from '@wordpress/data'
+import { Button, Icon, TabPanel, Panel, PanelBody, PanelRow, Placeholder, SelectControl, Spinner, TextControl, ToggleControl } from '@wordpress/components'
+import { dispatch } from '@wordpress/data'
 import { render, Component } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
-import { store as noticesStore } from '@wordpress/notices'
 import { String } from './string.js'
+import { Notices } from './notices.js'
 
-const Notices = () => {
-    const notices = useSelect(
-        ( select ) =>
-            select( noticesStore )
-                .getNotices()
-                .filter( ( notice ) => notice.type === 'snackbar' ),
-        []
-    )
-    const { removeNotice } = useDispatch( noticesStore );
-    return (
-        <SnackbarList
-            className="edit-site-notices"
-            notices={ notices }
-            onRemove={ removeNotice }
-        />
-    )
-}
+// console.log(webaxonesApps)
+
+const settingsGroup = webaxonesApps[0]
 
 const onSelect = ( tabName ) => {
-    console.log( 'Selecting tab', tabName );
-};
+	console.log( 'Selecting tab', tabName );
+}
 
 class App extends Component {
     constructor() {
@@ -34,8 +20,10 @@ class App extends Component {
 
 		this.state = {}
 
-		settingsGroup.fields.forEach( field => {
-			this.state[field.slug] = ''
+		webaxonesApps.forEach( settingsGroup => {
+			settingsGroup.fields.forEach( field => {
+				this.state[field.slug] = ''
+			} )
 		} )
 
 		this.state['isAPILoaded'] = false
@@ -50,11 +38,13 @@ class App extends Component {
 
             if ( isAPILoaded === false ) {
                 this.settings.fetch().then( ( response ) => {
-					settingsGroup.fields.forEach( field => {
-						this.setState( {
-							[field.slug]: response[ field.slug ],
+					webaxonesApps.forEach( settingsGroup => {
+						settingsGroup.fields.forEach( field => {
+							this.setState( {
+								[field.slug]: response[ field.slug ],
+							} )
 						} )
-					} )
+					} )	
 					this.setState( {
 						['isAPILoaded']: true
 					} )
@@ -63,8 +53,20 @@ class App extends Component {
         } )
     }
 
-	handleOnChange = (fieldSlug, value) => {
+	handleOnChange = ( fieldSlug, value ) => {
 		this.setState( { [fieldSlug]: value } )
+	}
+
+	Tabs = ( group, key ) => {
+		return {
+			name: `${group['slug']}__tab${key}`,
+			key: key,
+			title: 'Tab',
+			className: `${group['slug']}__tab${key}`,
+			content: group.fields.map( field => {
+				return <String key={ field.slug } onChange={ this.handleOnChange } state={ this.state } field={ field } />
+			} )
+		}
 	}
 
     render() {
@@ -76,20 +78,35 @@ class App extends Component {
             )
         } 
 
-        return (
-            <>
-				{ settingsGroup.fields.map( field => {
-					return <String key={ field.slug } onChange={ this.handleOnChange } state={ this.state } field={ field } />
-				} ) }
+		return (
+			<>
+				{ ( webaxonesApps.length !== 1 ) 
+					? settingsGroup.fields.map( field => {
+						return <String key={ field.slug } onChange={ this.handleOnChange } state={ this.state } field={ field } />
+					} )
+					: <TabPanel
+						className={ `${webaxonesApps[0]['page_slug']}__panel` }
+						activeClass='active-tab'
+						onSelect={ onSelect }
+						tabs={
+							[
+								webaxonesApps.map( ( group, i ) => {
+									return <this.Tabs group={ group } key={ `tab${i}` } />
+								} )
+							]
+						}
+					>
+					{ ( tab ) => <div>{ tab.content }</div> }
+					</TabPanel>
+				}
 
 				<Button
-					className = 'button button-primary'
+					isPrimary
 					onClick={ () => {
 						const values = this.state
 						delete values.isAPILoaded
 
 						const settings = new api.models.Settings( values )
-
 						settings.save()
 
 						dispatch('core/notices').createNotice(

@@ -29,6 +29,14 @@ class OptionsPage extends AbstractOptionsPage
 	/**
 	 * {@inheritdoc}
 	 */
+	public function getInlineScriptHookName(): string
+	{
+		return '';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function getActions(): array
 	{
 		return [ $this->getHookName() => [ 'addOptionsPage', 10, 1 ] ];

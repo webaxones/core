@@ -144,6 +144,43 @@ $declarations[] = [
 ];
 
 /**
+ * Custom settings group for company option page
+ */
+$declarations[] = [
+	'entity'   => 'Webaxones\Core\Option\SettingGroup',
+	'labels'   => [
+		'group_label'        => __( 'Group One', 'webaxones-content' ),
+		'company_name_label' => __( 'Company name', 'webaxones-content' ),
+		'company_name_help'  => __( 'Full name of the company', 'webaxones-content' ),
+		'company_adr1_label' => __( 'Company address', 'webaxones-content' ),
+		'company_adr1_help'  => __( 'Address #1 of the company', 'webaxones-content' ),
+	],
+	'settings' => [
+		'slug'      => 'wax-company-settings-group1',
+		'page_slug' => 'wax-company-settings',
+		'label'     => 'group_label',
+		'fields'    => [
+			[
+				'slug'   => 'wax_company_settings_settings_company_name',
+				'type'   => 'string',
+				'labels' => [
+					'label' => 'company_name_label',
+					'help'  => 'company_name_help',
+				],
+			],
+			[
+				'slug'   => 'wax_company_settings_settings_company_addr',
+				'type'   => 'string',
+				'labels' => [
+					'label' => 'company_adr1_label',
+					'help'  => 'company_adr1_help',
+				],
+			],
+		],
+	],
+];
+
+/**
  * Custom ACF option page: Projects archive
  */
 $declarations[] = [

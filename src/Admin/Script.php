@@ -5,10 +5,12 @@ defined( 'ABSPATH' ) || exit;
 
 use Exception;
 
+use Webaxones\Core\Utils\Contracts\PhpToJsInterface;
+
 /**
  * Manage Script
  */
-class Script extends AbstractAsset
+class Script extends AbstractAsset implements PhpToJsInterface
 {
 	/**
 	 * {@inheritdoc}
@@ -21,9 +23,20 @@ class Script extends AbstractAsset
 	/**
 	 * {@inheritdoc}
 	 */
+	public function getInlineScriptHookName(): string
+	{
+		return 'wp_print_scripts';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function getActions(): array
 	{
-		return [ $this->getHookName() => [ 'enqueueAsset', 10, 1 ] ];
+		return [
+			$this->getHookName()             => [ 'enqueueAsset', 10, 1 ],
+			$this->getInlineScriptHookName() => [ 'sendDataToJS', 10, 1 ],
+		];
 	}
 
 	/**
@@ -50,5 +63,39 @@ class Script extends AbstractAsset
 			$script_asset['dependencies'],
 			$script_asset['version']
 		);
+
+		wp_enqueue_style('wp-edit-post');
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function sendDataToJS(): void
+	{
+		wp_add_inline_script( 'webaxones-core', $this->stringifyData( $this->formatData() ), 'before' );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function stringifyData( array $data ): string
+	{
+		return 'let webaxonesApps = ' . wp_json_encode( $data );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function formatData(): array
+	{
+		return $this->prepareData();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function prepareData(): array
+	{
+		return [];
 	}
 }

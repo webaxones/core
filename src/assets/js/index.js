@@ -2,6 +2,42 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./js/notices.js":
+/*!***********************!*\
+  !*** ./js/notices.js ***!
+  \***********************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Notices": function() { return /* binding */ Notices; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_notices__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/notices */ "@wordpress/notices");
+/* harmony import */ var _wordpress_notices__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_notices__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+const Notices = () => {
+  const notices = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => select(_wordpress_notices__WEBPACK_IMPORTED_MODULE_3__.store).getNotices().filter(notice => notice.type === 'snackbar'), []);
+  const {
+    removeNotice
+  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useDispatch)(_wordpress_notices__WEBPACK_IMPORTED_MODULE_3__.store);
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.SnackbarList, {
+    className: "edit-site-notices",
+    notices: notices,
+    onRemove: removeNotice
+  });
+};
+
+/***/ }),
+
 /***/ "./js/string.js":
 /*!**********************!*\
   !*** ./js/string.js ***!
@@ -210,9 +246,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _wordpress_notices__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/notices */ "@wordpress/notices");
-/* harmony import */ var _wordpress_notices__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_notices__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _string_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./string.js */ "./js/string.js");
+/* harmony import */ var _string_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./string.js */ "./js/string.js");
+/* harmony import */ var _notices_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./notices.js */ "./js/notices.js");
 
 
 
@@ -221,19 +256,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+ // console.log(webaxonesApps)
 
-
-const Notices = () => {
-  const notices = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useSelect)(select => select(_wordpress_notices__WEBPACK_IMPORTED_MODULE_6__.store).getNotices().filter(notice => notice.type === 'snackbar'), []);
-  const {
-    removeNotice
-  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useDispatch)(_wordpress_notices__WEBPACK_IMPORTED_MODULE_6__.store);
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SnackbarList, {
-    className: "edit-site-notices",
-    notices: notices,
-    onRemove: removeNotice
-  });
-};
+const settingsGroup = webaxonesApps[0];
 
 const onSelect = tabName => {
   console.log('Selecting tab', tabName);
@@ -249,9 +274,28 @@ class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
       });
     });
 
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "Tabs", (group, key) => {
+      return {
+        name: `${group['slug']}__tab${key}`,
+        key: key,
+        title: 'Tab',
+        className: `${group['slug']}__tab${key}`,
+        content: group.fields.map(field => {
+          return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_string_js__WEBPACK_IMPORTED_MODULE_6__.String, {
+            key: field.slug,
+            onChange: this.handleOnChange,
+            state: this.state,
+            field: field
+          });
+        })
+      };
+    });
+
     this.state = {};
-    settingsGroup.fields.forEach(field => {
-      this.state[field.slug] = '';
+    webaxonesApps.forEach(settingsGroup => {
+      settingsGroup.fields.forEach(field => {
+        this.state[field.slug] = '';
+      });
     });
     this.state['isAPILoaded'] = false;
   }
@@ -265,9 +309,11 @@ class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
 
       if (isAPILoaded === false) {
         this.settings.fetch().then(response => {
-          settingsGroup.fields.forEach(field => {
-            this.setState({
-              [field.slug]: response[field.slug]
+          webaxonesApps.forEach(settingsGroup => {
+            settingsGroup.fields.forEach(field => {
+              this.setState({
+                [field.slug]: response[field.slug]
+              });
             });
           });
           this.setState({
@@ -283,15 +329,25 @@ class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Placeholder, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Spinner, null));
     }
 
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, settingsGroup.fields.map(field => {
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_string_js__WEBPACK_IMPORTED_MODULE_7__.String, {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, webaxonesApps.length !== 1 ? settingsGroup.fields.map(field => {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_string_js__WEBPACK_IMPORTED_MODULE_6__.String, {
         key: field.slug,
         onChange: this.handleOnChange,
         state: this.state,
         field: field
       });
-    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
-      className: "button button-primary",
+    }) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TabPanel, {
+      className: `${webaxonesApps[0]['page_slug']}__panel`,
+      activeClass: "active-tab",
+      onSelect: onSelect,
+      tabs: [webaxonesApps.map((group, i) => {
+        return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(this.Tabs, {
+          group: group,
+          key: `tab${i}`
+        });
+      })]
+    }, tab => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", null, tab.content)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
+      isPrimary: true,
       onClick: () => {
         const values = this.state;
         delete values.isAPILoaded;
@@ -304,7 +360,7 @@ class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
       }
     }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Save', 'webaxones-core')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
       className: "wax-company-settings__notices"
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(Notices, null)));
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_notices_js__WEBPACK_IMPORTED_MODULE_7__.Notices, null)));
   }
 
 }

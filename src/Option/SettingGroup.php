@@ -183,7 +183,7 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	 */
 	public function stringifyData( array $data ): string
 	{
-		return 'const settingsGroup = ' . wp_json_encode( $data );
+		return 'webaxonesApps.push(' . wp_json_encode( $data ) . ')';
 	}
 
 	/**
