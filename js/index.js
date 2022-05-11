@@ -6,10 +6,6 @@ import { __ } from '@wordpress/i18n'
 import { String } from './string.js'
 import { Notices } from './notices.js'
 
-// console.log(webaxonesApps)
-
-const settingsGroup = webaxonesApps[0]
-
 const onSelect = ( tabName ) => {
 	console.log( 'Selecting tab', tabName );
 }

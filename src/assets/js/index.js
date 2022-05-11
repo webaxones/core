@@ -256,9 +256,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // console.log(webaxonesApps)
 
-const settingsGroup = webaxonesApps[0];
 
 const onSelect = tabName => {
   console.log('Selecting tab', tabName);
