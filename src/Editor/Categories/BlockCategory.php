@@ -4,7 +4,7 @@ namespace Webaxones\Core\Editor\Categories;
 
 defined( 'ABSPATH' ) || exit;
 
-use \Decalog\Engine as Decalog;
+use \DecaLog\Engine as Decalog;
 
 /**
  * Custom block category declaration

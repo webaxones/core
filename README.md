@@ -67,6 +67,11 @@ Add desired content declarations to your `my-example-plugin.php` file:
  */
 defined( 'ABSPATH' ) || exit;
 
+// If you already have an autoload (for example if you are on Bedrock) you can remove these 3 lines, otherwise leave them.
+if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
+	require __DIR__ . '/vendor/autoload.php';
+}
+
 use Webaxones\Core\Entities\Entities;
 
 Webaxones\Core\Library::init( 'webaxones-content' );

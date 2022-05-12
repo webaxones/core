@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 
 use Webaxones\Core\Hook\Hook;
 use Webaxones\Core\I18n\I18n;
-use \Decalog\Engine as Decalog;
+use \DecaLog\Engine as Decalog;
 
 /**
  * Library engine

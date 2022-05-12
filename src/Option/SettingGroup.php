@@ -15,7 +15,7 @@ use Webaxones\Core\Utils\Contracts\PhpToJsInterface;
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
 use Webaxones\Core\Label\Labels;
-use \Decalog\Engine as Decalog;
+use \DecaLog\Engine as Decalog;
 
 /**
  * Custom Setting group declaration
