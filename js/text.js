@@ -1,6 +1,6 @@
 import { TextControl } from '@wordpress/components'
 
-export const String = ( { state, field, onChange } ) => {
+export const Text = ( { state, field, onChange } ) => {
 	return (
 		<TextControl key={ field.slug }
 			help={ field.labels.hasOwnProperty('help') ? field.labels.help : '' }

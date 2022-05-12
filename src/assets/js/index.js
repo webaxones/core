@@ -38,15 +38,15 @@ const Notices = () => {
 
 /***/ }),
 
-/***/ "./js/string.js":
-/*!**********************!*\
-  !*** ./js/string.js ***!
-  \**********************/
+/***/ "./js/text.js":
+/*!********************!*\
+  !*** ./js/text.js ***!
+  \********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "String": function() { return /* binding */ String; }
+/* harmony export */   "Text": function() { return /* binding */ Text; }
 /* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
@@ -54,7 +54,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
 
 
-const String = _ref => {
+const Text = _ref => {
   let {
     state,
     field,
@@ -246,7 +246,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _string_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./string.js */ "./js/string.js");
+/* harmony import */ var _text_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./text.js */ "./js/text.js");
 /* harmony import */ var _notices_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./notices.js */ "./js/notices.js");
 
 
@@ -276,20 +276,20 @@ class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
     this.state = {};
     this.tabs = [];
     webaxonesApps.forEach(group => {
+      group.fields.forEach(field => {
+        this.state[field.slug] = '';
+      });
       this.tabs.push({
         name: group.slug,
         title: group.label,
         content: group.fields.map(field => {
-          return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_string_js__WEBPACK_IMPORTED_MODULE_6__.String, {
+          return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_text_js__WEBPACK_IMPORTED_MODULE_6__.Text, {
             key: field.slug,
             onChange: this.handleOnChange,
             state: this.state,
             field: field
           });
         })
-      });
-      group.fields.forEach(field => {
-        this.state[field.slug] = '';
       });
     });
     this.state['isAPILoaded'] = false;
@@ -325,7 +325,7 @@ class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
     }
 
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, webaxonesApps.length === 1 ? settingsGroup.fields.map(field => {
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_string_js__WEBPACK_IMPORTED_MODULE_6__.String, {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_text_js__WEBPACK_IMPORTED_MODULE_6__.Text, {
         key: field.slug,
         onChange: this.handleOnChange,
         state: this.state,

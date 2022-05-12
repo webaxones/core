@@ -3,7 +3,7 @@ import { Button, Icon, TabPanel, Panel, PanelBody, PanelRow, Placeholder, Select
 import { dispatch } from '@wordpress/data'
 import { render, Component } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
-import { String } from './string.js'
+import { Text } from './text.js'
 import { Notices } from './notices.js'
 
 const settingsGroup = webaxonesApps[0]
@@ -20,16 +20,16 @@ class App extends Component {
 		this.tabs = []
 
 		webaxonesApps.forEach( group => {
+			group.fields.forEach( field => {
+				this.state[field.slug] = ''
+			} )
 			this.tabs.push({
 				name: group.slug,
 				title: group.label,
 				content: group.fields.map( field => {
-					return <String key={ field.slug } onChange={ this.handleOnChange } state={ this.state } field={ field } />
+					return <Text key={ field.slug } onChange={ this.handleOnChange } state={ this.state } field={ field } />
 				} )
 			},)
-			group.fields.forEach( field => {
-				this.state[field.slug] = ''
-			} )
 		} )
 
 		this.state['isAPILoaded'] = false
@@ -76,7 +76,7 @@ class App extends Component {
 			<>
 				{ ( webaxonesApps.length === 1 ) 
 					? settingsGroup.fields.map( field => {
-						return <String key={ field.slug } onChange={ this.handleOnChange } state={ this.state } field={ field } />
+						return <Text key={ field.slug } onChange={ this.handleOnChange } state={ this.state } field={ field } />
 					} )
 					: <TabPanel
 						className={ `${webaxonesApps[0]['page_slug']}__panel` }
