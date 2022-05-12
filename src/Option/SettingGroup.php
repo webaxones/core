@@ -191,23 +191,25 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	 */
 	public function formatData(): array
 	{
-		$settings   = $this->prepareData();
-		$data       = $settings;
-		$groupLabel = $settings['group_label'];
-		unset( $settings['group_label'] );
-		$data['label'] = $groupLabel;
+		$inputData  = $this->prepareData();
+		$outputData = $inputData;
 
-		foreach ( $settings['fields'] as $key => $value ) {
-			$label = $settings[ $value['labels']['label'] ];
-			unset( $data[ $value['labels']['label'] ] );
-			$data['fields'][ $key ]['labels']['label'] = $label;
+		$groupLabel          = $inputData['group_label'];
+		$outputData['label'] = $groupLabel;
+		unset( $outputData['group_label'] );
+
+		foreach ( $inputData['fields'] as $key => $value ) {
+			$label = $inputData[ $value['labels']['label'] ];
+			$outputData['fields'][ $key ]['labels']['label'] = $label;
+			unset( $outputData[ $value['labels']['label'] ] );
+
 			if ( '' !== $value['labels']['help'] ) {
-				$help = $settings[ $value['labels']['help'] ];
-				unset( $data[ $value['labels']['help'] ] );
-				$data['fields'][ $key ]['labels']['help'] = $help;
+				$help = $inputData[ $value['labels']['help'] ];
+				$outputData['fields'][ $key ]['labels']['help'] = $help;
+				unset( $outputData[ $value['labels']['help'] ] );
 			}
 		}
-		return $data;
+		return $outputData;
 	}
 
 	/**
