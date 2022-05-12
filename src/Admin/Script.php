@@ -50,9 +50,9 @@ class Script extends AbstractAsset implements PhpToJsInterface
 	{
 		$this->checkAndPrepareAssets();
 
-		$script_asset_path = WP_CONTENT_DIR . '\cache\webaxones\assets\js\index.asset.php';
+		$script_asset_path = wp_normalize_path( WP_CONTENT_DIR . '\cache\webaxones\assets\js\index.asset.php' );
 		if ( ! file_exists( $script_asset_path ) ) {
-			throw new Exception( '« ' . WP_CONTENT_DIR . '\cache\webaxones\assets\js\index.asset.php » doesn’t exist.' );
+			throw new Exception( '« ' . wp_normalize_path( WP_CONTENT_DIR . '\cache\webaxones\assets\js\index.asset.php » doesn’t exist.' ));
 		}
 
     	$script_asset = require $script_asset_path;
