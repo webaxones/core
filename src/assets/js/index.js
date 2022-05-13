@@ -62,11 +62,11 @@ const Text = _ref => {
   } = _ref;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
     key: field.slug,
-    help: field.labels.hasOwnProperty('help') ? field.labels.help : '',
-    label: field.labels.label,
+    help: field.hasOwnProperty('help') ? field.help : '',
+    label: field.label,
     value: fieldValue || '',
     onChange: value => {
-      onChange(field.slug, value);
+      onChange(value, field.slug);
     }
   });
 };
@@ -228,94 +228,92 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const settingsGroup = webaxonesApps[0];
-
-const onSelect = tabName => {
-  console.log('Selecting tab', tabName);
-};
+console.log(webaxonesApps);
 
 const App = () => {
-  const [isAPILoaded, setAPILoaded] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [fields, setFields] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    slug: '',
-    value: ''
-  });
-
-  const handleOnChange = (slug, value) => {
-    setFields(prevState => ({ ...prevState,
-      [slug]: value
-    }));
-  };
-
-  const [theTabs] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    tabs: `[
-				{
-					name: 'tab1',
-					title: 'Tab 1',
-					className: 'tab-one',
-					children: '<p>Toto</p>'
-				},
-				{
-					name: 'tab2',
-					title: 'Tab 2',
-					className: 'tab-two',
-					children: '<p>Tata</p>'
-				},
-			]`
-  });
-
-  const setTabs = () => {
-    const toto = {
-      name: 'tab1',
-      title: 'Tab 1',
-      className: 'tab-one',
-      children: 'Toto'
-    };
-    return toto;
-  };
-
+  const [fields, setFields] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [tabs, setTabs] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [tabSelected, setTabSelected] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(webaxonesApps[0][0].group);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    _wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().loadPromise.then(() => {
-      const settings = new (_wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().models.Settings)();
-      settings.fetch().then(response => {
-        webaxonesApps.forEach(settingsGroup => {
-          settingsGroup.fields.forEach(field => {
-            setFields(prevState => ({ ...prevState,
-              [field.slug]: response[field.slug]
-            }));
+    const getData = async () => {
+      const response = await _wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().loadPromise.then(() => {
+        const settings = new (_wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().models.Settings)();
+        const settingsGroup = settings.fetch().then(response => {
+          const data = [];
+          webaxonesApps.forEach(group => {
+            group.forEach(field => {
+              data.push({
+                id: field.slug,
+                label: field.label,
+                help: field.help,
+                value: response[field.slug],
+                tab: field.group
+              });
+            });
           });
+          setFields(data);
         });
       });
-    });
+    };
+
+    getData();
   }, []);
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, webaxonesApps.length === 1 ? webaxonesApps[0].fields.map(field => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_text_js__WEBPACK_IMPORTED_MODULE_5__.Text, {
-      key: field.slug,
-      fieldValue: fields[field.slug],
-      field: field,
-      onChange: handleOnChange
-    });
-  }) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TabPanel, {
-    key: `${webaxonesApps[0]['page_slug']}`,
-    className: `${webaxonesApps[0]['page_slug']}__panel`,
-    activeClass: "active-tab",
-    onSelect: onSelect,
-    tabs: [setTabs]
-  }, tab => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, tab.children)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
-    isPrimary: true,
-    onClick: () => {
-      const values = fields;
-      delete values.isAPILoaded;
-      const settings = new (_wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().models.Settings)(values);
-      settings.save();
-      (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.dispatch)('core/notices').createNotice('success', (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Settings Saved', 'webaxones-core'), {
-        type: 'snackbar',
-        isDismissible: true
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const getTabs = async () => {
+      const response = await _wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().loadPromise.then(() => {
+        const settings = new (_wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().models.Settings)();
+        const settingsGroup = settings.fetch().then(response => {
+          const data = [];
+          webaxonesApps.forEach(group => {
+            data.push({
+              name: group[0].group,
+              title: group[0].group_name,
+              className: `${group[0].group}__tab`
+            });
+          });
+          setTabs(data);
+        });
       });
+    };
+
+    getTabs();
+  }, []);
+
+  const onChangeField = _ref => {
+    let {
+      value,
+      id
+    } = _ref;
+    setFields(prevState => {
+      return prevState.map(item => {
+        if (item.id !== id) {
+          return item;
+        }
+
+        return { ...item,
+          value: value
+        };
+      });
+    });
+  };
+
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "App"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TabPanel, {
+    tabs: tabs,
+    onSelect: tab => setTabSelected(tab.name)
+  }, tab => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, tab.children)), fields.map((field, key) => {
+    if (field.tab !== tabSelected) {
+      return null;
     }
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Save', 'webaxones-core')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "wax-company-settings__notices"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_notices_js__WEBPACK_IMPORTED_MODULE_6__.Notices, null)));
+
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_text_js__WEBPACK_IMPORTED_MODULE_5__.Text, {
+      key: key,
+      fieldValue: field.value,
+      field: field,
+      onChange: onChangeField
+    });
+  }));
 };
 
 document.addEventListener('DOMContentLoaded', () => {

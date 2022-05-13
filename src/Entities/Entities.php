@@ -5,10 +5,10 @@ namespace Webaxones\Core\Entities;
 defined( 'ABSPATH' ) || exit;
 
 use Exception;
-use \DecaLog\Engine as Decalog;
+use \Decalog\Engine as Decalog;
 use Webaxones\Core\Entities\Entity;
 use Webaxones\Core\Hook\Hook;
-use Webaxones\Core\Admin\Script;
+use Webaxones\Core\Admin\AdminScript;
 
 /**
  * Entities processing
@@ -20,7 +20,7 @@ final class Entities
 		$vendorPath = substr( __FILE__, 0, strpos( __FILE__, 'vendor\\' ) ) . 'vendor\\';
 		define( 'WEBAXONES_VENDOR_PATH', $vendorPath );
 
-		$script = new Script();
+		$script = new AdminScript();
 		$hook   = new Hook();
 		$hook->register( $script );
 

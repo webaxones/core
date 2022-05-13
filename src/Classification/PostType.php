@@ -4,7 +4,7 @@ namespace Webaxones\Core\Classification;
 
 defined( 'ABSPATH' ) || exit;
 
-use \DecaLog\Engine as Decalog;
+use \Decalog\Engine as Decalog;
 
 /**
  * Custom post type declaration

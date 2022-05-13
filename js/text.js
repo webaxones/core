@@ -4,11 +4,11 @@ export const Text = ( { fieldValue, field, onChange } ) => {
 
 	return (
 		<TextControl key={ field.slug }
-			help={ field.labels.hasOwnProperty('help') ? field.labels.help : '' }
-			label={ field.labels.label }
+			help={ field.hasOwnProperty('help') ? field.help : '' }
+			label={ field.label }
 			value={ fieldValue || '' }
-			onChange={ (value) => {
-				onChange( field.slug, value )
+			onChange={ ( value ) => {
+				onChange( value, field.slug )
 			} }
 		/>
 	)

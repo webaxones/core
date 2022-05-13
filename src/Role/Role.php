@@ -14,7 +14,7 @@ use Webaxones\Core\Utils\Contracts\ActionInterface;
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
 use Webaxones\Core\Label\Labels;
-use \DecaLog\Engine as Decalog;
+use \Decalog\Engine as Decalog;
 
 /**
  * Custom Role declaration

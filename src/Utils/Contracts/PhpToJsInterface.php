@@ -28,11 +28,22 @@ interface PhpToJsInterface
 	public function prepareData(): array;
 
 	/**
-	 * Format Data by populating labels inside fields and removing labels in global array
+	 * Prepare labels in Data by populating labels inside fields and removing labels in global array
+	 *
+	 * @param  array $data
 	 *
 	 * @return array
 	 */
-	public function formatData(): array;
+	public function prepareLabels( array $data ): array;
+
+	/**
+	 * Prepare labels in Data by populating labels inside fields and removing labels in global array
+	 *
+	 * @param  array $data
+	 *
+	 * @return array
+	 */
+	public function prepareGroups( array $data ): array;
 
 	/**
 	 * Stringify Data

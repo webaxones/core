@@ -15,7 +15,7 @@ use Webaxones\Core\Utils\Contracts\PhpToJsInterface;
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
 use Webaxones\Core\Label\Labels;
-use \DecaLog\Engine as Decalog;
+use \Decalog\Engine as Decalog;
 
 /**
  * Custom Setting group declaration
@@ -175,7 +175,7 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	 */
 	public function sendDataToJS(): void
 	{
-		wp_add_inline_script( 'webaxones-core', $this->stringifyData( $this->formatData() ), 'before' );
+		wp_add_inline_script( 'webaxones-core', $this->stringifyData( $this->prepareData() ), 'before' );
 	}
 
 	/**
@@ -189,25 +189,24 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	/**
 	 * {@inheritdoc}
 	 */
-	public function formatData(): array
+	public function prepareLabels( array $data ): array
 	{
-		$inputData  = $this->prepareData();
-		$outputData = $inputData;
+		$outputData = $data;
 
-		$groupLabel          = $inputData['group_label'];
+		$groupLabel          = $data['group_label'];
 		$outputData['label'] = $groupLabel;
 		unset( $outputData['group_label'] );
 
-		foreach ( $inputData['fields'] as $key => $value ) {
-			$label = $inputData[ $value['labels']['label'] ];
-			$outputData['fields'][ $key ]['labels']['label'] = $label;
-			unset( $outputData[ $value['labels']['label'] ] );
+		foreach ( $data['fields'] as $key => $value ) {
+			$label = $data[ $value['labels']['label'] ];
+			$outputData['fields'][ $key ]['label'] = $label;
 
 			if ( '' !== $value['labels']['help'] ) {
-				$help = $inputData[ $value['labels']['help'] ];
-				$outputData['fields'][ $key ]['labels']['help'] = $help;
-				unset( $outputData[ $value['labels']['help'] ] );
+				$help = $data[ $value['labels']['help'] ];
+				$outputData['fields'][ $key ]['help'] = $help;
 			}
+
+			unset( $outputData['fields'][ $key ]['labels'] );
 		}
 		return $outputData;
 	}
@@ -215,8 +214,29 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	/**
 	 * {@inheritdoc}
 	 */
+	public function prepareGroups( array $data ): array
+	{
+		$outputData = $data;
+		$groupSlug  = $data['slug'];
+		$groupName  = $data['label'];
+		$pageSlug   = $data['page_slug'];
+
+		foreach ( $data['fields'] as $key => $value ) {
+			$outputData['fields'][ $key ]['group']      = $groupSlug;
+			$outputData['fields'][ $key ]['group_name'] = $groupName;
+			$outputData['fields'][ $key ]['page']       = $pageSlug;
+		}
+		return $outputData['fields'];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function prepareData(): array
 	{
-		return array_merge( $this->args['labels'], $this->getSettings() );
+		$data = array_merge( $this->args['labels'], $this->getSettings() );
+		$data = $this->prepareLabels( $data );
+		$data = $this->prepareGroups( $data );
+		return $data;
 	}
 }

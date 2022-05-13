@@ -5,7 +5,7 @@ namespace Webaxones\Core\Classification;
 defined( 'ABSPATH' ) || exit;
 
 use Webaxones\Core\Label\Labels;
-use \DecaLog\Engine as Decalog;
+use \Decalog\Engine as Decalog;
 
 /**
  * Custom taxonomy declaration

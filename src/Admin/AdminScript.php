@@ -8,9 +8,9 @@ use Exception;
 use Webaxones\Core\Utils\Contracts\PhpToJsInterface;
 
 /**
- * Manage Script
+ * Manage AdminScript
  */
-class Script extends AbstractAsset implements PhpToJsInterface
+class AdminScript extends AbstractAsset implements PhpToJsInterface
 {
 	/**
 	 * {@inheritdoc}
@@ -50,9 +50,9 @@ class Script extends AbstractAsset implements PhpToJsInterface
 	{
 		$this->checkAndPrepareAssets();
 
-		$script_asset_path = wp_normalize_path( WP_CONTENT_DIR . '\cache\webaxones\assets\js\index.asset.php' );
+		$script_asset_path = WP_CONTENT_DIR . '\cache\webaxones\assets\js\index.asset.php';
 		if ( ! file_exists( $script_asset_path ) ) {
-			throw new Exception( '« ' . wp_normalize_path( WP_CONTENT_DIR . '\cache\webaxones\assets\js\index.asset.php » doesn’t exist.' ));
+			throw new Exception( '« ' . WP_CONTENT_DIR . '\cache\webaxones\assets\js\index.asset.php » doesn’t exist.' );
 		}
 
     	$script_asset = require $script_asset_path;
@@ -72,7 +72,7 @@ class Script extends AbstractAsset implements PhpToJsInterface
 	 */
 	public function sendDataToJS(): void
 	{
-		wp_add_inline_script( 'webaxones-core', $this->stringifyData( $this->formatData() ), 'before' );
+		wp_add_inline_script( 'webaxones-core', $this->stringifyData( $this->prepareData() ), 'before' );
 	}
 
 	/**
@@ -86,9 +86,17 @@ class Script extends AbstractAsset implements PhpToJsInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function formatData(): array
+	public function prepareLabels( array $data ): array
 	{
-		return $this->prepareData();
+		return $data;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function prepareGroups( array $data ): array
+	{
+		return $data;
 	}
 
 	/**

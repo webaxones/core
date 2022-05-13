@@ -5,7 +5,7 @@ namespace Webaxones\Core\Hook;
 use Webaxones\Core\Utils\Contracts\ActionInterface;
 use Webaxones\Core\Utils\Contracts\FilterInterface;
 
-use \DecaLog\Engine as Decalog;
+use \Decalog\Engine as Decalog;
 
 defined( 'ABSPATH' ) || exit;
 

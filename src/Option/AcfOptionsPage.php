@@ -4,7 +4,7 @@ namespace Webaxones\Core\Option;
 
 defined( 'ABSPATH' ) || exit;
 
-use \DecaLog\Engine as Decalog;
+use \Decalog\Engine as Decalog;
 
 /**
  * Custom ACF option page declaration

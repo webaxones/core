@@ -6,107 +6,91 @@ import { dispatch } from '@wordpress/data'
 import { Text } from './text.js'
 import { Notices } from './notices.js'
 
-const settingsGroup = webaxonesApps[0]
-
-const onSelect = ( tabName ) => {
-	console.log( 'Selecting tab', tabName );
-}
+console.log(webaxonesApps);
 
 const App = () => {
 
-		const [isAPILoaded, setAPILoaded] = useState( false )
-
-		const [fields, setFields] = useState( { slug: '', value: '' } )
-
-		const handleOnChange = ( slug, value ) => {
-			setFields( prevState => ( { ...prevState, [slug]: value } ) )
-		}
-
-		const [theTabs] = useState( {
-			tabs: `[
-				{
-					name: 'tab1',
-					title: 'Tab 1',
-					className: 'tab-one',
-					children: '<p>Toto</p>'
-				},
-				{
-					name: 'tab2',
-					title: 'Tab 2',
-					className: 'tab-two',
-					children: '<p>Tata</p>'
-				},
-			]`
-		} )
-
-		const setTabs = () => {
-			const toto = {
-				name: 'tab1',
-				title: 'Tab 1',
-				className: 'tab-one',
-				children: 'Toto'
-			}
-			return toto
-		}
-
-		useEffect( () => {
-			api.loadPromise.then( () => {
+	const [fields, setFields] = useState( [] )
+	const [tabs, setTabs] = useState( [] )
+	const [tabSelected, setTabSelected] = useState( webaxonesApps[0][0].group )
+  
+	useEffect(() => {
+		const getData = async () => {
+			const response = await api.loadPromise.then( () => {
 				const settings = new api.models.Settings()
-				settings.fetch().then( ( response ) => {
-					webaxonesApps.forEach( settingsGroup => {
-						settingsGroup.fields.forEach( field => {
-							setFields( prevState => ( { ...prevState, [field.slug]: response[ field.slug ] } ) )
+				const settingsGroup = settings.fetch().then( ( response ) => {
+					const data = []
+					webaxonesApps.forEach( group => {
+						group.forEach( field => {
+							data.push(
+								{
+									id: field.slug,
+									label: field.label,
+									help: field.help,
+									value: response[ field.slug ],
+									tab: field.group
+								}
+							)
 						} )
 					} )
+					setFields(data)
 				} )
 			} )
-		}, [] );
+		}
+		getData()
+	}, [] )
 
-		return (
-			<>
-			{
-				( webaxonesApps.length === 1 ) 
-					? webaxonesApps[0].fields.map( field => {
- 						return <Text key={ field.slug } fieldValue={ fields[field.slug] } field={ field } onChange={ handleOnChange } />
-					} )
-					: <TabPanel
-							key={`${webaxonesApps[0]['page_slug']}`}
-							className={ `${webaxonesApps[0]['page_slug']}__panel` }
-							activeClass='active-tab'
-							onSelect={ onSelect }
-							tabs={ [ setTabs ] }
-					>
-					{ ( tab ) => <div>{ tab.children }</div> }
-					</TabPanel>
-			}
 
-				<Button
-					isPrimary
-					onClick={ () => {
-						const values = fields
-						delete values.isAPILoaded
 
-						const settings = new api.models.Settings( values )
-						settings.save()
-
-						dispatch('core/notices').createNotice(
-							'success',
-							__( 'Settings Saved', 'webaxones-core' ),
+	useEffect( () => {
+		const getTabs = async () => {
+			const response = await api.loadPromise.then( () => {
+				const settings = new api.models.Settings()
+				const settingsGroup = settings.fetch().then( ( response ) => {
+					const data = []
+					webaxonesApps.forEach( group => {
+						data.push(
 							{
-								type: 'snackbar',
-								isDismissible: true,
+								name: group[0].group,
+								title: group[0].group_name,
+								className: `${group[0].group}__tab`,
 							}
 						)
-					} }
-				>
-					{ __( 'Save', 'webaxones-core' ) }
-				</Button>
+					} )
+					setTabs( data )
+				} )
+			} )
+		}
+		getTabs()
+	}, [] )
 
-				<div className="wax-company-settings__notices">
-					<Notices/>
-				</div>
-			</>
-		)
+	const onChangeField = ( { value, id } ) => {
+	  setFields( (prevState ) => {
+		return prevState.map( ( item ) => {
+		  if (item.id !== id) {
+			return item;
+		  }
+		  return {
+			...item,
+			value: value
+		  };
+		});
+	  });
+	};
+
+	return (
+		<div className='App'>
+			<TabPanel tabs={ tabs } onSelect={ ( tab ) => setTabSelected( tab.name ) }>
+				{ ( tab ) => <>{ tab.children }</> }
+			</TabPanel>
+			{ fields.map( ( field, key ) => {
+				if ( field.tab !== tabSelected ) {
+					return null;
+				}
+				return <Text key={ key } fieldValue={ field.value } field={ field } onChange={ onChangeField } />
+			} ) }
+		</div>
+	  )
 }
 
 document.addEventListener( 'DOMContentLoaded', () => {
