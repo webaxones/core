@@ -1,8 +1,8 @@
+import { render, useState, useEffect } from '@wordpress/element'
+import { __ } from '@wordpress/i18n'
 import api from '@wordpress/api'
 import { Button, Icon, TabPanel, Panel, PanelBody, PanelRow, Placeholder, SelectControl, Spinner, TextControl, ToggleControl } from '@wordpress/components'
 import { dispatch } from '@wordpress/data'
-import { render, Component } from '@wordpress/element'
-import { __ } from '@wordpress/i18n'
 import { Text } from './text.js'
 import { Notices } from './notices.js'
 
@@ -12,86 +12,78 @@ const onSelect = ( tabName ) => {
 	console.log( 'Selecting tab', tabName );
 }
 
-class App extends Component {
-    constructor() {
-        super( ...arguments )
+const App = () => {
 
-		this.state = {}
-		this.tabs = []
+		const [isAPILoaded, setAPILoaded] = useState( false )
 
-		webaxonesApps.forEach( group => {
-			group.fields.forEach( field => {
-				this.state[field.slug] = ''
-			} )
-			this.tabs.push({
-				name: group.slug,
-				title: group.label,
-				content: group.fields.map( field => {
-					return <Text key={ field.slug } onChange={ this.handleOnChange } state={ this.state } field={ field } />
-				} )
-			},)
+		const [fields, setFields] = useState( { slug: '', value: '' } )
+
+		const handleOnChange = ( slug, value ) => {
+			setFields( prevState => ( { ...prevState, [slug]: value } ) )
+		}
+
+		const [theTabs] = useState( {
+			tabs: `[
+				{
+					name: 'tab1',
+					title: 'Tab 1',
+					className: 'tab-one',
+					children: '<p>Toto</p>'
+				},
+				{
+					name: 'tab2',
+					title: 'Tab 2',
+					className: 'tab-two',
+					children: '<p>Tata</p>'
+				},
+			]`
 		} )
 
-		this.state['isAPILoaded'] = false
-    }
+		const setTabs = () => {
+			const toto = {
+				name: 'tab1',
+				title: 'Tab 1',
+				className: 'tab-one',
+				children: 'Toto'
+			}
+			return toto
+		}
 
-	componentDidMount() {
-
-        api.loadPromise.then( () => {
-            this.settings = new api.models.Settings()
-
-            const { isAPILoaded } = this.state
-
-            if ( isAPILoaded === false ) {
-                this.settings.fetch().then( ( response ) => {
+		useEffect( () => {
+			api.loadPromise.then( () => {
+				const settings = new api.models.Settings()
+				settings.fetch().then( ( response ) => {
 					webaxonesApps.forEach( settingsGroup => {
 						settingsGroup.fields.forEach( field => {
-							this.setState( {
-								[field.slug]: response[ field.slug ],
-							} )
+							setFields( prevState => ( { ...prevState, [field.slug]: response[ field.slug ] } ) )
 						} )
-					} )	
-					this.setState( {
-						['isAPILoaded']: true
 					} )
-                } )
-            }
-        } )
-    }
-
-	handleOnChange = ( fieldSlug, value ) => {
-		this.setState( { [fieldSlug]: value } )
-	}
-
-    render() {
-		if ( ! this.state.isAPILoaded ) {
-            return (
-                <Placeholder>
-                    <Spinner />
-                </Placeholder>
-            )
-        } 
+				} )
+			} )
+		}, [] );
 
 		return (
 			<>
-				{ ( webaxonesApps.length === 1 ) 
-					? settingsGroup.fields.map( field => {
-						return <Text key={ field.slug } onChange={ this.handleOnChange } state={ this.state } field={ field } />
+			{
+				( webaxonesApps.length === 1 ) 
+					? webaxonesApps[0].fields.map( field => {
+ 						return <Text key={ field.slug } fieldValue={ fields[field.slug] } field={ field } onChange={ handleOnChange } />
 					} )
 					: <TabPanel
-						className={ `${webaxonesApps[0]['page_slug']}__panel` }
-						activeClass='active-tab'
-						onSelect={ onSelect }
-						tabs={ this.tabs }
+							key={`${webaxonesApps[0]['page_slug']}`}
+							className={ `${webaxonesApps[0]['page_slug']}__panel` }
+							activeClass='active-tab'
+							onSelect={ onSelect }
+							tabs={ [ setTabs ] }
 					>
-					{ ( tab ) => <div>{ tab.content }</div> }
+					{ ( tab ) => <div>{ tab.children }</div> }
 					</TabPanel>
-				}
+			}
 
 				<Button
 					isPrimary
 					onClick={ () => {
-						const values = this.state
+						const values = fields
 						delete values.isAPILoaded
 
 						const settings = new api.models.Settings( values )
@@ -111,11 +103,10 @@ class App extends Component {
 				</Button>
 
 				<div className="wax-company-settings__notices">
-                    <Notices/>
-                </div>
+					<Notices/>
+				</div>
 			</>
-        )
-    }
+		)
 }
 
 document.addEventListener( 'DOMContentLoaded', () => {

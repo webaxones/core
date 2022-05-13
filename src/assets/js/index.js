@@ -56,7 +56,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const Text = _ref => {
   let {
-    state,
+    fieldValue,
     field,
     onChange
   } = _ref;
@@ -64,7 +64,7 @@ const Text = _ref => {
     key: field.slug,
     help: field.labels.hasOwnProperty('help') ? field.labels.help : '',
     label: field.labels.label,
-    value: state[field.slug] || '',
+    value: fieldValue || '',
     onChange: value => {
       onChange(field.slug, value);
     }
@@ -130,33 +130,6 @@ module.exports = window["wp"]["i18n"];
 /***/ (function(module) {
 
 module.exports = window["wp"]["notices"];
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/defineProperty.js ***!
-  \*******************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ _defineProperty; }
-/* harmony export */ });
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
 
 /***/ })
 
@@ -235,20 +208,18 @@ var __webpack_exports__ = {};
   !*** ./js/index.js ***!
   \*********************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/api */ "@wordpress/api");
 /* harmony import */ var _wordpress_api__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _text_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./text.js */ "./js/text.js");
-/* harmony import */ var _notices_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./notices.js */ "./js/notices.js");
-
+/* harmony import */ var _text_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./text.js */ "./js/text.js");
+/* harmony import */ var _notices_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./notices.js */ "./js/notices.js");
 
 
 
@@ -263,103 +234,95 @@ const onSelect = tabName => {
   console.log('Selecting tab', tabName);
 };
 
-class App extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
-  constructor() {
-    super(...arguments);
+const App = () => {
+  const [isAPILoaded, setAPILoaded] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [fields, setFields] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    slug: '',
+    value: ''
+  });
 
-    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "handleOnChange", (fieldSlug, value) => {
-      this.setState({
-        [fieldSlug]: value
-      });
-    });
+  const handleOnChange = (slug, value) => {
+    setFields(prevState => ({ ...prevState,
+      [slug]: value
+    }));
+  };
 
-    this.state = {};
-    this.tabs = [];
-    webaxonesApps.forEach(group => {
-      group.fields.forEach(field => {
-        this.state[field.slug] = '';
-      });
-      this.tabs.push({
-        name: group.slug,
-        title: group.label,
-        content: group.fields.map(field => {
-          return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_text_js__WEBPACK_IMPORTED_MODULE_6__.Text, {
-            key: field.slug,
-            onChange: this.handleOnChange,
-            state: this.state,
-            field: field
-          });
-        })
-      });
-    });
-    this.state['isAPILoaded'] = false;
-  }
+  const [theTabs] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    tabs: `[
+				{
+					name: 'tab1',
+					title: 'Tab 1',
+					className: 'tab-one',
+					children: '<p>Toto</p>'
+				},
+				{
+					name: 'tab2',
+					title: 'Tab 2',
+					className: 'tab-two',
+					children: '<p>Tata</p>'
+				},
+			]`
+  });
 
-  componentDidMount() {
+  const setTabs = () => {
+    const toto = {
+      name: 'tab1',
+      title: 'Tab 1',
+      className: 'tab-one',
+      children: 'Toto'
+    };
+    return toto;
+  };
+
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     _wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().loadPromise.then(() => {
-      this.settings = new (_wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().models.Settings)();
-      const {
-        isAPILoaded
-      } = this.state;
-
-      if (isAPILoaded === false) {
-        this.settings.fetch().then(response => {
-          webaxonesApps.forEach(settingsGroup => {
-            settingsGroup.fields.forEach(field => {
-              this.setState({
-                [field.slug]: response[field.slug]
-              });
-            });
-          });
-          this.setState({
-            ['isAPILoaded']: true
+      const settings = new (_wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().models.Settings)();
+      settings.fetch().then(response => {
+        webaxonesApps.forEach(settingsGroup => {
+          settingsGroup.fields.forEach(field => {
+            setFields(prevState => ({ ...prevState,
+              [field.slug]: response[field.slug]
+            }));
           });
         });
-      }
-    });
-  }
-
-  render() {
-    if (!this.state.isAPILoaded) {
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Placeholder, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Spinner, null));
-    }
-
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, webaxonesApps.length === 1 ? settingsGroup.fields.map(field => {
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_text_js__WEBPACK_IMPORTED_MODULE_6__.Text, {
-        key: field.slug,
-        onChange: this.handleOnChange,
-        state: this.state,
-        field: field
       });
-    }) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TabPanel, {
-      className: `${webaxonesApps[0]['page_slug']}__panel`,
-      activeClass: "active-tab",
-      onSelect: onSelect,
-      tabs: this.tabs
-    }, tab => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", null, tab.content)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
-      isPrimary: true,
-      onClick: () => {
-        const values = this.state;
-        delete values.isAPILoaded;
-        const settings = new (_wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().models.Settings)(values);
-        settings.save();
-        (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.dispatch)('core/notices').createNotice('success', (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Settings Saved', 'webaxones-core'), {
-          type: 'snackbar',
-          isDismissible: true
-        });
-      }
-    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Save', 'webaxones-core')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
-      className: "wax-company-settings__notices"
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_notices_js__WEBPACK_IMPORTED_MODULE_7__.Notices, null)));
-  }
-
-}
+    });
+  }, []);
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, webaxonesApps.length === 1 ? webaxonesApps[0].fields.map(field => {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_text_js__WEBPACK_IMPORTED_MODULE_5__.Text, {
+      key: field.slug,
+      fieldValue: fields[field.slug],
+      field: field,
+      onChange: handleOnChange
+    });
+  }) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TabPanel, {
+    key: `${webaxonesApps[0]['page_slug']}`,
+    className: `${webaxonesApps[0]['page_slug']}__panel`,
+    activeClass: "active-tab",
+    onSelect: onSelect,
+    tabs: [setTabs]
+  }, tab => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, tab.children)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
+    isPrimary: true,
+    onClick: () => {
+      const values = fields;
+      delete values.isAPILoaded;
+      const settings = new (_wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().models.Settings)(values);
+      settings.save();
+      (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.dispatch)('core/notices').createNotice('success', (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Settings Saved', 'webaxones-core'), {
+        type: 'snackbar',
+        isDismissible: true
+      });
+    }
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Save', 'webaxones-core')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wax-company-settings__notices"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_notices_js__WEBPACK_IMPORTED_MODULE_6__.Notices, null)));
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   const htmlOutput = document.getElementById('wax-company-settings__content');
 
   if (htmlOutput) {
-    (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.render)((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(App, null), htmlOutput);
+    (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.render)((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(App, null), htmlOutput);
   }
 });
 }();

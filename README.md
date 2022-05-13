@@ -319,4 +319,4 @@ $declarations[] = [
 Entities::process( $declarations );
 
 ```
-
+Thanks to Pierre Lannoy for his fucking good [DecaLog SDK](https://decalog.io/) which tracks everything and almost makes coffee.
