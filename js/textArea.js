@@ -1,12 +1,12 @@
-import { TextControl } from '@wordpress/components'
+import { TextareaControl } from '@wordpress/components'
 
-export const Text = ( { fieldValue, field, onChange } ) => {
+export const TextArea = ( { fieldValue, field, onChange } ) => {
 
 	return (
-		<TextControl key={ field.id }
+		<TextareaControl key={ field.id }
 			help={ field.hasOwnProperty('help') ? field.help : '' }
 			label={ field.label }
-			type={ field.type }
+			type={ 'number' }
 			value={ fieldValue || '' }
 			onChange={ ( value ) => {
 				onChange( value, field.id )

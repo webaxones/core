@@ -1,9 +1,10 @@
 import { render, useState, useEffect } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import api from '@wordpress/api'
-import { Button, Icon, TabPanel, Panel, PanelBody, PanelRow, Placeholder, SelectControl, Spinner, TextControl, ToggleControl } from '@wordpress/components'
+import { Button, Icon, TabPanel, Panel, PanelBody, PanelRow, Placeholder, SelectControl, Spinner, ToggleControl } from '@wordpress/components'
 import { dispatch } from '@wordpress/data'
 import { Text } from './text.js'
+import { TextArea } from './textArea.js'
 import { Notices } from './notices.js'
 
 // Since 1 single variable send all declarations to JS, we filter those dedicated to the current page
@@ -34,7 +35,8 @@ const App = () => {
 									label: field.label,
 									help: field.help,
 									value: response[ field.slug ],
-									tab: field.group
+									tab: field.group,
+									type: field.type
 								}
 							)
 						} )
@@ -92,33 +94,40 @@ const App = () => {
 					if ( field.tab !== tabSelected ) {
 						return null
 					}
-					return <div key={ key } style={ {marginTop: 10} }><Text fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+					if ( 'text' === field.type || 'number' === field.type ) {
+						return <div key={ key } style={ {marginTop: 10} }><Text fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+					}
+					if ( 'textarea' === field.type ) {
+						return <div key={ key } style={ {marginTop: 10} }><TextArea fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+					}
 				} ) }
 			</div>
-			<Button
-				isPrimary
-				onClick={ () => {
-					const values = {}
+			<div style={ {marginTop: 20} }>
+				<Button
+					isPrimary
+					onClick={ () => {
+						const values = {}
 
-					fields.forEach( field => {
-						values[field.id] = field.value
-					} )
+						fields.forEach( field => {
+							values[field.id] = field.value
+						} )
 
-					const settings = new api.models.Settings( values )
-					settings.save()
+						const settings = new api.models.Settings( values )
+						settings.save()
 
-					dispatch('core/notices').createNotice(
-						'success',
-						__( 'Settings Saved', 'webaxones-core' ),
-						{
-							type: 'snackbar',
-							isDismissible: true,
-						}
-					)
-				} }
-			>
-				{ __( 'Save', 'webaxones-core' ) }
-			</Button>
+						dispatch('core/notices').createNotice(
+							'success',
+							__( 'Settings Saved', 'webaxones-core' ),
+							{
+								type: 'snackbar',
+								isDismissible: true,
+							}
+						)
+					} }
+				>
+					{ __( 'Save', 'webaxones-core' ) }
+				</Button>
+			</div>
 
 			<div className="wax-company-settings__notices">
 				<Notices/>

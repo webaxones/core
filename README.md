@@ -155,11 +155,13 @@ $declarations[] = [
 $declarations[] = [
 	'entity'   => 'Webaxones\Core\Option\SettingGroup',
 	'labels'   => [
-		'group_label'        => __( 'Legal Informations', 'webaxones-content' ),
-		'company_name_label' => __( 'Company name', 'webaxones-content' ),
-		'company_name_help'  => __( 'Full name of the company', 'webaxones-content' ),
-		'company_adr1_label' => __( 'Company address', 'webaxones-content' ),
-		'company_adr1_help'  => __( 'Address #1 of the company', 'webaxones-content' ),
+		'group_label'            => __( 'Legal Informations', 'webaxones-content' ),
+		'company_name_label'     => __( 'Company name', 'webaxones-content' ),
+		'company_name_help'      => __( 'Full name of the company', 'webaxones-content' ),
+		'company_adr1_label'     => __( 'Company address', 'webaxones-content' ),
+		'company_adr1_help'      => __( 'Address #1 of the company', 'webaxones-content' ),
+		'company_add_addr_label' => __( 'Additional address', 'webaxones-content' ),
+		'company_add_addr_help'  => __( 'Additional address of the company', 'webaxones-content' ),
 	],
 	'settings' => [
 		'slug'      => 'wax-company-settings-legal',
@@ -168,7 +170,7 @@ $declarations[] = [
 		'fields'    => [
 			[
 				'slug'   => 'wax_company_settings_company_name',
-				'type'   => 'string',
+				'type'   => 'text', /*'textarea', 'number'*/
 				'labels' => [
 					'label' => 'company_name_label',
 					'help'  => 'company_name_help',
@@ -176,10 +178,18 @@ $declarations[] = [
 			],
 			[
 				'slug'   => 'wax_company_settings_company_addr',
-				'type'   => 'string',
+				'type'   => 'text',
 				'labels' => [
 					'label' => 'company_adr1_label',
 					'help'  => 'company_adr1_help',
+				],
+			],
+			[
+				'slug'   => 'wax_company_settings_company_add_addr',
+				'type'   => 'textarea',
+				'labels' => [
+					'label' => 'company_add_addr_label',
+					'help'  => 'company_add_addr_help',
 				],
 			],
 		],
@@ -205,7 +215,7 @@ $declarations[] = [
 		'fields'    => [
 			[
 				'slug'   => 'wax_company_settings_phone_number',
-				'type'   => 'string',
+				'type'   => 'number',
 				'labels' => [
 					'label' => 'phone_number_label',
 					'help'  => 'phone_number_help',
@@ -213,7 +223,7 @@ $declarations[] = [
 			],
 			[
 				'slug'   => 'wax_company_settings_mail',
-				'type'   => 'string',
+				'type'   => 'text',
 				'labels' => [
 					'label' => 'mail_label',
 					'help'  => 'mail_help',
