@@ -5,7 +5,7 @@ namespace Webaxones\Core\Entities;
 defined( 'ABSPATH' ) || exit;
 
 use Exception;
-use \Decalog\Engine as Decalog;
+use \DecaLog\Engine as Decalog;
 use Webaxones\Core\Entities\Entity;
 use Webaxones\Core\Hook\Hook;
 use Webaxones\Core\Admin\AdminScript;
@@ -31,7 +31,7 @@ final class Entities
 				$hook         = new Hook();
 				$hook->register( $entityHandle );
 			} catch ( Exception $e ) {
-				DecaLog::eventsLogger( 'webaxones-entities' )->error( $e->getMessage() );
+				Decalog::eventsLogger( 'webaxones-entities' )->error( $e->getMessage() );
 			}
 		}
 	}

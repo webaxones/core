@@ -2,6 +2,41 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./js/checkbox.js":
+/*!************************!*\
+  !*** ./js/checkbox.js ***!
+  \************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Checkbox": function() { return /* binding */ Checkbox; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const Checkbox = _ref => {
+  let {
+    fieldValue,
+    field,
+    onChange
+  } = _ref;
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.CheckboxControl, {
+    key: field.id,
+    label: field.label,
+    help: field.hasOwnProperty('help') ? field.help : '',
+    checked: fieldValue || false,
+    onChange: value => {
+      onChange(value, field.id);
+    }
+  });
+};
+
+/***/ }),
+
 /***/ "./js/notices.js":
 /*!***********************!*\
   !*** ./js/notices.js ***!
@@ -270,7 +305,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _text_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./text.js */ "./js/text.js");
 /* harmony import */ var _textArea_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./textArea.js */ "./js/textArea.js");
-/* harmony import */ var _notices_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./notices.js */ "./js/notices.js");
+/* harmony import */ var _checkbox_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./checkbox.js */ "./js/checkbox.js");
+/* harmony import */ var _notices_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./notices.js */ "./js/notices.js");
+
 
 
 
@@ -390,6 +427,19 @@ const App = () => {
         onChange: onChangeField
       }));
     }
+
+    if ('checkbox' === field.type) {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+        key: key,
+        style: {
+          marginTop: 10
+        }
+      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_checkbox_js__WEBPACK_IMPORTED_MODULE_8__.Checkbox, {
+        fieldValue: field.value,
+        field: field,
+        onChange: onChangeField
+      }));
+    }
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     style: {
       marginTop: 20
@@ -410,7 +460,7 @@ const App = () => {
     }
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Save', 'webaxones-core'))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "wax-company-settings__notices"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_notices_js__WEBPACK_IMPORTED_MODULE_8__.Notices, null)));
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_notices_js__WEBPACK_IMPORTED_MODULE_9__.Notices, null)));
 };
 
 document.addEventListener('DOMContentLoaded', () => {

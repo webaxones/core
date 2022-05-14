@@ -1,1 +1,1 @@
-{"version":3,"file":"index.css","mappings":";;;AAAA;EACC;AACD,C","sources":["webpack://Core/./css/admin.scss"],"sourcesContent":[".wax-custom-settings input:invalid{\n\tborder-color:crimson;\n}"],"names":[],"sourceRoot":""}
+{"version":3,"file":"index.css","mappings":";;;AAAA;EACC;AACD;;AACA;EACC;AAED,C","sources":["webpack://Core/./css/admin.scss"],"sourcesContent":[".wax-custom-settings input:invalid{\n\tborder-color:crimson;\n}\n.wax-custom-settings .components-tab-panel__tabs{\n\tborder-bottom: 1px solid #ddd;\n}"],"names":[],"sourceRoot":""}

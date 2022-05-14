@@ -1,11 +1,12 @@
 import { render, useState, useEffect } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import api from '@wordpress/api'
-import { Button, Icon, TabPanel, Panel, PanelBody, PanelRow, Placeholder, SelectControl, Spinner, ToggleControl } from '@wordpress/components'
+import { Button, TabPanel, Panel, PanelBody, PanelRow, Placeholder, SelectControl, Spinner, ToggleControl } from '@wordpress/components'
 import '../css/admin.scss'
 import { dispatch } from '@wordpress/data'
 import { Text } from './text.js'
 import { TextArea } from './textArea.js'
+import { Checkbox } from './checkbox.js'
 import { Notices } from './notices.js'
 
 // Since 1 single variable send all declarations to JS, we filter those dedicated to the current page
@@ -100,6 +101,9 @@ const App = () => {
 					}
 					if ( 'textarea' === field.type ) {
 						return <div key={ key } style={ { marginTop: 10 } }><TextArea fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+					}
+					if ( 'checkbox' === field.type ) {
+						return <div key={ key } style={ { marginTop: 10 } }><Checkbox fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 				} ) }
 			</div>

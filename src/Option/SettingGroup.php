@@ -15,7 +15,7 @@ use Webaxones\Core\Utils\Contracts\PhpToJsInterface;
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
 use Webaxones\Core\Label\Labels;
-use \Decalog\Engine as Decalog;
+use \DecaLog\Engine as Decalog;
 
 /**
  * Custom Setting group declaration
@@ -157,15 +157,17 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 		array_walk(
 			$fields,
 			function( $field ) {
+				$type = 'checkbox' === $field['type'] ? 'boolean' : 'string';
 				register_setting(
 					$this->getSlug(),
 					$field['slug'],
 					[
+						'type'         => $type,
 						'default'      => '',
 						'show_in_rest' => true,
 					]
 				);
-				DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $field['slug'] . ' » Settings field of « ' . $this->getSlug() . ' » Settings group registered.' );
+				Decalog::eventsLogger( 'webaxones-entities' )->info( '« ' . $field['slug'] . ' » Settings field of « ' . $this->getSlug() . ' » Settings group registered.' );
 			}
 		);
 	}

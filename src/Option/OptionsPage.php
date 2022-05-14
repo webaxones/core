@@ -4,7 +4,7 @@ namespace Webaxones\Core\Option;
 
 defined( 'ABSPATH' ) || exit;
 
-use \Decalog\Engine as Decalog;
+use \DecaLog\Engine as Decalog;
 
 /**
  * Custom native option page declaration
@@ -95,6 +95,6 @@ class OptionsPage extends AbstractOptionsPage
 	{
 		$this->setArgs();
 		$this->getAddPageFunction()( ...$this->getArgs() );
-		DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->slug . ' » Options Page added.' );
+		Decalog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->slug . ' » Options Page added.' );
 	}
 }

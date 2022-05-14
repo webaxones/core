@@ -5,7 +5,7 @@ namespace Webaxones\Core\Hook;
 use Webaxones\Core\Utils\Contracts\ActionInterface;
 use Webaxones\Core\Utils\Contracts\FilterInterface;
 
-use \Decalog\Engine as Decalog;
+use \DecaLog\Engine as Decalog;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -49,7 +49,7 @@ class Hook
 			$args     = $actionSettings[2] ?? 1;
 
 			add_action( $actionName, [ $object, $method ], $priority, $args );
-			DecaLog::eventsLogger( 'webaxones-entities' )->info( $method . ' action added.' );
+			Decalog::eventsLogger( 'webaxones-entities' )->info( $method . ' action added.' );
 		}
 	}
 
@@ -70,7 +70,7 @@ class Hook
 			$args     = $filterSettings[2] ?? 1;
 
 			add_filter( $filterName, [ $object, $method ], $priority, $args );
-			DecaLog::eventsLogger( 'webaxones-entities' )->info( $method . ' filter added.' );
+			Decalog::eventsLogger( 'webaxones-entities' )->info( $method . ' filter added.' );
 		}
 	}
 }

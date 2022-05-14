@@ -4,7 +4,7 @@ namespace Webaxones\Core\Classification;
 
 defined( 'ABSPATH' ) || exit;
 
-use \Decalog\Engine as Decalog;
+use \DecaLog\Engine as Decalog;
 
 /**
  * Custom post type declaration
@@ -17,6 +17,6 @@ class PostType extends AbstractClassification
 	public function registerClassification(): void
 	{
 		register_post_type( $this->slug, $this->args );
-		DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->slug . ' » Custom Post Type registered.' );
+		Decalog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->slug . ' » Custom Post Type registered.' );
 	}
 }
