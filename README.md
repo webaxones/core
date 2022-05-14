@@ -8,7 +8,7 @@ Within this library, an entity can be:<br>
 
 a *Content Classification* like **Custom Post Types** or **Custom Taxonomies**<br>
 an *Option Page* like **(Native) Option Page** or **ACF Option Page**<br>
-a **Settings group** which means a group of settings to attach to a native option page (create settings, fields, and save data)<br>
+a *Settings group* which means a group of settings to attach to a native option page, setting fields like **text**, **number**, **textarea**, **datetime-local**, **email**, **checkbox**<br>
 an *Editor Category* like **Block Category** or **Block Pattern Category**<br>
 a **Custom Role**
 
@@ -30,7 +30,7 @@ Add Webaxones Core library to the global composer if you have one:
 composer require webaxones/core
 ```
 
-If you don’t have one, you can initialize composer inside plugin folder with `composer init` or create a `composer.json` file manually:
+If you don’t have one, you can initialize composer inside your plugin folder with `composer init` or create a `composer.json` file manually:
 
 ```bash
 {
@@ -164,6 +164,8 @@ $declarations[] = [
 		'company_add_addr_help'  => __( 'Additional address of the company', 'webaxones-content' ),
 		'opening_day_hour_label' => __( 'Opening day/hour', 'webaxones-content' ),
 		'opening_day_hour_help'  => __( 'Opening day/hour of the company', 'webaxones-content' ),
+		'freewifi_label'         => __( 'Free wifi?', 'webaxones-content' ),
+		'freewifi_help'          => __( 'Free wifi on site?', 'webaxones-content' ),
 	],
 	'settings' => [
 		'slug'      => 'wax-company-settings-legal',
@@ -172,7 +174,7 @@ $declarations[] = [
 		'fields'    => [
 			[
 				'slug'   => 'wax_company_settings_company_name',
-				'type'   => 'text', /*'textarea', 'number', 'email', 'datetime-local'*/
+				'type'   => 'text', /*'textarea', 'number', 'email', 'datetime-local', 'checkbox'*/
 				'labels' => [
 					'label' => 'company_name_label',
 					'help'  => 'company_name_help',
@@ -200,6 +202,14 @@ $declarations[] = [
 				'labels' => [
 					'label' => 'opening_day_hour_label',
 					'help'  => 'opening_day_hour_help',
+				],
+			],
+			[
+				'slug'   => 'wax_company_settings_freewifi',
+				'type'   => 'checkbox',
+				'labels' => [
+					'label' => 'freewifi_label',
+					'help'  => 'freewifi_help',
 				],
 			],
 		],
