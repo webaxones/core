@@ -162,6 +162,8 @@ $declarations[] = [
 		'company_adr1_help'      => __( 'Address #1 of the company', 'webaxones-content' ),
 		'company_add_addr_label' => __( 'Additional address', 'webaxones-content' ),
 		'company_add_addr_help'  => __( 'Additional address of the company', 'webaxones-content' ),
+		'opening_day_hour_label' => __( 'Opening day/hour', 'webaxones-content' ),
+		'opening_day_hour_help'  => __( 'Opening day/hour of the company', 'webaxones-content' ),
 	],
 	'settings' => [
 		'slug'      => 'wax-company-settings-legal',
@@ -170,7 +172,7 @@ $declarations[] = [
 		'fields'    => [
 			[
 				'slug'   => 'wax_company_settings_company_name',
-				'type'   => 'text', /*'textarea', 'number'*/
+				'type'   => 'text', /*'textarea', 'number', 'email', 'datetime-local'*/
 				'labels' => [
 					'label' => 'company_name_label',
 					'help'  => 'company_name_help',
@@ -190,6 +192,14 @@ $declarations[] = [
 				'labels' => [
 					'label' => 'company_add_addr_label',
 					'help'  => 'company_add_addr_help',
+				],
+			],
+			[
+				'slug'   => 'wax_company_settings_opening_day_hour',
+				'type'   => 'datetime-local',
+				'labels' => [
+					'label' => 'opening_day_hour_label',
+					'help'  => 'opening_day_hour_help',
 				],
 			],
 		],
@@ -223,7 +233,7 @@ $declarations[] = [
 			],
 			[
 				'slug'   => 'wax_company_settings_mail',
-				'type'   => 'text',
+				'type'   => 'email',
 				'labels' => [
 					'label' => 'mail_label',
 					'help'  => 'mail_help',

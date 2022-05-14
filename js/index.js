@@ -2,6 +2,7 @@ import { render, useState, useEffect } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import api from '@wordpress/api'
 import { Button, Icon, TabPanel, Panel, PanelBody, PanelRow, Placeholder, SelectControl, Spinner, ToggleControl } from '@wordpress/components'
+import '../css/admin.scss'
 import { dispatch } from '@wordpress/data'
 import { Text } from './text.js'
 import { TextArea } from './textArea.js'
@@ -94,15 +95,15 @@ const App = () => {
 					if ( field.tab !== tabSelected ) {
 						return null
 					}
-					if ( 'text' === field.type || 'number' === field.type ) {
-						return <div key={ key } style={ {marginTop: 10} }><Text fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+					if ( 'text' === field.type || 'number' === field.type || 'datetime-local' === field.type  || 'email' === field.type ) {
+						return <div key={ key } style={ { marginTop: 10 } }><Text fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 					if ( 'textarea' === field.type ) {
-						return <div key={ key } style={ {marginTop: 10} }><TextArea fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+						return <div key={ key } style={ { marginTop: 10 } }><TextArea fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 				} ) }
 			</div>
-			<div style={ {marginTop: 20} }>
+			<div style={ { marginTop: 20 } }>
 				<Button
 					isPrimary
 					onClick={ () => {
