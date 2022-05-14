@@ -6,21 +6,27 @@ import { dispatch } from '@wordpress/data'
 import { Text } from './text.js'
 import { Notices } from './notices.js'
 
-console.log(webaxonesApps);
+// Since 1 single variable send all declarations to JS, we filter those dedicated to the current page
+const objUrlParams    = new URLSearchParams( window.location.search )
+const pageSlug        = objUrlParams.get( 'page' )
+let currentPageGroups = []
+webaxonesApps.forEach( ( group ) => {
+	if ( group[0].page === pageSlug ) currentPageGroups.push( group )
+} )
 
 const App = () => {
 
 	const [fields, setFields] = useState( [] )
 	const [tabs, setTabs] = useState( [] )
-	const [tabSelected, setTabSelected] = useState( webaxonesApps[0][0].group )
+	const [tabSelected, setTabSelected] = useState( currentPageGroups[0][0].group )
   
-	useEffect(() => {
+	useEffect( () => {
 		const getData = async () => {
 			const response = await api.loadPromise.then( () => {
 				const settings = new api.models.Settings()
 				const settingsGroup = settings.fetch().then( ( response ) => {
 					const data = []
-					webaxonesApps.forEach( group => {
+					currentPageGroups.forEach( group => {
 						group.forEach( field => {
 							data.push(
 								{
@@ -40,15 +46,13 @@ const App = () => {
 		getData()
 	}, [] )
 
-
-
 	useEffect( () => {
 		const getTabs = async () => {
 			const response = await api.loadPromise.then( () => {
 				const settings = new api.models.Settings()
 				const settingsGroup = settings.fetch().then( ( response ) => {
 					const data = []
-					webaxonesApps.forEach( group => {
+					currentPageGroups.forEach( group => {
 						data.push(
 							{
 								name: group[0].group,
@@ -64,32 +68,62 @@ const App = () => {
 		getTabs()
 	}, [] )
 
-	const onChangeField = ( { value, id } ) => {
-	  setFields( (prevState ) => {
-		return prevState.map( ( item ) => {
-		  if (item.id !== id) {
-			return item;
-		  }
-		  return {
-			...item,
-			value: value
-		  };
-		});
-	  });
-	};
+	const onChangeField = ( value, id ) => {
+		setFields( ( prevState ) => {
+			return prevState.map( ( item ) => {
+				if ( item.id !== id ) {
+					return item
+				}
+				return {
+					...item,
+					value: value
+				}
+			} )
+	  	} )
+	}
 
 	return (
-		<div className='App'>
-			<TabPanel tabs={ tabs } onSelect={ ( tab ) => setTabSelected( tab.name ) }>
+		<>
+			<TabPanel tabs={ tabs } onSelect={ ( tab ) => setTabSelected( tab ) }>
 				{ ( tab ) => <>{ tab.children }</> }
 			</TabPanel>
-			{ fields.map( ( field, key ) => {
-				if ( field.tab !== tabSelected ) {
-					return null;
-				}
-				return <Text key={ key } fieldValue={ field.value } field={ field } onChange={ onChangeField } />
-			} ) }
-		</div>
+			<div style={ {paddingTop: 10} }>
+				{ fields.map( ( field, key ) => {
+					if ( field.tab !== tabSelected ) {
+						return null
+					}
+					return <div key={ key } style={ {marginTop: 10} }><Text fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+				} ) }
+			</div>
+			<Button
+				isPrimary
+				onClick={ () => {
+					const values = {}
+
+					fields.forEach( field => {
+						values[field.id] = field.value
+					} )
+
+					const settings = new api.models.Settings( values )
+					settings.save()
+
+					dispatch('core/notices').createNotice(
+						'success',
+						__( 'Settings Saved', 'webaxones-core' ),
+						{
+							type: 'snackbar',
+							isDismissible: true,
+						}
+					)
+				} }
+			>
+				{ __( 'Save', 'webaxones-core' ) }
+			</Button>
+
+			<div className="wax-company-settings__notices">
+				<Notices/>
+			</div>
+		</>
 	  )
 }
 
@@ -99,6 +133,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
         render(
             <App />,
             htmlOutput
-        );
+        )
     }
-});
+} )

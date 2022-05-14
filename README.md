@@ -8,6 +8,7 @@ Within this library, an entity can be:<br>
 
 a *Content Classification* like **Custom Post Types** or **Custom Taxonomies**<br>
 an *Option Page* like **(Native) Option Page** or **ACF Option Page**<br>
+a **Settings group** which means a group of settings to attach to a native option page (create settings, fields, and save data)<br>
 an *Editor Category* like **Block Category** or **Block Pattern Category**<br>
 a **Custom Role**
 
@@ -149,24 +150,24 @@ $declarations[] = [
 ];
 
 /**
- * Custom settings group for company option page
+ * Custom "Legal informations" settings group for company option page
  */
 $declarations[] = [
 	'entity'   => 'Webaxones\Core\Option\SettingGroup',
 	'labels'   => [
-		'group_label'        => __( 'Group One', 'webaxones-content' ),
+		'group_label'        => __( 'Legal Informations', 'webaxones-content' ),
 		'company_name_label' => __( 'Company name', 'webaxones-content' ),
 		'company_name_help'  => __( 'Full name of the company', 'webaxones-content' ),
 		'company_adr1_label' => __( 'Company address', 'webaxones-content' ),
 		'company_adr1_help'  => __( 'Address #1 of the company', 'webaxones-content' ),
 	],
 	'settings' => [
-		'slug'      => 'wax-company-settings-group1',
+		'slug'      => 'wax-company-settings-legal',
 		'page_slug' => 'wax-company-settings',
 		'label'     => 'group_label',
 		'fields'    => [
 			[
-				'slug'   => 'wax_company_settings_settings_company_name',
+				'slug'   => 'wax_company_settings_company_name',
 				'type'   => 'string',
 				'labels' => [
 					'label' => 'company_name_label',
@@ -174,11 +175,48 @@ $declarations[] = [
 				],
 			],
 			[
-				'slug'   => 'wax_company_settings_settings_company_addr',
+				'slug'   => 'wax_company_settings_company_addr',
 				'type'   => 'string',
 				'labels' => [
 					'label' => 'company_adr1_label',
 					'help'  => 'company_adr1_help',
+				],
+			],
+		],
+	],
+];
+
+/**
+ * Custom "Contact informations" settings group for company option page
+ */
+$declarations[] = [
+	'entity'   => 'Webaxones\Core\Option\SettingGroup',
+	'labels'   => [
+		'group_label'        => __( 'Contact Informations', 'webaxones-content' ),
+		'phone_number_label' => __( 'Phone number', 'webaxones-content' ),
+		'phone_number_help'  => __( 'Phone number of the company', 'webaxones-content' ),
+		'mail_label'         => __( 'E-mail address', 'webaxones-content' ),
+		'mail_help'          => __( 'E-mail address of the company', 'webaxones-content' ),
+	],
+	'settings' => [
+		'slug'      => 'wax-company-settings-contact',
+		'page_slug' => 'wax-company-settings',
+		'label'     => 'group_label',
+		'fields'    => [
+			[
+				'slug'   => 'wax_company_settings_phone_number',
+				'type'   => 'string',
+				'labels' => [
+					'label' => 'phone_number_label',
+					'help'  => 'phone_number_help',
+				],
+			],
+			[
+				'slug'   => 'wax_company_settings_mail',
+				'type'   => 'string',
+				'labels' => [
+					'label' => 'mail_label',
+					'help'  => 'mail_help',
 				],
 			],
 		],

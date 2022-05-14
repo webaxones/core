@@ -64,7 +64,9 @@ class AdminScript extends AbstractAsset implements PhpToJsInterface
 			$script_asset['version']
 		);
 
-		wp_enqueue_style('wp-edit-post');
+		foreach ( $script_asset['dependencies'] as $style ) {
+			wp_enqueue_style( $style );
+		}
 	}
 
 	/**
