@@ -6,11 +6,11 @@
 
 Within this library, an entity can be:<br>
 
-a *Content Classification* like **Custom Post Types** or **Custom Taxonomies**<br>
-an *Option Page* like **(Native) Option Page** or **ACF Option Page**<br>
-a *Settings group* which means a group of settings to attach to a native option page, setting fields like **text**, **number**, **textarea**, **datetime-local**, **email**, **checkbox**<br>
-an *Editor Category* like **Block Category** or **Block Pattern Category**<br>
-a **Custom Role**
+- a *Content Classification* like **Custom Post Types** or **Custom Taxonomies**<br>
+- an *Option Page* like **(Native) Option Page** or **ACF Option Page**<br>
+- a *Settings group* which means a group of settings to attach to a native option page, with Gutenberg setting fields like **text**, **number**, **textarea**, **datetime-local**, **email**, **checkbox**<br>
+- an *Editor Category* like **Block Category** or **Block Pattern Category**<br>
+- a **Custom Role**
 
 ## 1- Create a folder for your plugin
 
