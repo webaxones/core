@@ -176,7 +176,7 @@ $declarations[] = [
 		'fields'    => [
 			[
 				'slug'   => 'wax_company_settings_company_name',
-				'type'   => 'text', /*'textarea', 'number', 'email', 'datetime-local', 'checkbox'*/
+				'type'   => 'text', /*'textarea', 'number', 'email', 'datetime-local', 'checkbox', 'toggle'*/
 				'labels' => [
 					'label' => 'company_name_label',
 					'help'  => 'company_name_help',
