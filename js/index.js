@@ -9,13 +9,10 @@ import { TextArea } from './textArea.js'
 import { Checkbox } from './checkbox.js'
 import { Notices } from './notices.js'
 
-// Since 1 single variable send all declarations to JS, we filter those dedicated to the current page
+// Filter declarations dedicated to the current page
 const objUrlParams    = new URLSearchParams( window.location.search )
 const pageSlug        = objUrlParams.get( 'page' )
-let currentPageGroups = []
-webaxonesApps.forEach( ( group ) => {
-	if ( group[0].page === pageSlug ) currentPageGroups.push( group )
-} )
+let currentPageGroups = webaxonesApps.filter( group => group[0].page === pageSlug )
 
 const App = () => {
 
@@ -25,9 +22,9 @@ const App = () => {
   
 	useEffect( () => {
 		const getData = async () => {
-			const response = await api.loadPromise.then( () => {
+			await api.loadPromise.then( () => {
 				const settings = new api.models.Settings()
-				const settingsGroup = settings.fetch().then( ( response ) => {
+				settings.fetch().then( ( response ) => {
 					const data = []
 					currentPageGroups.forEach( group => {
 						group.forEach( field => {
@@ -52,9 +49,9 @@ const App = () => {
 
 	useEffect( () => {
 		const getTabs = async () => {
-			const response = await api.loadPromise.then( () => {
+			await api.loadPromise.then( () => {
 				const settings = new api.models.Settings()
-				const settingsGroup = settings.fetch().then( ( response ) => {
+				settings.fetch().then( ( response ) => {
 					const data = []
 					currentPageGroups.forEach( group => {
 						data.push(

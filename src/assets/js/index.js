@@ -317,14 +317,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // Since 1 single variable send all declarations to JS, we filter those dedicated to the current page
+ // Filter declarations dedicated to the current page
 
 const objUrlParams = new URLSearchParams(window.location.search);
 const pageSlug = objUrlParams.get('page');
-let currentPageGroups = [];
-webaxonesApps.forEach(group => {
-  if (group[0].page === pageSlug) currentPageGroups.push(group);
-});
+let currentPageGroups = webaxonesApps.filter(group => group[0].page === pageSlug);
 
 const App = () => {
   const [fields, setFields] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
@@ -332,9 +329,9 @@ const App = () => {
   const [tabSelected, setTabSelected] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(currentPageGroups[0][0].group);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const getData = async () => {
-      const response = await _wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().loadPromise.then(() => {
+      await _wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().loadPromise.then(() => {
         const settings = new (_wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().models.Settings)();
-        const settingsGroup = settings.fetch().then(response => {
+        settings.fetch().then(response => {
           const data = [];
           currentPageGroups.forEach(group => {
             group.forEach(field => {
@@ -357,9 +354,9 @@ const App = () => {
   }, []);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const getTabs = async () => {
-      const response = await _wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().loadPromise.then(() => {
+      await _wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().loadPromise.then(() => {
         const settings = new (_wordpress_api__WEBPACK_IMPORTED_MODULE_2___default().models.Settings)();
-        const settingsGroup = settings.fetch().then(response => {
+        settings.fetch().then(response => {
           const data = [];
           currentPageGroups.forEach(group => {
             data.push({
