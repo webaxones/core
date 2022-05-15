@@ -8,7 +8,7 @@ Within this library, an entity can be:<br>
 
 - a *Content Classification* like **Custom Post Types** or **Custom Taxonomies**<br>
 - an *Option Page* like **(Native) Option Page** or **ACF Option Page**<br>
-- a *Settings group* which means a group of settings to attach to a native option page, with Gutenberg setting fields like **text**, **number**, **textarea**, **datetime-local**, **email**, **checkbox**, **toggle**<br>
+- a *Settings group* which means a group of settings to attach to a native option page, with Gutenberg setting fields like **text**, **number**, **textarea**, **datetime-local**, **email**, **checkbox**, **toggle**, **media**<br>
 - an *Editor Category* like **Block Category** or **Block Pattern Category**<br>
 - a **Custom Role**
 
@@ -168,6 +168,8 @@ $declarations[] = [
 		'freewifi_help'          => __( 'Free wifi on site?', 'webaxones-content' ),
 		'swimmingpool_label'     => __( 'Swimming pool?', 'webaxones-content' ),
 		'swimmingpool_help'      => __( 'Swimming pool on site?', 'webaxones-content' ),
+		'the_photo_label'        => __( 'Swimming pool photo', 'webaxones-content' ),
+		'the_photo_help'         => __( 'The Swimming pool photo', 'webaxones-content' ),
 	],
 	'settings' => [
 		'slug'      => 'wax-company-settings-legal',
@@ -176,7 +178,7 @@ $declarations[] = [
 		'fields'    => [
 			[
 				'slug'   => 'wax_company_settings_company_name',
-				'type'   => 'text', /*'textarea', 'number', 'email', 'datetime-local', 'checkbox', 'toggle'*/
+				'type'   => 'text', /*'textarea', 'number', 'email', 'datetime-local', 'checkbox', 'toggle', 'media'*/
 				'labels' => [
 					'label' => 'company_name_label',
 					'help'  => 'company_name_help',
@@ -220,6 +222,14 @@ $declarations[] = [
 				'labels' => [
 					'label' => 'swimmingpool_label',
 					'help'  => 'swimmingpool_help',
+				],
+			],
+			[
+				'slug'   => 'wax_company_settings_the_photo',
+				'type'   => 'media',
+				'labels' => [
+					'label' => 'the_photo_label',
+					'help'  => 'the_photo_help',
 				],
 			],
 		],

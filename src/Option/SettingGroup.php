@@ -157,20 +157,51 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 		array_walk(
 			$fields,
 			function( $field ) {
-				$type = ( 'checkbox' === $field['type'] || 'toggle' === $field['type'] ) ? 'boolean' : 'string';
+				$type = 'string';
+
+				if ( 'checkbox' === $field['type'] || 'toggle' === $field['type'] ) {
+					$type = 'boolean';
+				}
+
+				$args = [
+					'type'         => $type,
+					'default'      => '',
+					'show_in_rest' => true,
+				];
+
+				if ( 'media' === $field['type'] ) {
+					$args = [
+						'type'         => 'object',
+						'default'      => array(
+							'id'  => 0,
+							'url' => '',
+						),
+						'show_in_rest' => array(
+							'schema' => array(
+								'type'       => 'object',
+								'properties' => array(
+									'id'  => array(
+										'type' => 'integer',
+									),
+									'url' => array(
+										'type' => 'string',
+									),
+								),
+							),
+						),
+					];
+				}
+
 				register_setting(
 					$this->getSlug(),
 					$field['slug'],
-					[
-						'type'         => $type,
-						'default'      => '',
-						'show_in_rest' => true,
-					]
+					$args
 				);
-				Decalog::eventsLogger( 'webaxones-entities' )->info( '« ' . $field['slug'] . ' » Settings field of « ' . $this->getSlug() . ' » Settings group registered.' );
+				DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $field['slug'] . ' » Settings field of « ' . $this->getSlug() . ' » Settings group registered.' . wp_json_encode( $args ) );
 			}
 		);
 	}
+
 
 	/**
 	 * {@inheritdoc}
