@@ -2,12 +2,13 @@ import { render, useState, useEffect } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import api from '@wordpress/api'
 import { Button, TabPanel, Panel, PanelBody, PanelRow, Placeholder, SelectControl, Spinner, ToggleControl } from '@wordpress/components'
-import '../css/admin.scss'
 import { dispatch } from '@wordpress/data'
+import '../css/admin.scss'
+import { Notices } from './notices.js'
 import { Text } from './text.js'
 import { TextArea } from './textArea.js'
 import { Checkbox } from './checkbox.js'
-import { Notices } from './notices.js'
+import { Toggle } from './toggle.js'
 
 // Filter declarations dedicated to the current page
 const objUrlParams    = new URLSearchParams( window.location.search )
@@ -51,7 +52,7 @@ const App = () => {
 		const getTabs = async () => {
 			await api.loadPromise.then( () => {
 				const settings = new api.models.Settings()
-				settings.fetch().then( ( response ) => {
+				settings.fetch().then( () => {
 					const data = []
 					currentPageGroups.forEach( group => {
 						data.push(
@@ -88,19 +89,22 @@ const App = () => {
 			<TabPanel tabs={ tabs } onSelect={ ( tab ) => setTabSelected( tab ) }>
 				{ ( tab ) => <>{ tab.children }</> }
 			</TabPanel>
-			<div style={ {paddingTop: 10} }>
+			<div style={ { paddingTop: 10 } }>
 				{ fields.map( ( field, key ) => {
 					if ( field.tab !== tabSelected ) {
 						return null
 					}
 					if ( 'text' === field.type || 'number' === field.type || 'datetime-local' === field.type  || 'email' === field.type ) {
-						return <div key={ key } style={ { marginTop: 10 } }><Text fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+						return <div key={ key } style={ { marginTop: 15 } }><Text fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 					if ( 'textarea' === field.type ) {
-						return <div key={ key } style={ { marginTop: 10 } }><TextArea fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+						return <div key={ key } style={ { marginTop: 15 } }><TextArea fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 					if ( 'checkbox' === field.type ) {
-						return <div key={ key } style={ { marginTop: 10 } }><Checkbox fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+						return <div key={ key } style={ { marginTop: 15 } }><Checkbox fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+					}
+					if ( 'toggle' === field.type ) {
+						return <div key={ key } style={ { marginTop: 15 } }><Toggle fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 				} ) }
 			</div>
@@ -131,9 +135,7 @@ const App = () => {
 				</Button>
 			</div>
 
-			<div className="wax-company-settings__notices">
-				<Notices/>
-			</div>
+			<div className="wax-custom-settings__notices"><Notices/></div>
 		</>
 	  )
 }

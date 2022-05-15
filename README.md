@@ -8,7 +8,7 @@ Within this library, an entity can be:<br>
 
 - a *Content Classification* like **Custom Post Types** or **Custom Taxonomies**<br>
 - an *Option Page* like **(Native) Option Page** or **ACF Option Page**<br>
-- a *Settings group* which means a group of settings to attach to a native option page, with Gutenberg setting fields like **text**, **number**, **textarea**, **datetime-local**, **email**, **checkbox**<br>
+- a *Settings group* which means a group of settings to attach to a native option page, with Gutenberg setting fields like **text**, **number**, **textarea**, **datetime-local**, **email**, **checkbox**, **toggle**<br>
 - an *Editor Category* like **Block Category** or **Block Pattern Category**<br>
 - a **Custom Role**
 
@@ -166,6 +166,8 @@ $declarations[] = [
 		'opening_day_hour_help'  => __( 'Opening day/hour of the company', 'webaxones-content' ),
 		'freewifi_label'         => __( 'Free wifi?', 'webaxones-content' ),
 		'freewifi_help'          => __( 'Free wifi on site?', 'webaxones-content' ),
+		'swimmingpool_label'     => __( 'Swimming pool?', 'webaxones-content' ),
+		'swimmingpool_help'      => __( 'Swimming pool on site?', 'webaxones-content' ),
 	],
 	'settings' => [
 		'slug'      => 'wax-company-settings-legal',
@@ -210,6 +212,14 @@ $declarations[] = [
 				'labels' => [
 					'label' => 'freewifi_label',
 					'help'  => 'freewifi_help',
+				],
+			],
+			[
+				'slug'   => 'wax_company_settings_swimmingpool',
+				'type'   => 'toggle',
+				'labels' => [
+					'label' => 'swimmingpool_label',
+					'help'  => 'swimmingpool_help',
 				],
 			],
 		],

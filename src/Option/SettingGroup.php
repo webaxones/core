@@ -157,7 +157,7 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 		array_walk(
 			$fields,
 			function( $field ) {
-				$type = 'checkbox' === $field['type'] ? 'boolean' : 'string';
+				$type = ( 'checkbox' === $field['type'] || 'toggle' === $field['type'] ) ? 'boolean' : 'string';
 				register_setting(
 					$this->getSlug(),
 					$field['slug'],
