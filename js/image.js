@@ -10,7 +10,7 @@ const ImagePreview = ( file ) => {
 	return ''
 }
 
-export const Media = ( { fieldValue, field, onChange } ) => {
+export const Image = ( { fieldValue, field, onChange } ) => {
     const urlParams = new URLSearchParams( window.location.search )
     const file = urlParams.get( 'image' )
 

@@ -37,15 +37,15 @@ const Checkbox = _ref => {
 
 /***/ }),
 
-/***/ "./js/media.js":
+/***/ "./js/image.js":
 /*!*********************!*\
-  !*** ./js/media.js ***!
+  !*** ./js/image.js ***!
   \*********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Media": function() { return /* binding */ Media; }
+/* harmony export */   "Image": function() { return /* binding */ Image; }
 /* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
@@ -72,7 +72,7 @@ const ImagePreview = file => {
   return '';
 };
 
-const Media = _ref => {
+const Image = _ref => {
   let {
     fieldValue,
     field,
@@ -461,7 +461,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _textArea_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./textArea.js */ "./js/textArea.js");
 /* harmony import */ var _checkbox_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./checkbox.js */ "./js/checkbox.js");
 /* harmony import */ var _toggle_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./toggle.js */ "./js/toggle.js");
-/* harmony import */ var _media_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./media.js */ "./js/media.js");
+/* harmony import */ var _image_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./image.js */ "./js/image.js");
 
 
 
@@ -608,13 +608,13 @@ const App = () => {
       }));
     }
 
-    if ('media' === field.type) {
+    if ('image' === field.type) {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
         key: key,
         style: {
           marginTop: 15
         }
-      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_media_js__WEBPACK_IMPORTED_MODULE_11__.Media, {
+      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_image_js__WEBPACK_IMPORTED_MODULE_11__.Image, {
         fieldValue: field.value,
         field: field,
         onChange: onChangeField

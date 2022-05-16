@@ -9,7 +9,7 @@ import { Text } from './text.js'
 import { TextArea } from './textArea.js'
 import { Checkbox } from './checkbox.js'
 import { Toggle } from './toggle.js'
-import { Media } from './media.js'
+import { Image } from './image.js'
 
 // Filter declarations dedicated to the current page
 const objUrlParams    = new URLSearchParams( window.location.search )
@@ -107,8 +107,8 @@ const App = () => {
 					if ( 'toggle' === field.type ) {
 						return <div key={ key } style={ { marginTop: 15 } }><Toggle fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
-					if ( 'media' === field.type ) {
-						return <div key={ key } style={ { marginTop: 15 } }><Media fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+					if ( 'image' === field.type ) {
+						return <div key={ key } style={ { marginTop: 15 } }><Image fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 				} ) }
 			</div>

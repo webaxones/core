@@ -169,7 +169,7 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 					'show_in_rest' => true,
 				];
 
-				if ( 'media' === $field['type'] ) {
+				if ( 'image' === $field['type'] ) {
 					$args = [
 						'type'         => 'object',
 						'default'      => array(

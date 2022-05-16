@@ -12,6 +12,8 @@ Within this library, an entity can be:<br>
 - an *Editor Category* like **Block Category** or **Block Pattern Category**<br>
 - a **Custom Role**
 
+There is a [wiki on this repo](https://github.com/webaxones/core/wiki), or faster below.
+
 ## 1- Create a folder for your plugin
 
 ```bash
@@ -177,7 +179,7 @@ $declarations[] = [
 		'fields'    => [
 			[
 				'slug'   => 'wax_company_settings_company_name',
-				'type'   => 'text', /*'textarea', 'number', 'email', 'datetime-local', 'checkbox', 'toggle', 'media'*/
+				'type'   => 'text', /*'textarea', 'number', 'email', 'datetime-local', 'checkbox', 'toggle', 'image'*/
 				'labels' => [
 					'label' => 'company_name_label',
 					'help'  => 'company_name_help',
@@ -225,7 +227,7 @@ $declarations[] = [
 			],
 			[
 				'slug'   => 'wax_company_settings_the_photo',
-				'type'   => 'media',
+				'type'   => 'image',
 				'labels' => [
 					'label' => 'the_photo_label',
 					'help'  => '',
