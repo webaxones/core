@@ -169,7 +169,6 @@ $declarations[] = [
 		'swimmingpool_label'     => __( 'Swimming pool?', 'webaxones-content' ),
 		'swimmingpool_help'      => __( 'Swimming pool on site?', 'webaxones-content' ),
 		'the_photo_label'        => __( 'Swimming pool photo', 'webaxones-content' ),
-		'the_photo_help'         => __( 'The Swimming pool photo', 'webaxones-content' ),
 	],
 	'settings' => [
 		'slug'      => 'wax-company-settings-legal',
@@ -229,7 +228,7 @@ $declarations[] = [
 				'type'   => 'media',
 				'labels' => [
 					'label' => 'the_photo_label',
-					'help'  => 'the_photo_help',
+					'help'  => '',
 				],
 			],
 		],
