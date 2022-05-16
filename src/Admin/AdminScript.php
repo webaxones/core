@@ -57,12 +57,15 @@ class AdminScript extends AbstractAsset implements PhpToJsInterface
 
     	$script_asset = require $script_asset_path;
 
-		wp_enqueue_script(
-			'webaxones-core',
-			content_url() . '/cache/webaxones/assets/js/index.js',
-			$script_asset['dependencies'],
-			$script_asset['version']
-		);
+		if ( ! wp_script_is( 'webaxones-core', 'enqueued' ) ) {
+			wp_enqueue_script(
+				'webaxones-core',
+				content_url() . '/cache/webaxones/assets/js/index.js',
+				$script_asset['dependencies'],
+				$script_asset['version'],
+				true
+			);
+		}
 
 		foreach ( $script_asset['dependencies'] as $style ) {
 			wp_enqueue_style( $style );
