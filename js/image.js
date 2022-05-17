@@ -21,11 +21,12 @@ export const Image = ( { fieldValue, field, onChange } ) => {
 	const onRemoveImage = () => {
 		onChange( { id: 0, url: '' }, field.id )
 		ImagePreview( { id: 0, url: '' } )
-	};
+	}
 
 	return ( <div className='upload'>
 		<p className='wax-components-field__label'>{ field.label }</p>
 		<FormFileUpload
+			className='wax-components-drop-zone'
 			accept='image/*'
 			icon='format-image'
 			onChange={ ( file ) => {
@@ -42,7 +43,7 @@ export const Image = ( { fieldValue, field, onChange } ) => {
 			>
 			{ __( 'Select an Image or Drop it here', 'webaxones-core' ) }
 		</FormFileUpload>
-		<DropZone 
+		<DropZone
 			onFilesDrop={ ( files ) => {
 				wpMediaUtils.uploadMedia( {
 					filesList: files[0],

@@ -10,6 +10,7 @@ import { TextArea } from './textArea.js'
 import { Checkbox } from './checkbox.js'
 import { Toggle } from './toggle.js'
 import { Image } from './image.js'
+// import { DynamicSelect } from './dynamicSelect.js'
 
 // Filter declarations dedicated to the current page
 const objUrlParams    = new URLSearchParams( window.location.search )
@@ -90,25 +91,28 @@ const App = () => {
 			<TabPanel tabs={ tabs } onSelect={ ( tab ) => setTabSelected( tab ) }>
 				{ ( tab ) => <>{ tab.children }</> }
 			</TabPanel>
-			<div style={ { paddingTop: 10 } }>
+			<div className='wax-custom-settings__container' style={ { paddingTop: 10 } }>
 				{ fields.map( ( field, key ) => {
 					if ( field.tab !== tabSelected ) {
 						return null
 					}
 					if ( 'text' === field.type || 'number' === field.type || 'datetime-local' === field.type  || 'email' === field.type ) {
-						return <div key={ key } style={ { marginTop: 15 } }><Text fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+						return <div key={ key } className={'wax-components-field'}><Text fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 					if ( 'textarea' === field.type ) {
-						return <div key={ key } style={ { marginTop: 15 } }><TextArea fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+						return <div key={ key } className={'wax-components-field'}><TextArea fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 					if ( 'checkbox' === field.type ) {
-						return <div key={ key } style={ { marginTop: 15 } }><Checkbox fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+						return <div key={ key } className={'wax-components-field'}><Checkbox fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 					if ( 'toggle' === field.type ) {
-						return <div key={ key } style={ { marginTop: 15 } }><Toggle fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+						return <div key={ key } className={'wax-components-field'}><Toggle fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
+					// if ( 'image' === field.type ) {
+					// 	return <div key={ key } className={'wax-components-field'}><DynamicSelect/></div>
+					// }
 					if ( 'image' === field.type ) {
-						return <div key={ key } style={ { marginTop: 15 } }><Image fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+						return <div key={ key } className={'wax-components-field'}><Image fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 				} ) }
 			</div>
