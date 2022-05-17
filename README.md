@@ -22,11 +22,11 @@ Within this library, an entity can be:<br>
 - a **Block Category**
 - a **Block Pattern Category**
 - a **Custom Role**
-<br>
-<br>
-<br>
-There is a [documentation on this repo](https://github.com/webaxones/core/wiki).
-<br>
-<br>
-<br>
+    
+    
+    
+There is a [documentation on this repo](https://github.com/webaxones/core/wiki).  
+    
+    
+    
 *Thanks to Pierre Lannoy for his fucking good [DecaLog SDK](https://decalog.io/) which tracks everything and almost makes coffee.*
