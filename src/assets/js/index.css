@@ -1,12 +1,20 @@
 /*!***************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./css/admin.scss ***!
   \***************************************************************************************************************************************************************************************************************************************/
+.wax-custom-settings__container {
+  max-width: 1000px;
+}
+
 .wax-custom-settings input:invalid {
   border-color: crimson;
 }
 
 .wax-custom-settings .components-tab-panel__tabs {
   border-bottom: 1px solid #ddd;
+}
+
+.wax-components-field {
+  margin-top: 25px;
 }
 
 .wax-components-field__label {
@@ -20,9 +28,15 @@
 }
 
 .wax-components-field__img {
-  max-width: 500px;
-  height: auto;
+  max-height: 350px;
+  width: auto;
   margin-top: 10px;
+}
+
+.wax-components-drop-zone.components-button.has-icon {
+  background-color: hsl(0deg, 0%, 90%);
+  border-radius: 2px;
+  padding: 20px 30px;
 }
 
 /*# sourceMappingURL=index.css.map*/

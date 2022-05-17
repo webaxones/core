@@ -101,6 +101,7 @@ const Image = _ref => {
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "wax-components-field__label"
   }, field.label), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FormFileUpload, {
+    className: "wax-components-drop-zone",
     accept: "image/*",
     icon: "format-image",
     onChange: file => {
@@ -474,7 +475,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // Filter declarations dedicated to the current page
+ // import { DynamicSelect } from './dynamicSelect.js'
+// Filter declarations dedicated to the current page
 
 const objUrlParams = new URLSearchParams(window.location.search);
 const pageSlug = objUrlParams.get('page');
@@ -548,6 +550,7 @@ const App = () => {
     tabs: tabs,
     onSelect: tab => setTabSelected(tab)
   }, tab => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, tab.children)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wax-custom-settings__container",
     style: {
       paddingTop: 10
     }
@@ -559,9 +562,7 @@ const App = () => {
     if ('text' === field.type || 'number' === field.type || 'datetime-local' === field.type || 'email' === field.type) {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
         key: key,
-        style: {
-          marginTop: 15
-        }
+        className: 'wax-components-field'
       }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_text_js__WEBPACK_IMPORTED_MODULE_7__.Text, {
         fieldValue: field.value,
         field: field,
@@ -572,9 +573,7 @@ const App = () => {
     if ('textarea' === field.type) {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
         key: key,
-        style: {
-          marginTop: 15
-        }
+        className: 'wax-components-field'
       }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_textArea_js__WEBPACK_IMPORTED_MODULE_8__.TextArea, {
         fieldValue: field.value,
         field: field,
@@ -585,9 +584,7 @@ const App = () => {
     if ('checkbox' === field.type) {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
         key: key,
-        style: {
-          marginTop: 15
-        }
+        className: 'wax-components-field'
       }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_checkbox_js__WEBPACK_IMPORTED_MODULE_9__.Checkbox, {
         fieldValue: field.value,
         field: field,
@@ -598,22 +595,21 @@ const App = () => {
     if ('toggle' === field.type) {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
         key: key,
-        style: {
-          marginTop: 15
-        }
+        className: 'wax-components-field'
       }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_toggle_js__WEBPACK_IMPORTED_MODULE_10__.Toggle, {
         fieldValue: field.value,
         field: field,
         onChange: onChangeField
       }));
-    }
+    } // if ( 'image' === field.type ) {
+    // 	return <div key={ key } className={'wax-components-field'}><DynamicSelect/></div>
+    // }
+
 
     if ('image' === field.type) {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
         key: key,
-        style: {
-          marginTop: 15
-        }
+        className: 'wax-components-field'
       }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_image_js__WEBPACK_IMPORTED_MODULE_11__.Image, {
         fieldValue: field.value,
         field: field,

@@ -1,8 +1,14 @@
+.wax-custom-settings__container{
+	max-width: 1000px;
+}
 .wax-custom-settings input:invalid{
 	border-color:crimson;
 }
 .wax-custom-settings .components-tab-panel__tabs{
 	border-bottom: 1px solid #ddd;
+}
+.wax-components-field{
+	margin-top: 25px;
 }
 .wax-components-field__label{
 	font-size: 13px;
@@ -13,7 +19,12 @@
 	color: rgb(117, 117, 117);
 }
 .wax-components-field__img{
-	max-width: 500px;
-	height: auto;
+	max-height: 350px;
+	width: auto;
 	margin-top: 10px;
+}
+.wax-components-drop-zone.components-button.has-icon{
+	background-color: hsl(0deg 0% 90%);
+	border-radius: 2px;
+	padding: 20px 30px;
 }
