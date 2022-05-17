@@ -1,7 +1,6 @@
 import { CheckboxControl } from '@wordpress/components'
 
 export const Checkbox = ( { fieldValue, field, onChange } ) => {
-
 	return (
 		<CheckboxControl key={ field.id }
             label={ field.label }

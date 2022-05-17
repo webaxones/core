@@ -17,6 +17,8 @@ const objUrlParams    = new URLSearchParams( window.location.search )
 const pageSlug        = objUrlParams.get( 'page' )
 let currentPageGroups = webaxonesApps.filter( group => group[0].page === pageSlug )
 
+console.log(currentPageGroups)
+
 const App = () => {
 
 	const [fields, setFields] = useState( [] )
@@ -38,7 +40,8 @@ const App = () => {
 									help: field.help,
 									value: response[ field.slug ],
 									tab: field.group,
-									type: field.type
+									type: field.type,
+									args: field.args || {}
 								}
 							)
 						} )
