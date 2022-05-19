@@ -19,4 +19,11 @@ interface SettingGroupInterface
 	 * @return void
 	 */
 	public function registerSetting(): void;
+
+	/**
+	 * Sets arguments according to the type of setting
+	 *
+	 * @return void
+	 */
+	public function setArgsFromSettingType(): void;
 }

@@ -1,7 +1,6 @@
 import { ToggleControl } from '@wordpress/components'
 
 export const Toggle = ( { fieldValue, field, onChange } ) => {
-
 	return (
 		<ToggleControl key={ field.id }
             label={ field.label }

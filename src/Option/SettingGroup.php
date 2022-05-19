@@ -15,7 +15,7 @@ use Webaxones\Core\Utils\Contracts\PhpToJsInterface;
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
 use Webaxones\Core\Label\Labels;
-use \DecaLog\Engine as Decalog;
+use \Decalog\Engine as Decalog;
 
 /**
  * Custom Setting group declaration
@@ -85,7 +85,7 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	 */
 	public function getHookName(): string
 	{
-		return 'rest_api_init';
+		return 'admin_init';
 	}
 
 	/**
@@ -103,6 +103,7 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	{
 		return [
 			$this->getHookName()             => [ 'registerSetting', 10, 1 ],
+			'rest_api_init'                  => [ 'registerSetting', 10, 1 ],
 			$this->getInlineScriptHookName() => [ 'sendDataToJS', 10, 1 ],
 		];
 	}
@@ -151,46 +152,100 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	/**
 	 * {@inheritdoc}
 	 */
+	public function setArgsFromSettingType( array $field ): array
+	{
+		$type = 'string';
+
+		if ( 'checkbox' === $field['type'] || 'toggle' === $field['type'] ) {
+			$type = 'boolean';
+		}
+
+		$args = [
+			'type'         => $type,
+			'default'      => '',
+			'show_in_rest' => true,
+		];
+
+		if ( 'image' === $field['type'] ) {
+			$args = [
+				'type'         => 'object',
+				'default'      => [
+					'id'  => 0,
+					'url' => '',
+				],
+				'show_in_rest' => [
+					'schema' => [
+						'type'       => 'object',
+						'properties' => [
+							'id'  => [
+								'type' => 'integer',
+							],
+							'url' => [
+								'type' => 'string',
+							],
+						],
+					],
+				],
+			];
+		}
+
+		if ( 'selectData' === $field['type'] && false === $field['args']['is_multiple'] ) {
+			$args = [
+				'type'         => 'object',
+				'default'      => [
+					'id'    => 0,
+					'value' => '',
+				],
+				'show_in_rest' => [
+					'schema' => [
+						'type'       => 'object',
+						'properties' => [
+							'value' => [
+								'type' => 'integer',
+							],
+							'label' => [
+								'type' => 'string',
+							],
+						],
+					],
+				],
+			];
+		}
+
+		if ( 'selectData' === $field['type'] && true === $field['args']['is_multiple'] ) {
+			$args = [
+				'type'         => 'array',
+				'show_in_rest' => [
+					'schema' => [
+						'items' => [
+							'type'       => 'object',
+							'properties' => [
+								'value' => [
+									'type' => 'integer',
+								],
+								'label' => [
+									'type' => 'string',
+								],
+							],
+						],
+					],
+				],
+			];
+		}
+
+		return $args;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function registerSetting(): void
 	{
 		$fields = $this->getFields();
 		array_walk(
 			$fields,
 			function( $field ) {
-				$type = 'string';
-
-				if ( 'checkbox' === $field['type'] || 'toggle' === $field['type'] ) {
-					$type = 'boolean';
-				}
-
-				$args = [
-					'type'         => $type,
-					'default'      => '',
-					'show_in_rest' => true,
-				];
-
-				if ( 'image' === $field['type'] ) {
-					$args = [
-						'type'         => 'object',
-						'default'      => array(
-							'id'  => 0,
-							'url' => '',
-						),
-						'show_in_rest' => array(
-							'schema' => array(
-								'type'       => 'object',
-								'properties' => array(
-									'id'  => array(
-										'type' => 'integer',
-									),
-									'url' => array(
-										'type' => 'string',
-									),
-								),
-							),
-						),
-					];
-				}
+				$args = $this->setArgsFromSettingType( $field );
 
 				register_setting(
 					$this->getSlug(),
@@ -201,7 +256,6 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 			}
 		);
 	}
-
 
 	/**
 	 * {@inheritdoc}

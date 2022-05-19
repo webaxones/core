@@ -1,7 +1,7 @@
 import { render, useState, useEffect } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import api from '@wordpress/api'
-import { Button, TabPanel, Panel, PanelBody, PanelRow, Placeholder, SelectControl, Spinner, ToggleControl } from '@wordpress/components'
+import { Button, TabPanel, Panel, PanelBody, PanelRow, Placeholder, Spinner } from '@wordpress/components'
 import { dispatch } from '@wordpress/data'
 import '../css/admin.scss'
 import { Notices } from './notices.js'
@@ -10,14 +10,12 @@ import { TextArea } from './textArea.js'
 import { Checkbox } from './checkbox.js'
 import { Toggle } from './toggle.js'
 import { Image } from './image.js'
-// import { DynamicSelect } from './dynamicSelect.js'
+import { SelectData } from './selectData.js'
 
 // Filter declarations dedicated to the current page
 const objUrlParams    = new URLSearchParams( window.location.search )
 const pageSlug        = objUrlParams.get( 'page' )
 let currentPageGroups = webaxonesApps.filter( group => group[0].page === pageSlug )
-
-console.log(currentPageGroups)
 
 const App = () => {
 
@@ -100,22 +98,22 @@ const App = () => {
 						return null
 					}
 					if ( 'text' === field.type || 'number' === field.type || 'datetime-local' === field.type  || 'email' === field.type ) {
-						return <div key={ key } className={'wax-components-field'}><Text fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+						return <div key={ key } className={ 'wax-components-field' }><Text fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 					if ( 'textarea' === field.type ) {
-						return <div key={ key } className={'wax-components-field'}><TextArea fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+						return <div key={ key } className={ 'wax-components-field' }><TextArea fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 					if ( 'checkbox' === field.type ) {
-						return <div key={ key } className={'wax-components-field'}><Checkbox fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+						return <div key={ key } className={ 'wax-components-field' }><Checkbox fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 					if ( 'toggle' === field.type ) {
-						return <div key={ key } className={'wax-components-field'}><Toggle fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+						return <div key={ key } className={ 'wax-components-field' }><Toggle fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
-					// if ( 'image' === field.type ) {
-					// 	return <div key={ key } className={'wax-components-field'}><DynamicSelect/></div>
-					// }
 					if ( 'image' === field.type ) {
-						return <div key={ key } className={'wax-components-field'}><Image fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+						return <div key={ key } className={ 'wax-components-field' }><Image fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+					}
+					if ( 'selectData' === field.type ) {
+						return <div key={ key } className={ 'wax-components-field' }><SelectData fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 				} ) }
 			</div>
