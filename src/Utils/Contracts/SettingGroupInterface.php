@@ -23,7 +23,9 @@ interface SettingGroupInterface
 	/**
 	 * Sets arguments according to the type of setting
 	 *
-	 * @return void
+	 * @param  array $field
+	 *
+	 * @return array
 	 */
-	public function setArgsFromSettingType(): void;
+	public function setArgsFromSettingType( array $field ): array;
 }
