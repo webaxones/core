@@ -2013,7 +2013,7 @@ const SelectData = _ref => {
   } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => {
     const query = {
       'status': 'publish',
-      'per_page': 50
+      'per_page': -1
     };
     const selectorArgs = [data === null || data === void 0 ? void 0 : data.kind, data === null || data === void 0 ? void 0 : data.name, query];
     return {

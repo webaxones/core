@@ -18,7 +18,7 @@ export const SelectData = ( { fieldValue, field, onChange } ) => {
         ( select ) => {
             const query = {
 				'status': 'publish', 
-				'per_page': 50, 
+				'per_page': -1, 
 			}
             const selectorArgs = [ data?.kind, data?.name, query ];
             return {
