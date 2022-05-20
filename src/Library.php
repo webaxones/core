@@ -25,11 +25,7 @@ class Library
 		$vendorPath = substr( __FILE__, 0, strpos( __FILE__, 'vendor\\' ) ) . 'vendor\\';
 		define( 'WEBAXONES_VENDOR_PATH', $vendorPath );
 
-		if ( false === strpos( $vendorPath, 'plugins' ) && false === strpos( $vendorPath, 'mu-plugins' ) ) {
-			DecaLog::initLibrary( 'webaxones-entities', 'Webaxones Entities Library', '1.0.0' );
-		} else {
-			DecaLog::initPlugin( 'webaxones-entities', 'Webaxones Entities Library', '1.0.0' );
-		}
+		Decalog::initLibrary( 'webaxones-entities', 'Webaxones Entities Library', '1.0.0' );
 
 		$hook = new Hook();
 		$i18n = new I18n( $textDomain );
