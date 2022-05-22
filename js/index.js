@@ -36,7 +36,7 @@ const App = () => {
 									id: field.slug,
 									label: field.label,
 									help: field.help,
-									value: response[ field.slug ],
+									value: null === response[ field.slug ] ? false : response[ field.slug ],
 									tab: field.group,
 									type: field.type,
 									args: field.args || {}
