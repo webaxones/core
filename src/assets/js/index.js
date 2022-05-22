@@ -2081,6 +2081,7 @@ const SelectData = _ref => {
   } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => {
     const query = {};
     query.per_page = perPage;
+    query.page = 1;
 
     if (searchPage > 1) {
       query.page = searchPage;
@@ -2133,9 +2134,6 @@ const SelectData = _ref => {
       setSearchPage(searchPage + 1);
     }
 
-    console.log('searchTerm', searchTerm);
-    console.log('records', records);
-    console.log('hasMore', hasMore);
     return {
       options: options,
       hasMore

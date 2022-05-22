@@ -47,6 +47,7 @@ export const SelectData = ( { fieldValue, field, onChange } ) => {
             const query = {}
 
 			query.per_page = perPage
+			query.page = 1
 
 			if ( searchPage > 1 ) {
                 query.page = searchPage
@@ -102,12 +103,6 @@ export const SelectData = ( { fieldValue, field, onChange } ) => {
 		if ( hasMore ) {
 			setSearchPage(searchPage + 1)
 		}
-
-		console.log('searchTerm', searchTerm);
-
-		console.log('records',records)
-
-		console.log('hasMore', hasMore);
 
 		return {
 			options: options,
