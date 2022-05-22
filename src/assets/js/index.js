@@ -2037,6 +2037,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/*
+	For example, this field is created from this type of parameters:
+
+	[
+		'slug'   => 'wax_company_settings_posts',
+		'type'   => 'selectData',
+		'args'   => [
+			'is_multiple' => false,
+			'data'        => [
+				'kind' => 'postType',
+				'name' => 'post',
+			],
+		],
+		'labels' => [
+			'label' => 'select_posts_label',
+			'help'  => '',
+		],
+	],
+
+
+*/
+
 const SelectData = _ref => {
   let {
     fieldValue,
@@ -2044,6 +2066,7 @@ const SelectData = _ref => {
     onChange
   } = _ref;
   let hasMore = true;
+  const perPage = 10;
   const args = field.hasOwnProperty('args') ? field.args : {};
   const isMultiple = args.hasOwnProperty('is_multiple') ? args.is_multiple : false;
   const data = args.hasOwnProperty('data') ? args.data : {
@@ -2057,6 +2080,7 @@ const SelectData = _ref => {
     hasResolved
   } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => {
     const query = {};
+    query.per_page = perPage;
 
     if (searchPage > 1) {
       query.page = searchPage;
@@ -2101,11 +2125,17 @@ const SelectData = _ref => {
       label: (0,_wordpress_html_entities__WEBPACK_IMPORTED_MODULE_4__.decodeEntities)(record.title.rendered)
     }));
 
-    if (hasMore && '' === searchTerm) {
+    if (records.length < perPage) {
+      hasMore = false;
+    }
+
+    if (hasMore) {
       setSearchPage(searchPage + 1);
     }
 
+    console.log('searchTerm', searchTerm);
     console.log('records', records);
+    console.log('hasMore', hasMore);
     return {
       options: options,
       hasMore
@@ -2116,7 +2146,7 @@ const SelectData = _ref => {
     className: "wax-components-field__label"
   }, field.label), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select_async_paginate__WEBPACK_IMPORTED_MODULE_5__.AsyncPaginate, {
     value: fieldValue,
-    isMultiple: isMultiple,
+    isMulti: isMultiple,
     loadOptions: getTheOptions,
     onInputChange: setSearchTerm,
     onChange: value => {
@@ -2229,7 +2259,6 @@ const Toggle = _ref => {
     field,
     onChange
   } = _ref;
-  console.log(fieldValue);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ToggleControl, {
     key: field.id,
     label: field.label,

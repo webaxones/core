@@ -6,9 +6,34 @@ import { decodeEntities } from '@wordpress/html-entities'
 import { AsyncPaginate } from 'react-select-async-paginate'
 
 
+/*
+	For example, this field is created from this type of parameters:
+
+	[
+		'slug'   => 'wax_company_settings_posts',
+		'type'   => 'selectData',
+		'args'   => [
+			'is_multiple' => false,
+			'data'        => [
+				'kind' => 'postType',
+				'name' => 'post',
+			],
+		],
+		'labels' => [
+			'label' => 'select_posts_label',
+			'help'  => '',
+		],
+	],
+
+
+*/
+
+
  
 export const SelectData = ( { fieldValue, field, onChange } ) => {
 	let hasMore = true
+
+	const perPage = 10
 
 	const args = field.hasOwnProperty('args') ? field.args : {}
 	const isMultiple = args.hasOwnProperty('is_multiple') ? args.is_multiple : false
@@ -20,6 +45,8 @@ export const SelectData = ( { fieldValue, field, onChange } ) => {
     const { records, hasResolved } = useSelect(
         ( select ) => {
             const query = {}
+
+			query.per_page = perPage
 
 			if ( searchPage > 1 ) {
                 query.page = searchPage
@@ -68,11 +95,19 @@ export const SelectData = ( { fieldValue, field, onChange } ) => {
 			options.push( { value:record.id, label:decodeEntities( record.title.rendered ) } )
 		) )
 
-		if ( hasMore && '' === searchTerm ) {
+		if ( records.length < perPage ) {
+			hasMore = false
+		}
+
+		if ( hasMore ) {
 			setSearchPage(searchPage + 1)
 		}
 
+		console.log('searchTerm', searchTerm);
+
 		console.log('records',records)
+
+		console.log('hasMore', hasMore);
 
 		return {
 			options: options,
@@ -85,7 +120,7 @@ export const SelectData = ( { fieldValue, field, onChange } ) => {
 		<p className='wax-components-field__label'>{ field.label }</p>
 		<AsyncPaginate
 			value={ fieldValue }
-			isMultiple={ isMultiple }
+			isMulti={ isMultiple }
 			loadOptions={ getTheOptions	}
 			onInputChange={ setSearchTerm }
 			onChange={ ( value ) => {
