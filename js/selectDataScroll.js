@@ -7,19 +7,25 @@ import { AsyncPaginate } from 'react-select-async-paginate'
 
 
 /*
-	For example, this field is created from this type of parameters:
+	For example, this field can create a select from this type of parameters
 	[
-		'slug'   => 'wax_company_settings_posts',
-		'type'   => 'selectData',
+		'slug'   => 'wax_company_settings_page',
+		'type'   => 'selectDataScroll',
 		'args'   => [
-			'is_multiple' => false,
-			'data'        => [
-				'kind' => 'postType',
-				'name' => 'post',
+			'is_multiple'  => true,
+			'is_clearable' => true,
+			'data'         => [
+				'kind'  => 'postType',
+				'name'  => 'post',
+				'value' => 'title.rendered',
+				'query' => [
+					'order' => 'asc',
+					'orderby' => 'date',
+				],
 			],
 		],
 		'labels' => [
-			'label' => 'select_posts_label',
+			'label' => 'select_page_label',
 			'help'  => '',
 		],
 	],

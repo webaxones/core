@@ -6,6 +6,31 @@ import { __ } from '@wordpress/i18n'
 import React, { Component } from 'react'
 import Select from 'react-select'
 
+/*
+	For example, this field can create a select from this type of parameters
+	[
+		'slug'   => 'wax_company_settings_posts',
+		'type'   => 'selectData',
+		'args'   => [
+			'is_multiple'  => false,
+			'is_clearable' => true,
+			'data'         => [
+				'kind'  => 'taxonomy',
+				'name'  => 'category',
+				'value' => 'name',
+				'query' => [
+					'exclude' => 50,
+					'orderby' => 'date',
+				],
+			],
+		],
+		'labels' => [
+			'label' => 'select_posts_label',
+			'help'  => '',
+		],
+	],
+*/
+
 export const SelectData = ( { fieldValue, field, onChange } ) => {
 
 	const args = field.hasOwnProperty('args') ? field.args : {}
