@@ -10,6 +10,7 @@ import { TextArea } from './textArea.js'
 import { Checkbox } from './checkbox.js'
 import { Toggle } from './toggle.js'
 import { Image } from './image.js'
+import { SelectDataScroll } from './selectDataScroll.js'
 import { SelectData } from './selectData.js'
 
 // Filter declarations dedicated to the current page
@@ -111,6 +112,9 @@ const App = () => {
 					}
 					if ( 'image' === field.type ) {
 						return <div key={ key } className={ 'wax-components-field' }><Image fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
+					}
+					if ( 'selectDataScroll' === field.type ) {
+						return <div key={ key } className={ 'wax-components-field' }><SelectDataScroll fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
 					if ( 'selectData' === field.type ) {
 						return <div key={ key } className={ 'wax-components-field' }><SelectData fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
