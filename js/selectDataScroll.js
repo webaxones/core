@@ -5,34 +5,6 @@ import { store as coreDataStore } from '@wordpress/core-data'
 import { decodeEntities } from '@wordpress/html-entities'
 import { AsyncPaginate } from 'react-select-async-paginate'
 
-
-/*
-	For example, this field can create a select from this type of parameters
-	[
-		'slug'   => 'wax_company_settings_page',
-		'type'   => 'selectDataScroll',
-		'args'   => [
-			'is_multiple'  => true,
-			'is_clearable' => true,
-			'data'         => [
-				'kind'  => 'postType',
-				'name'  => 'post',
-				'value' => 'title.rendered',
-				'query' => [
-					'order' => 'asc',
-					'orderby' => 'date',
-				],
-			],
-		],
-		'labels' => [
-			'label' => 'select_page_label',
-			'help'  => '',
-		],
-	],
-*/
-
-
- 
 export const SelectDataScroll = ( { fieldValue, field, onChange } ) => {
 	let hasMore = true
 

@@ -2131,25 +2131,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/*
-	For example, this field is created from this type of parameters:
-	[
-		'slug'   => 'wax_company_settings_posts',
-		'type'   => 'selectData',
-		'args'   => [
-			'is_multiple' => false,
-			'data'        => [
-				'kind' => 'postType',
-				'name' => 'post',
-			],
-		],
-		'labels' => [
-			'label' => 'select_posts_label',
-			'help'  => '',
-		],
-	],
-*/
-
 const SelectDataScroll = _ref => {
   let {
     fieldValue,
