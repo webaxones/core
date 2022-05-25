@@ -279,22 +279,15 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	public function prepareLabels( array $data ): array
 	{
 		$outputData = $data;
-
-		$groupLabel          = $data['group_label'];
-		$outputData['label'] = $groupLabel;
-		unset( $outputData['group_label'] );
-
-		foreach ( $data['fields'] as $key => $value ) {
-			$label = $data[ $value['labels']['label'] ];
-			$outputData['fields'][ $key ]['label'] = $label;
-
-			if ( '' !== $value['labels']['help'] ) {
-				$help = $data[ $value['labels']['help'] ];
-				$outputData['fields'][ $key ]['help'] = $help;
+		array_walk_recursive(
+			$outputData,
+			function ( &$item, $key )
+			{
+				if ( 'label' === $key || ( 'help' === $key && '' !== $item ) ) {
+					$item = $this->args['labels'][ $item ];
+				}
 			}
-
-			unset( $outputData['fields'][ $key ]['labels'] );
-		}
+		);
 		return $outputData;
 	}
 
@@ -312,6 +305,10 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 			$outputData['fields'][ $key ]['group']      = $groupSlug;
 			$outputData['fields'][ $key ]['group_name'] = $groupName;
 			$outputData['fields'][ $key ]['page']       = $pageSlug;
+			foreach ( $outputData['fields'][ $key ]['labels'] as $labelKey => $labelValue ) {
+				$outputData['fields'][ $key ][ $labelKey ] = $outputData['fields'][ $key ]['labels'][ $labelKey ];
+			}
+			unset( $outputData['fields'][ $key ]['labels'] );
 		}
 		return $outputData['fields'];
 	}
