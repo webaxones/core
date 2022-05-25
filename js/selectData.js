@@ -5,6 +5,7 @@ import { decodeEntities } from '@wordpress/html-entities'
 import { __ } from '@wordpress/i18n'
 import React, { Component } from 'react'
 import Select from 'react-select'
+import { get } from 'lodash'
 
 export const SelectData = ( { fieldValue, field, onChange } ) => {
 
@@ -12,7 +13,6 @@ export const SelectData = ( { fieldValue, field, onChange } ) => {
 	const isMultiple = args.hasOwnProperty('is_multiple') ? args.is_multiple : false
 	const isClearable = args.hasOwnProperty('is_clearable') ? args.is_clearable : false
 	const data = args.hasOwnProperty('data') ? args.data : { kind: 'postType', name: 'page' }
-	const treatedValue = -1 !== data.value.indexOf( '.rendered' ) ? data.value.substring( 0, data.value.indexOf( '.rendered' ) ) : ''
 	const query = {}
 	data.hasOwnProperty('query') && Object.assign( query, data.query )
 
@@ -46,10 +46,8 @@ export const SelectData = ( { fieldValue, field, onChange } ) => {
 	}
 
 	records?.forEach( ( record ) => {
-		const label = '' !== treatedValue ? record[treatedValue]['rendered'] : record[data.value]
-		options.push( { value:record.id, label:decodeEntities( label ) } )
+		options.push( { value:record.id, label:decodeEntities( get( record, data.value ) ) } )
 	} )
-
 
 	return (
 		<>

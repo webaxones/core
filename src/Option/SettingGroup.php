@@ -189,12 +189,13 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 			];
 		}
 
-		if ( 'selectData' === $field['type'] && false === $field['args']['is_multiple'] ) {
+		if ( ( 'selectData' === $field['type'] && false === $field['args']['is_multiple'] )
+			|| ( 'selectDataScroll' === $field['type'] && false === $field['args']['is_multiple'] ) ) {
 			$args = [
 				'type'         => 'object',
 				'default'      => [
-					'id'    => 0,
-					'value' => '',
+					'value' => 0,
+					'label' => '',
 				],
 				'show_in_rest' => [
 					'schema' => [
@@ -212,7 +213,8 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 			];
 		}
 
-		if ( 'selectData' === $field['type'] && true === $field['args']['is_multiple'] ) {
+		if ( ( 'selectData' === $field['type'] && true === $field['args']['is_multiple'] )
+			|| ( 'selectDataScroll' === $field['type'] && true === $field['args']['is_multiple'] ) ) {
 			$args = [
 				'type'         => 'array',
 				'show_in_rest' => [
@@ -226,6 +228,29 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 								'label' => [
 									'type' => 'string',
 								],
+							],
+						],
+					],
+				],
+			];
+		}
+
+		if ( 'repeater' === $field['type'] ) {
+			$args = [
+				'type'         => 'object',
+				'default'      => [
+					'field' => '',
+					'order' => 0,
+				],
+				'show_in_rest' => [
+					'schema' => [
+						'type'       => 'object',
+						'properties' => [
+							'field' => [
+								'type' => 'string',
+							],
+							'order' => [
+								'type' => 'integer',
 							],
 						],
 					],

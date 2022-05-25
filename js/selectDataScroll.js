@@ -1,9 +1,9 @@
-import { SearchControl, Spinner } from '@wordpress/components'
 import { useState, render } from '@wordpress/element'
 import { useSelect } from '@wordpress/data'
 import { store as coreDataStore } from '@wordpress/core-data'
 import { decodeEntities } from '@wordpress/html-entities'
 import { AsyncPaginate } from 'react-select-async-paginate'
+import { get } from 'lodash'
 
 export const SelectDataScroll = ( { fieldValue, field, onChange } ) => {
 	let hasMore = true
@@ -14,7 +14,6 @@ export const SelectDataScroll = ( { fieldValue, field, onChange } ) => {
 	const isMultiple = args.hasOwnProperty('is_multiple') ? args.is_multiple : false
 	const isClearable = args.hasOwnProperty('is_clearable') ? args.is_clearable : false
 	const data = args.hasOwnProperty('data') ? args.data : { kind: 'postType', name: 'page' }
-	const treatedValue = -1 !== data.value.indexOf( '.rendered' ) ? data.value.substring( 0, data.value.indexOf( '.rendered' ) ) : ''
 	const query = {}
 	data.hasOwnProperty('query') && Object.assign( query, data.query )
 
@@ -63,16 +62,14 @@ export const SelectDataScroll = ( { fieldValue, field, onChange } ) => {
 
 		if ( 1 === records.length ) {
 			hasMore = false
-			const label = '' !== treatedValue ? records[0][treatedValue]['rendered'] : records[0][data.value]
 			return {
-				options: [ { value:records[0].id, label:decodeEntities( label ) } ],
+				options: [ { value:records[0].id, label:decodeEntities( get( records[0], data.value ) ) } ],
 				hasMore: hasMore,
 			}
 		}
 
 		records?.forEach( ( record ) => {
-			const label = '' !== treatedValue ? record[treatedValue]['rendered'] : record[data.value]
-			options.push( { value:record.id, label:decodeEntities( label ) } )
+			options.push( { value:record.id, label:decodeEntities( get( record, data.value ) ) } )
 		} )
 
 		if ( records.length < perPage ) {

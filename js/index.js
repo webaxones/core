@@ -12,6 +12,7 @@ import { Toggle } from './toggle.js'
 import { Image } from './image.js'
 import { SelectDataScroll } from './selectDataScroll.js'
 import { SelectData } from './selectData.js'
+import { Repeater } from './repeater.js'
 
 // Filter declarations dedicated to the current page
 const objUrlParams    = new URLSearchParams( window.location.search )
@@ -40,7 +41,8 @@ const App = () => {
 									value: null === response[ field.slug ] ? false : response[ field.slug ],
 									tab: field.group,
 									type: field.type,
-									args: field.args || {}
+									args: field.args || {},
+									children: field.children || {}
 								}
 							)
 						} )
@@ -119,6 +121,9 @@ const App = () => {
 					if ( 'selectData' === field.type ) {
 						return <div key={ key } className={ 'wax-components-field' }><SelectData fieldValue={ field.value } field={ field } onChange={ onChangeField } /></div>
 					}
+					// if ( 'repeater' === field.type ) {
+					// 	return <div key={ key } className={ 'wax-components-field' }><Repeater parentFieldValue={ field.value } parentField={ field } parentOnChange={ onChangeField } /></div>
+					// }
 				} ) }
 			</div>
 			<div style={ { marginTop: 20 } }>
