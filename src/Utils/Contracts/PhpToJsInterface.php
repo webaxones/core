@@ -21,14 +21,14 @@ interface PhpToJsInterface
 	public function sendDataToJS(): void;
 
 	/**
-	 * Prepare Data to send to JS by merging labels and settings
+	 * Prepare Data to send to JS by merging labels and settings then simplify the arary
 	 *
 	 * @return array
 	 */
 	public function prepareData(): array;
 
 	/**
-	 * Prepare labels in Data by populating labels inside fields and removing labels in global array
+	 * Populate labels in fields subarray
 	 *
 	 * @param  array $data
 	 *
@@ -37,7 +37,7 @@ interface PhpToJsInterface
 	public function prepareLabels( array $data ): array;
 
 	/**
-	 * Prepare labels in Data by populating labels inside fields and removing labels in global array
+	 * Store all data fields subarray
 	 *
 	 * @param  array $data
 	 *

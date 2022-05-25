@@ -4,6 +4,7 @@ namespace Webaxones\Core\Option;
 
 defined( 'ABSPATH' ) || exit;
 
+use Composer\Installers\PortoInstaller;
 use Exception;
 
 use Webaxones\Core\Utils\Contracts\EntityInterface;
@@ -308,6 +309,7 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 			$outputData,
 			function ( &$item, $key )
 			{
+
 				if ( 'label' === $key || ( 'help' === $key && '' !== $item ) ) {
 					$item = $this->args['labels'][ $item ];
 				}
@@ -322,19 +324,21 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	public function prepareGroups( array $data ): array
 	{
 		$outputData = $data;
-		$groupSlug  = $data['slug'];
-		$groupName  = $data['label'];
-		$pageSlug   = $data['page_slug'];
+		array_walk(
+			$outputData['fields'],
+			function ( &$item, $key )
+			use( $data )
+			{
+				$item['group']      = $data['slug'];
+				$item['group_name'] = $data['label'];
+				$item['page']       = $data['page_slug'];
 
-		foreach ( $data['fields'] as $key => $value ) {
-			$outputData['fields'][ $key ]['group']      = $groupSlug;
-			$outputData['fields'][ $key ]['group_name'] = $groupName;
-			$outputData['fields'][ $key ]['page']       = $pageSlug;
-			foreach ( $outputData['fields'][ $key ]['labels'] as $labelKey => $labelValue ) {
-				$outputData['fields'][ $key ][ $labelKey ] = $outputData['fields'][ $key ]['labels'][ $labelKey ];
+				foreach ( $item['labels'] as $labelKey => $labelValue ) {
+					$item[ $labelKey ] = $item['labels'][ $labelKey ];
+				}
+				unset( $item['labels'] );
 			}
-			unset( $outputData['fields'][ $key ]['labels'] );
-		}
+		);
 		return $outputData['fields'];
 	}
 
