@@ -4,7 +4,6 @@
   "description": "**Entity processing** « An entity is an abstraction that we consider as a reality » *Le Robert*",
   "main": "index.js",
   "scripts": {
-    "go": "npm-run-all --parallel sync start",
     "sync": "browser-sync start -p 'axones.local/' --files 'js/*.js'",
     "build": "wp-scripts build js/index.js --output-path=src/assets/js",
     "start": "wp-scripts start js/index.js --output-path=src/assets/js",
@@ -22,11 +21,9 @@
   },
   "homepage": "https://github.com/webaxones/core#readme",
   "dependencies": {
-    "@wordpress/api-fetch": "^6.6.0",
     "@wordpress/media-utils": "^3.6.0",
     "@wordpress/scripts": "^22.5.0",
     "browser-sync": "^2.27.4",
-    "npm-run-all": "^4.1.5",
     "react-select": "^5.3.2",
     "react-select-async-paginate": "^0.6.1"
   }

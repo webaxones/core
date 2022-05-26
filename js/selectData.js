@@ -50,7 +50,7 @@ export const SelectData = ( { fieldValue, field, onChange } ) => {
 	} )
 
 	return (
-		<>
+		<div className='wax-components-field'>
 			<p className='wax-components-field__label'>{ field.label }</p>
 			<Select
 				value={ fieldValue || '' }
@@ -62,6 +62,6 @@ export const SelectData = ( { fieldValue, field, onChange } ) => {
 					onChange( value, field.id )
 				} }
 			/>
-		</>
+		</div>
 	)
 }

@@ -23,47 +23,51 @@ export const Image = ( { fieldValue, field, onChange } ) => {
 		ImagePreview( { id: 0, url: '' } )
 	}
 
-	return ( <div className='upload'>
-		<p className='wax-components-field__label'>{ field.label }</p>
-		<FormFileUpload
-			className='wax-components-drop-zone'
-			accept='image/*'
-			icon='format-image'
-			onChange={ ( file ) => {
-				wpMediaUtils.uploadMedia( {
-					filesList: file.target.files,
-					onFileChange: ( [ fileObj ] ) => {
-						if( 'undefined' !== typeof fileObj.id ) {
-							onChange( { id: fileObj.id, url: fileObj.url }, field.id )
-						}
-					},
-					onError: console.error,
-				} )
-			} }
-			>
-			{ __( 'Select an Image or Drop it here', 'webaxones-core' ) }
-		</FormFileUpload>
-		<DropZone
-			onFilesDrop={ ( files ) => {
-				wpMediaUtils.uploadMedia( {
-					filesList: files[0],
-					onFileChange: ( [ fileObj ] ) => {
-						if( 'undefined' !== typeof fileObj.id ) {
-							onChange( { id: fileObj.id, url: fileObj.url }, field.id )
-						}
-					},
-					onError: console.error,
-				} )
-			} }
-		/>
-		{ ImagePreview( fieldValue ) }
-		{
-			( fieldValue && typeof fieldValue === 'object' && fieldValue.url !== '' ) &&
-			<div>
-				<Button onClick={ onRemoveImage } isLink isDestructive>
-                	{ __( 'Remove image', 'webaxones-core' ) }
-            	</Button>
+	return ( 
+		<div className='wax-components-field'>
+			<div className='upload'>
+				<p className='wax-components-field__label'>{ field.label }</p>
+				<FormFileUpload
+					className='wax-components-drop-zone'
+					accept='image/*'
+					icon='format-image'
+					onChange={ ( file ) => {
+						wpMediaUtils.uploadMedia( {
+							filesList: file.target.files,
+							onFileChange: ( [ fileObj ] ) => {
+								if( 'undefined' !== typeof fileObj.id ) {
+									onChange( { id: fileObj.id, url: fileObj.url }, field.id )
+								}
+							},
+							onError: console.error,
+						} )
+					} }
+					>
+					{ __( 'Select an Image or Drop it here', 'webaxones-core' ) }
+				</FormFileUpload>
+				<DropZone
+					onFilesDrop={ ( files ) => {
+						wpMediaUtils.uploadMedia( {
+							filesList: files[0],
+							onFileChange: ( [ fileObj ] ) => {
+								if( 'undefined' !== typeof fileObj.id ) {
+									onChange( { id: fileObj.id, url: fileObj.url }, field.id )
+								}
+							},
+							onError: console.error,
+						} )
+					} }
+				/>
+				{ ImagePreview( fieldValue ) }
+				{
+					( fieldValue && typeof fieldValue === 'object' && fieldValue.url !== '' ) &&
+					<div>
+						<Button onClick={ onRemoveImage } isLink isDestructive>
+							{ __( 'Remove image', 'webaxones-core' ) }
+						</Button>
+					</div>
+				}
 			</div>
-		}
-	</div> )
+		</div>
+	)
 }

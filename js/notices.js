@@ -10,7 +10,7 @@ export const Notices = () => {
                 .filter( ( notice ) => notice.type === 'snackbar' ),
         []
     )
-    const { removeNotice } = useDispatch( noticesStore );
+    const { removeNotice } = useDispatch( noticesStore )
     return (
         <SnackbarList
             className="edit-site-notices"

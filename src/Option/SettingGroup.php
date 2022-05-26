@@ -236,22 +236,20 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 			];
 		}
 
-		if ( 'repeater' === $field['type'] ) {
+		if ( 'section' === $field['type'] ) {
 			$args = [
-				'type'         => 'object',
-				'default'      => [
-					'field' => '',
-					'order' => 0,
-				],
+				'type'         => 'array',
 				'show_in_rest' => [
 					'schema' => [
-						'type'       => 'object',
-						'properties' => [
-							'field' => [
-								'type' => 'string',
-							],
-							'order' => [
-								'type' => 'integer',
+						'items' => [
+							'type'       => 'object',
+							'properties' => [
+								'field' => [
+									'type' => 'string',
+								],
+								'order' => [
+									'type' => 'integer',
+								],
 							],
 						],
 					],
@@ -337,6 +335,16 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 					$item[ $labelKey ] = $item['labels'][ $labelKey ];
 				}
 				unset( $item['labels'] );
+
+				if ( array_key_exists( 'children', $item ) ) {
+					foreach ( $item['children'] as &$child ) {
+						foreach ( $child['labels'] as $labelKey => $labelValue ) {
+							$child[ $labelKey ] = $child['labels'][ $labelKey ];
+						}
+						unset( $child['labels'] );
+					}
+				}
+
 			}
 		);
 		return $outputData['fields'];

@@ -1851,7 +1851,9 @@ const Checkbox = _ref => {
     field,
     onChange
   } = _ref;
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.CheckboxControl, {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wax-components-field"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.CheckboxControl, {
     key: field.id,
     label: field.label,
     help: field.hasOwnProperty('help') ? field.help : '',
@@ -1859,7 +1861,7 @@ const Checkbox = _ref => {
     onChange: value => {
       onChange(value, field.id);
     }
-  });
+  }));
 };
 
 /***/ }),
@@ -1924,6 +1926,8 @@ const Image = _ref => {
   };
 
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wax-components-field"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "upload"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "wax-components-field__label"
@@ -1968,7 +1972,7 @@ const Image = _ref => {
     onClick: onRemoveImage,
     isLink: true,
     isDestructive: true
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Remove image', 'webaxones-core'))));
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Remove image', 'webaxones-core')))));
 };
 
 /***/ }),
@@ -2005,61 +2009,6 @@ const Notices = () => {
     notices: notices,
     onRemove: removeNotice
   });
-};
-
-/***/ }),
-
-/***/ "./js/repeater.js":
-/*!************************!*\
-  !*** ./js/repeater.js ***!
-  \************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Repeater": function() { return /* binding */ Repeater; }
-/* harmony export */ });
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _text_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./text.js */ "./js/text.js");
-
-
-
-
-const Repeater = _ref => {
-  let {
-    parentFieldValue,
-    parentField,
-    parentOnChange
-  } = _ref;
-  console.log('parentField', parentField);
-
-  const onChangeField = () => {};
-
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
-    className: "wax-components-field__label"
-  }, parentField.label), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    key: parentField.id,
-    className: "wax-components-repeater"
-  }, parentField.children.map((subField, index) => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    key: index,
-    className: 'wax-components-field'
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_text_js__WEBPACK_IMPORTED_MODULE_3__.Text, {
-    fieldValue: subField.value,
-    field: subField,
-    onChange: onChangeField
-  })))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
-    className: "button wax-components-repeater__field--add",
-    icon: "insert",
-    onChange: value => {
-      parentOnChange(value, parentField.id);
-    } // onClick={ onAddRow }
-
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add Row', 'webaxones-core')));
 };
 
 /***/ }),
@@ -2143,7 +2092,9 @@ const SelectData = _ref => {
       label: (0,_wordpress_html_entities__WEBPACK_IMPORTED_MODULE_3__.decodeEntities)((0,lodash__WEBPACK_IMPORTED_MODULE_6__.get)(record, data.value))
     });
   });
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wax-components-field"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "wax-components-field__label"
   }, field.label), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_7__["default"], {
     value: fieldValue || '',
@@ -2272,7 +2223,9 @@ const SelectDataScroll = _ref => {
     };
   };
 
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wax-components-field"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "wax-components-field__label"
   }, field.label), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select_async_paginate__WEBPACK_IMPORTED_MODULE_4__.AsyncPaginate, {
     value: fieldValue,
@@ -2313,7 +2266,9 @@ const Text = _ref => {
     onChange
   } = _ref;
   const args = field.hasOwnProperty('args') ? field.args : {};
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
+    className: "wax-components-field"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
     key: field.id,
     help: field.hasOwnProperty('help') ? field.help : '',
     label: field.label,
@@ -2323,7 +2278,7 @@ const Text = _ref => {
     onChange: value => {
       onChange(value, field.id);
     }
-  }));
+  })));
 };
 
 /***/ }),
@@ -2353,7 +2308,9 @@ const TextArea = _ref => {
     onChange
   } = _ref;
   const args = field.hasOwnProperty('args') ? field.args : {};
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextareaControl, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
+    className: "wax-components-field"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextareaControl, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
     key: field.id,
     help: field.hasOwnProperty('help') ? field.help : '',
     label: field.label,
@@ -2363,7 +2320,7 @@ const TextArea = _ref => {
     onChange: value => {
       onChange(value, field.id);
     }
-  }));
+  })));
 };
 
 /***/ }),
@@ -2390,7 +2347,9 @@ const Toggle = _ref => {
     field,
     onChange
   } = _ref;
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ToggleControl, {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wax-components-field"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ToggleControl, {
     key: field.id,
     label: field.label,
     help: field.hasOwnProperty('help') ? field.help : '',
@@ -2398,7 +2357,7 @@ const Toggle = _ref => {
     onChange: checked => {
       onChange(checked, field.id);
     }
-  });
+  }));
 };
 
 /***/ }),
@@ -11366,8 +11325,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _image_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./image.js */ "./js/image.js");
 /* harmony import */ var _selectDataScroll_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./selectDataScroll.js */ "./js/selectDataScroll.js");
 /* harmony import */ var _selectData_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./selectData.js */ "./js/selectData.js");
-/* harmony import */ var _repeater_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./repeater.js */ "./js/repeater.js");
-
 
 
 
@@ -11468,84 +11425,67 @@ const App = () => {
     }
 
     if ('text' === field.type || 'number' === field.type || 'datetime-local' === field.type || 'email' === field.type) {
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_text_js__WEBPACK_IMPORTED_MODULE_7__.Text, {
         key: key,
-        className: 'wax-components-field'
-      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_text_js__WEBPACK_IMPORTED_MODULE_7__.Text, {
         fieldValue: field.value,
         field: field,
         onChange: onChangeField
-      }));
+      });
     }
 
     if ('textarea' === field.type) {
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_textArea_js__WEBPACK_IMPORTED_MODULE_8__.TextArea, {
         key: key,
-        className: 'wax-components-field'
-      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_textArea_js__WEBPACK_IMPORTED_MODULE_8__.TextArea, {
         fieldValue: field.value,
         field: field,
         onChange: onChangeField
-      }));
+      });
     }
 
     if ('checkbox' === field.type) {
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_checkbox_js__WEBPACK_IMPORTED_MODULE_9__.Checkbox, {
         key: key,
-        className: 'wax-components-field'
-      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_checkbox_js__WEBPACK_IMPORTED_MODULE_9__.Checkbox, {
         fieldValue: field.value,
         field: field,
         onChange: onChangeField
-      }));
+      });
     }
 
     if ('toggle' === field.type) {
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_toggle_js__WEBPACK_IMPORTED_MODULE_10__.Toggle, {
         key: key,
-        className: 'wax-components-field'
-      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_toggle_js__WEBPACK_IMPORTED_MODULE_10__.Toggle, {
         fieldValue: field.value,
         field: field,
         onChange: onChangeField
-      }));
+      });
     }
 
     if ('image' === field.type) {
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_image_js__WEBPACK_IMPORTED_MODULE_11__.Image, {
         key: key,
-        className: 'wax-components-field'
-      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_image_js__WEBPACK_IMPORTED_MODULE_11__.Image, {
         fieldValue: field.value,
         field: field,
         onChange: onChangeField
-      }));
+      });
     }
 
     if ('selectDataScroll' === field.type) {
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_selectDataScroll_js__WEBPACK_IMPORTED_MODULE_12__.SelectDataScroll, {
         key: key,
-        className: 'wax-components-field'
-      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_selectDataScroll_js__WEBPACK_IMPORTED_MODULE_12__.SelectDataScroll, {
         fieldValue: field.value,
         field: field,
         onChange: onChangeField
-      }));
+      });
     }
 
     if ('selectData' === field.type) {
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_selectData_js__WEBPACK_IMPORTED_MODULE_13__.SelectData, {
         key: key,
-        className: 'wax-components-field'
-      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_selectData_js__WEBPACK_IMPORTED_MODULE_13__.SelectData, {
         fieldValue: field.value,
         field: field,
         onChange: onChangeField
-      }));
-    } // if ( 'repeater' === field.type ) {
-    // 	return <div key={ key } className={ 'wax-components-field' }><Repeater parentFieldValue={ field.value } parentField={ field } parentOnChange={ onChangeField } /></div>
-    // }
-
+      });
+    }
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     style: {
       marginTop: 20

@@ -87,18 +87,18 @@ export const SelectDataScroll = ( { fieldValue, field, onChange } ) => {
 	}
 
 	return (
-		<>
-		<p className='wax-components-field__label'>{ field.label }</p>
-		<AsyncPaginate
-			value={ fieldValue }
-			isMulti={ isMultiple }
-			isClearable={ isClearable }
-			loadOptions={ getTheOptions	}
-			onInputChange={ setSearchTerm }
-			onChange={ ( value ) => {
-				onChange( value, field.id )
-			} }
-		/>
-		</>
+		<div className='wax-components-field'>
+			<p className='wax-components-field__label'>{ field.label }</p>
+			<AsyncPaginate
+				value={ fieldValue }
+				isMulti={ isMultiple }
+				isClearable={ isClearable }
+				loadOptions={ getTheOptions	}
+				onInputChange={ setSearchTerm }
+				onChange={ ( value ) => {
+					onChange( value, field.id )
+				} }
+			/>
+		</div>
     )
 }
