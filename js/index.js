@@ -22,6 +22,7 @@ const App = () => {
 
 	const [fields, setFields] = useState( [] )
 	const [tabs, setTabs] = useState( [] )
+	const [sections, setSections] = useState( [] )
 	const [tabSelected, setTabSelected] = useState( currentPageGroups[0][0].group )
   
 	useEffect( () => {
@@ -29,10 +30,18 @@ const App = () => {
 			await api.loadPromise.then( () => {
 				const settings = new api.models.Settings()
 				settings.fetch().then( ( response ) => {
-					const data = []
+					let fields = []
+					let groups = []
 					currentPageGroups.forEach( group => {
+						groups.push(
+							{
+								name: group[0].group,
+								title: group[0].group_name,
+								className: `${group[0].group}__tab`,
+							}
+						)
 						group.forEach( field => {
-							data.push(
+							fields.push(
 								{
 									id: field.slug,
 									label: field.label,
@@ -46,33 +55,12 @@ const App = () => {
 							)
 						} )
 					} )
-					setFields(data)
+					setTabs( groups )
+					setFields( fields )
 				} )
 			} )
 		}
 		getData()
-	}, [] )
-
-	useEffect( () => {
-		const getTabs = async () => {
-			await api.loadPromise.then( () => {
-				const settings = new api.models.Settings()
-				settings.fetch().then( () => {
-					const data = []
-					currentPageGroups.forEach( group => {
-						data.push(
-							{
-								name: group[0].group,
-								title: group[0].group_name,
-								className: `${group[0].group}__tab`,
-							}
-						)
-					} )
-					setTabs( data )
-				} )
-			} )
-		}
-		getTabs()
 	}, [] )
 
 	const onChangeField = ( value, id ) => {
