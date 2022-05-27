@@ -1,14 +1,16 @@
 import { ToggleControl } from '@wordpress/components'
+import { MainContext } from './mainContext'
 
-export const Toggle = ( { fieldValue, field, onChange } ) => {
+export const Toggle = ( { field, onChange } ) => {
+	const mainState = React.useContext( MainContext )
 	return (
 		<div className='wax-components-field'>
 			<ToggleControl key={ field.id }
 				label={ field.label }
 				help={ field.hasOwnProperty('help') ? field.help : '' }
-				checked={ fieldValue || false }
+				checked={ field.value || false }
 				onChange={ ( checked ) => {
-					onChange( checked, field.id )
+					mainState.onChange( checked, field.id )
 				} }
 			/>
 		</div>

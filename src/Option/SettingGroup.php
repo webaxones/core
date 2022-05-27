@@ -338,6 +338,9 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 
 				if ( array_key_exists( 'children', $item ) ) {
 					foreach ( $item['children'] as &$child ) {
+						$child['group']      = $data['slug'];
+						$child['group_name'] = $data['label'];
+						$child['page']       = $data['page_slug'];
 						foreach ( $child['labels'] as $labelKey => $labelValue ) {
 							$child[ $labelKey ] = $child['labels'][ $labelKey ];
 						}

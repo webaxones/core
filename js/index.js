@@ -3,6 +3,7 @@ import { __ } from '@wordpress/i18n'
 import api from '@wordpress/api'
 import { Button, TabPanel, Panel, PanelBody, PanelRow, Placeholder, Spinner } from '@wordpress/components'
 import { dispatch } from '@wordpress/data'
+import { MainContext } from './mainContext'
 import '../css/admin.scss'
 import { Notices } from './notices.js'
 import { Text } from './text.js'
@@ -17,6 +18,7 @@ import { SelectData } from './selectData.js'
 const objUrlParams    = new URLSearchParams( window.location.search )
 const pageSlug        = objUrlParams.get( 'page' )
 let currentPageGroups = webaxonesApps.filter( group => group[0].page === pageSlug )
+console.log('currentPageGroups',currentPageGroups);
 
 const App = () => {
 
@@ -30,8 +32,9 @@ const App = () => {
 			await api.loadPromise.then( () => {
 				const settings = new api.models.Settings()
 				settings.fetch().then( ( response ) => {
-					let fields = []
-					let groups = []
+					let fields   = []
+					let groups   = []
+					let sections = []
 					currentPageGroups.forEach( group => {
 						groups.push(
 							{
@@ -41,7 +44,29 @@ const App = () => {
 							}
 						)
 						group.forEach( field => {
-							fields.push(
+							( 'section' === field.type ) && sections.push(
+								{
+									id: field.slug,
+									tab: field.group,
+									label: field.label,
+									children: field.children || {}
+								}
+							) && field.children.forEach( child => {
+								fields.push(
+									{
+										id: child.slug,
+										label: child.label,
+										help: child.help,
+										value: null === response[ child.slug ] ? false : response[ child.slug ],
+										tab: child.group,
+										type: child.type,
+										args: child.args || {},
+										children: {}
+									}
+								)
+							} )
+
+							! ( 'section' === field.type ) && fields.push(
 								{
 									id: field.slug,
 									label: field.label,
@@ -55,7 +80,9 @@ const App = () => {
 							)
 						} )
 					} )
+					console.log('sections', sections);
 					setTabs( groups )
+					setSections( sections )
 					setFields( fields )
 				} )
 			} )
@@ -63,7 +90,7 @@ const App = () => {
 		getData()
 	}, [] )
 
-	const onChangeField = ( value, id ) => {
+	const onChange = ( value, id ) => {
 		setFields( ( prevState ) => {
 			return prevState.map( ( item ) => {
 				if ( item.id !== id ) {
@@ -78,36 +105,27 @@ const App = () => {
 	}
 
 	return (
-		<>
-			<TabPanel tabs={ tabs } onSelect={ ( tab ) => setTabSelected( tab ) }>
-				{ ( tab ) => <>{ tab.children }</> }
+		<MainContext.Provider value={{ onChange }}>
+			<TabPanel tabs={ tabs } onSelect={ tab => setTabSelected( tab ) }>
+				{ tab => <>{ tab.children }</> }
 			</TabPanel>
 			<div className='wax-custom-settings__container' style={ { paddingTop: 10 } }>
 				{ fields.map( ( field, key ) => {
-					if ( field.tab !== tabSelected ) {
-						return null
-					}
-					if ( 'text' === field.type || 'number' === field.type || 'datetime-local' === field.type  || 'email' === field.type ) {
-						return <Text key={ key } fieldValue={ field.value } field={ field } onChange={ onChangeField } />
-					}
-					if ( 'textarea' === field.type ) {
-						return <TextArea key={ key } fieldValue={ field.value } field={ field } onChange={ onChangeField } />
-					}
-					if ( 'checkbox' === field.type ) {
-						return <Checkbox key={ key } fieldValue={ field.value } field={ field } onChange={ onChangeField } />
-					}
-					if ( 'toggle' === field.type ) {
-						return <Toggle key={ key } fieldValue={ field.value } field={ field } onChange={ onChangeField } />
-					}
-					if ( 'image' === field.type ) {
-						return <Image key={ key } fieldValue={ field.value } field={ field } onChange={ onChangeField } />
-					}
-					if ( 'selectDataScroll' === field.type ) {
-						return <SelectDataScroll key={ key } fieldValue={ field.value } field={ field } onChange={ onChangeField } />
-					}
-					if ( 'selectData' === field.type ) {
-						return <SelectData key={ key } fieldValue={ field.value } field={ field } onChange={ onChangeField } />
-					}
+					if ( field.tab !== tabSelected ) return null
+
+					if ( 'textarea' === field.type ) return <TextArea key={ key } field={ field } />
+
+					if ( [ 'text', 'number', 'datetime-local', 'email' ].includes( field.type ) ) return <Text key={ key } field={ field } />
+
+					if ( 'checkbox' === field.type ) return <Checkbox key={ key } field={ field } />
+
+					if ( 'toggle' === field.type ) return <Toggle key={ key } field={ field } />
+
+					if ( 'image' === field.type ) return <Image key={ key } field={ field } />
+
+					if ( 'selectDataScroll' === field.type ) return <SelectDataScroll key={ key } field={ field } />
+
+					if ( 'selectData' === field.type ) return <SelectData key={ key } field={ field } />
 				} ) }
 			</div>
 			<div style={ { marginTop: 20 } }>
@@ -138,7 +156,7 @@ const App = () => {
 			</div>
 
 			<div className="wax-custom-settings__notices"><Notices/></div>
-		</>
+		</MainContext.Provider>
 	  )
 }
 

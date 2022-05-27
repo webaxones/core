@@ -6,9 +6,10 @@ import { __ } from '@wordpress/i18n'
 import React, { Component } from 'react'
 import Select from 'react-select'
 import { get } from 'lodash'
+import { MainContext } from './mainContext'
 
-export const SelectData = ( { fieldValue, field, onChange } ) => {
-
+export const SelectData = ( { field } ) => {
+	const mainState = React.useContext( MainContext )
 	const args = field.hasOwnProperty('args') ? field.args : {}
 	const isMultiple = args.hasOwnProperty('is_multiple') ? args.is_multiple : false
 	const isClearable = args.hasOwnProperty('is_clearable') ? args.is_clearable : false
@@ -53,13 +54,13 @@ export const SelectData = ( { fieldValue, field, onChange } ) => {
 		<div className='wax-components-field'>
 			<p className='wax-components-field__label'>{ field.label }</p>
 			<Select
-				value={ fieldValue || '' }
+				value={ field.value || '' }
 				isMulti={ isMultiple }
 				isClearable={ isClearable }
 				options={ options }
 				onInputChange={ setSearchTerm }
 				onChange={ ( value ) => {
-					onChange( value, field.id )
+					mainState.onChange( value, field.id )
 				} }
 			/>
 		</div>

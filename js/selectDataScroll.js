@@ -4,8 +4,11 @@ import { store as coreDataStore } from '@wordpress/core-data'
 import { decodeEntities } from '@wordpress/html-entities'
 import { AsyncPaginate } from 'react-select-async-paginate'
 import { get } from 'lodash'
+import { MainContext } from './mainContext'
 
-export const SelectDataScroll = ( { fieldValue, field, onChange } ) => {
+export const SelectDataScroll = ( { field } ) => {
+	const mainState = React.useContext( MainContext )
+
 	let hasMore = true
 
 	const perPage = 10
@@ -90,13 +93,13 @@ export const SelectDataScroll = ( { fieldValue, field, onChange } ) => {
 		<div className='wax-components-field'>
 			<p className='wax-components-field__label'>{ field.label }</p>
 			<AsyncPaginate
-				value={ fieldValue }
+				value={ field.value }
 				isMulti={ isMultiple }
 				isClearable={ isClearable }
 				loadOptions={ getTheOptions	}
 				onInputChange={ setSearchTerm }
 				onChange={ ( value ) => {
-					onChange( value, field.id )
+					mainState.onChange( value, field.id )
 				} }
 			/>
 		</div>

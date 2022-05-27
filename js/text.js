@@ -1,6 +1,8 @@
 import { TextControl } from '@wordpress/components'
+import { MainContext } from './mainContext'
 
-export const Text = ( { fieldValue, field, onChange } ) => {
+export const Text = ( { field } ) => {
+	const mainState = React.useContext( MainContext )
 	const args = field.hasOwnProperty('args') ? field.args : {}
 	return (
 		<div className='wax-components-field'>
@@ -8,10 +10,10 @@ export const Text = ( { fieldValue, field, onChange } ) => {
 				help={ field.hasOwnProperty('help') ? field.help : '' }
 				label={ field.label }
 				type={ field.type }
-				value={ fieldValue || '' }
+				value={ field.value || '' }
 				{ ...args }
 				onChange={ ( value ) => {
-					onChange( value, field.id )
+					mainState.onChange( value, field.id )
 				} }
 			/>
 		</div>

@@ -2,6 +2,7 @@
 import { FormFileUpload, DropZone, Button } from '@wordpress/components'
 import { __ } from '@wordpress/i18n'
 import * as wpMediaUtils from '@wordpress/media-utils'
+import { MainContext } from './mainContext'
 
 const ImagePreview = ( file ) => {
     if ( file && typeof file === 'object' && file.url !== '' ) {
@@ -10,16 +11,17 @@ const ImagePreview = ( file ) => {
 	return ''
 }
 
-export const Image = ( { fieldValue, field, onChange } ) => {
+export const Image = ( { field } ) => {
+	const mainState = React.useContext( MainContext )
     const urlParams = new URLSearchParams( window.location.search )
     const file = urlParams.get( 'image' )
 
-    if ( file && {} === fieldValue ) {
-		onChange( file, field.id )
+    if ( file && {} === field.value ) {
+		mainState.onChange( file, field.id )
     }
 
 	const onRemoveImage = () => {
-		onChange( { id: 0, url: '' }, field.id )
+		mainState.onChange( { id: 0, url: '' }, field.id )
 		ImagePreview( { id: 0, url: '' } )
 	}
 
@@ -36,7 +38,7 @@ export const Image = ( { fieldValue, field, onChange } ) => {
 							filesList: file.target.files,
 							onFileChange: ( [ fileObj ] ) => {
 								if( 'undefined' !== typeof fileObj.id ) {
-									onChange( { id: fileObj.id, url: fileObj.url }, field.id )
+									mainState.onChange( { id: fileObj.id, url: fileObj.url }, field.id )
 								}
 							},
 							onError: console.error,
@@ -51,16 +53,16 @@ export const Image = ( { fieldValue, field, onChange } ) => {
 							filesList: files[0],
 							onFileChange: ( [ fileObj ] ) => {
 								if( 'undefined' !== typeof fileObj.id ) {
-									onChange( { id: fileObj.id, url: fileObj.url }, field.id )
+									mainState.onChange( { id: fileObj.id, url: fileObj.url }, field.id )
 								}
 							},
 							onError: console.error,
 						} )
 					} }
 				/>
-				{ ImagePreview( fieldValue ) }
+				{ ImagePreview( field.value ) }
 				{
-					( fieldValue && typeof fieldValue === 'object' && fieldValue.url !== '' ) &&
+					( field.value && typeof field.value === 'object' && field.value.url !== '' ) &&
 					<div>
 						<Button onClick={ onRemoveImage } isLink isDestructive>
 							{ __( 'Remove image', 'webaxones-core' ) }
