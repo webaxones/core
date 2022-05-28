@@ -256,22 +256,20 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 			];
 		}
 
-		if ( 'repeater' === $field['type'] ) {
+		if ( 'section' === $field['type'] ) {
 			$args = [
-				'type'         => 'object',
-				'default'      => [
-					'field' => '',
-					'order' => 0,
-				],
+				'type'         => 'array',
 				'show_in_rest' => [
 					'schema' => [
-						'type'       => 'object',
-						'properties' => [
-							'field' => [
-								'type' => 'string',
-							],
-							'order' => [
-								'type' => 'integer',
+						'items' => [
+							'type'       => 'object',
+							'properties' => [
+								'field' => [
+									'type' => 'string',
+								],
+								'order' => [
+									'type' => 'integer',
+								],
 							],
 						],
 					],
