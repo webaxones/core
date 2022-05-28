@@ -21,6 +21,20 @@ interface SettingGroupInterface
 	public function registerSetting(): void;
 
 	/**
+	 * Get fields
+	 *
+	 * @return array
+	 */
+	public function getFields(): array;
+
+	/**
+	 * Get children fields
+	 *
+	 * @return array
+	 */
+	public function getAllChildren(): array;
+
+	/**
 	 * Sets arguments according to the type of setting
 	 *
 	 * @param  array $field

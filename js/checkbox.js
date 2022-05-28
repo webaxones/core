@@ -6,6 +6,7 @@ export const Checkbox = ( { field } ) => {
 	return (
 		<div className='wax-components-field'>
 			<CheckboxControl key={ field.id }
+			 	className='wax-components-field__checkbox'
 				label={ field.label }
 				help={ field.hasOwnProperty('help') ? field.help : '' }
 				checked={ field.value || false }

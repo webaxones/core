@@ -24,6 +24,8 @@
 
 .wax-components-field__label {
   font-size: 13px;
+  margin: 0 0 8px;
+  line-height: 1.4em;
 }
 
 .wax-components-field__help {
@@ -38,10 +40,27 @@
   margin-top: 10px;
 }
 
+.wax-components-field__checkbox,
+.wax-components-field__toggle {
+  margin-top: 30px;
+}
+
 .wax-components-drop-zone.components-button.has-icon {
   background-color: hsl(0deg, 0%, 90%);
   border-radius: 2px;
   padding: 20px 30px;
+}
+
+.wax-custom-settings__container .components-panel__row {
+  flex-wrap: wrap;
+  -moz-column-gap: 30px;
+  column-gap: 30px;
+  align-items: start;
+}
+
+.wax-custom-settings__container .components-panel__row > .wax-components-field {
+  flex-grow: 1;
+  flex-shrink: 1;
 }
 
 /*# sourceMappingURL=index.css.map*/

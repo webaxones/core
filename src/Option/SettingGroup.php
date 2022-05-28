@@ -153,6 +153,26 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	/**
 	 * {@inheritdoc}
 	 */
+	public function getAllChildren(): array
+	{
+		$allChildren = [];
+		$fields      = $this->getFields();
+		array_walk(
+			$fields,
+			function( $field ) use( &$allChildren ) {
+				if ( array_key_exists( 'children', $field ) ) {
+					foreach ( $field['children'] as $child ) {
+						array_push( $allChildren , $child );
+					}
+				}
+			}
+		);
+		return $allChildren;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setArgsFromSettingType( array $field ): array
 	{
 		$type = 'string';
@@ -236,20 +256,22 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 			];
 		}
 
-		if ( 'section' === $field['type'] ) {
+		if ( 'repeater' === $field['type'] ) {
 			$args = [
-				'type'         => 'array',
+				'type'         => 'object',
+				'default'      => [
+					'field' => '',
+					'order' => 0,
+				],
 				'show_in_rest' => [
 					'schema' => [
-						'items' => [
-							'type'       => 'object',
-							'properties' => [
-								'field' => [
-									'type' => 'string',
-								],
-								'order' => [
-									'type' => 'integer',
-								],
+						'type'       => 'object',
+						'properties' => [
+							'field' => [
+								'type' => 'string',
+							],
+							'order' => [
+								'type' => 'integer',
 							],
 						],
 					],
@@ -265,9 +287,9 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 	 */
 	public function registerSetting(): void
 	{
-		$fields = $this->getFields();
+		$allFields = array_merge( $this->getFields(), $this->getAllChildren() );
 		array_walk(
-			$fields,
+			$allFields,
 			function( $field ) {
 				$args = $this->setArgsFromSettingType( $field );
 
@@ -335,7 +357,6 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 					$item[ $labelKey ] = $item['labels'][ $labelKey ];
 				}
 				unset( $item['labels'] );
-
 				if ( array_key_exists( 'children', $item ) ) {
 					foreach ( $item['children'] as &$child ) {
 						$child['group']      = $data['slug'];
@@ -347,7 +368,6 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 						unset( $child['labels'] );
 					}
 				}
-
 			}
 		);
 		return $outputData['fields'];

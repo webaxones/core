@@ -6,6 +6,7 @@ export const Toggle = ( { field, onChange } ) => {
 	return (
 		<div className='wax-components-field'>
 			<ToggleControl key={ field.id }
+			 	className='wax-components-field__toggle'
 				label={ field.label }
 				help={ field.hasOwnProperty('help') ? field.help : '' }
 				checked={ field.value || false }
