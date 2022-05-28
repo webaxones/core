@@ -19,6 +19,8 @@ Within this library, an entity can be:<br>
 	- **checkbox**
 	- **toggle**
 	- **image**
+	- **selectData**
+	- **section**
 - a **Block Category**
 - a **Block Pattern Category**
 - a **Custom Role**
