@@ -9,8 +9,6 @@ import { SelectData } from './selectData.js'
 
 export const Field = ( { sectionId } ) => {
 	const mainState = React.useContext( MainContext )
-
-	console.log('mainState', mainState);
 	return (
 		<>
 			{ mainState.fields.map( ( field, key ) => {

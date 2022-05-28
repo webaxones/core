@@ -7,7 +7,7 @@
     "go": "npm-run-all --parallel start sync",
     "sync": "browser-sync start -p 'axones.local/' --files 'js/*.js'",
     "build": "wp-scripts build js/index.js --output-path=src/assets/js",
-    "start": "wp-scripts start js/index.js --output-path=src/assets/js",
+    "start": "wp-scripts start js/index.js --output-path=src/assets/js --output-path=F:/www/axones/web/app/cache/webaxones/assets/js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
