@@ -268,7 +268,7 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 									'type' => 'string',
 								],
 								'value' => [
-									'type' => 'mixed',
+									'type' => ['string', 'number', 'integer', 'boolean', 'array', 'object', 'null'],
 								],
 							],
 						],
@@ -289,7 +289,7 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 									'type' => 'string',
 								],
 								'value' => [
-									'type' => 'mixed',
+									'type' => ['string', 'number', 'integer', 'boolean', 'array', 'object', 'null'],
 								],
 							],
 						],

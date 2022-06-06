@@ -11,6 +11,9 @@
 .wax-custom-settings .components-tab-panel__tabs{
 	border-bottom: 1px solid #ddd;
 }
+.wax-components-field_title{
+	font-size: 13px;
+}
 .wax-components-field{
 	margin-top: 25px;
 }
@@ -24,10 +27,46 @@
 	font-style: normal;
 	color: rgb(117, 117, 117);
 }
+.wax-components-field__btn-img-upload{
+	color:#1e1e1e!important;
+}
+.wax-components-field__btn-img-upload, .wax-components-field__btn-img-remove{
+	margin: 0 10px 0 0!important;
+}
+.wax-components-field__btn-img-remove.is-link{
+	display: inline-block;
+}
+.wax-components-field__btn-img-upload.has-icon{
+	display: -ms-flexbox!important;
+	display: flex!important;
+	-ms-flex-direction: column!important;
+	    flex-direction: column!important;
+	-ms-flex-pack:center!important;
+	    justify-content:center!important;
+	background-color: #f0f0f0!important;
+	border-radius:2px!important;
+	line-height: 20px!important;
+	min-height: 50px!important;
+	padding: 8px!important;
+	text-align: center!important;
+	border:0!important;
+	box-shadow:none!important;
+	-webkit-appearance: none!important;
+}
+
+.wax-components-field_btn-img-upload.has-icon:hover,
+.wax-components-field_btn-img-upload.has-icon:focus,
+.wax-components-field_btn-img-upload.has-icon:active{
+	background-color: #ddd!important;
+}
+
 .wax-components-field__img{
 	max-height: 350px;
 	width: auto;
-	margin-top: 10px;
+}
+.wax-custom-settings__repeater .wax-components-field__img,
+.wax-custom-settings__section .wax-components-field__img{
+	max-height: 250px;
 }
 .wax-components-field__checkbox,
 .wax-components-field__toggle{

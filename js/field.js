@@ -12,6 +12,12 @@ import { getNumberFromFieldSlug } from './app/helpers'
 import { onAddRow, onRemoveRow } from './app/actions'
 import { AddButton } from './components/addButton'
 
+// MediaUploadFilter for image component
+import { addFilter } from '@wordpress/hooks'
+import { MediaUpload } from '@wordpress/media-utils'
+const replaceMediaUpload = () => MediaUpload
+addFilter( 'editor.MediaUpload', 'core/edit-post/components/media-upload/replace-media-upload', replaceMediaUpload )
+
 let previousCounter = 0
 let actualCounter = 0
 let isNewLine = false
@@ -97,7 +103,7 @@ export const Field = ( { wrapperSlug } ) => {
 					case 'toggle':
 						return <Toggle key={ key } field={ field } condition={ isNewLine } />
 					case 'image':
-						return <Image key={ key } field={ field } condition={ isNewLine } />
+						return <Image key={ key } field={ field } condition={ isNewLine }  />
 					case 'selectDataScroll':
 						return <SelectDataScroll key={ key } field={ field } condition={ isNewLine } />
 					case 'selectData':

@@ -48,6 +48,10 @@ class AdminScript extends AbstractAsset implements PhpToJsInterface
 	 */
 	public function enqueueAsset(): void
 	{
+		if( function_exists( 'wp_enqueue_media' ) ) {
+			wp_enqueue_media();
+		}
+
 		$this->checkAndPrepareAssets();
 
 		$script_asset_path = WP_CONTENT_DIR . '\cache\webaxones\assets\js\index.asset.php';
