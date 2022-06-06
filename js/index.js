@@ -60,7 +60,15 @@ const App = () => {
 
 							if ( [ 'section', 'repeater' ].includes( field.type ) ) {
 								if ( null !== response[ field.slug ] ) {
-									children.push( ...response[ field.slug ] )
+									field.children.forEach( child => {
+										const responseChild = response[ field.slug ].find( x => x.slug === child.slug )
+										if ( undefined === responseChild ) {
+											children.push( { slug: child.slug, value: initializeValue( child ) } )
+										} else {
+											children.push( { slug: child.slug, value: responseChild.value } )
+										}
+									} )
+
 								}
 								if ( null === response[ field.slug ] ) {
 									if ( undefined === field.value ) {
@@ -70,19 +78,19 @@ const App = () => {
 
 								let originalChilds = []
 
-								children.forEach( child => {
+								children.forEach( (child, index ) => {
 									if ( /\*[0-9]+$/.test( child.slug ) ) return
 									originalChilds.push( field.children.find( x => x.slug === child.slug ) )
+									originalChilds[ index ].value = child.value
 								} )
 
 								originalChilds.forEach( originalChild => {
-									const subValue = null === response[ field.slug ] ? false : response[ field.slug ].find( x => x.slug === originalChild.slug ).value
 									fields.push(
 										{
 											slug: originalChild.slug,
 											label: originalChild.label,
 											help: originalChild.help,
-											value: subValue,
+											value: originalChild.value,
 											tab: originalChild.tab,
 											section: 'section' === field.type ? field.slug : false,
 											repeater: 'repeater' === field.type ? field.slug : false,

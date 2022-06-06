@@ -57,6 +57,7 @@ export const SelectData = ( { field, condition } ) => {
 		<div className='wax-components-field'>
 			<p className='wax-components-field__label'>{ field.label }</p>
 			<Select
+				className='wax-components-field__selectdata'
 				value={ field.value || '' }
 				isMulti={ isMultiple }
 				isClearable={ isClearable }

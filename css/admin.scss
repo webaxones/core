@@ -3,7 +3,7 @@
 	padding: 20px;
 }
 .wax-custom-settings__container{
-	max-width: 1000px;
+	max-width: 2000px;
 }
 .wax-custom-settings input:invalid{
 	border-color:crimson;
@@ -16,6 +16,13 @@
 }
 .wax-components-field{
 	margin-top: 25px;
+}
+.wax-components-field__selectdata input[type='text']{
+	min-height: 24px;
+}
+.wax-components-field__text input[type='text']{
+	min-height: 32px;
+	line-height: 1.67;
 }
 .wax-components-field__label{
 	font-size: 13px;
@@ -70,8 +77,13 @@
 }
 .wax-components-field__checkbox,
 .wax-components-field__toggle{
-	margin-top: 30px;
+	margin-top: 34px;
 }
+.wax-components-field__checkbox .components-base-control__help,
+.wax-components-field__toggle .components-base-control__help{
+	margin-top: 1.2em;
+}
+
 .wax-components-drop-zone.components-button.has-icon{
 	background-color: hsl(0deg 0% 90%);
 	border-radius: 2px;

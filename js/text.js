@@ -11,6 +11,7 @@ export const Text = ( { field, condition } ) => {
 		<NewLine field={ field } condition={ condition } />
 		<div className='wax-components-field'>
 			<TextControl key={ field.slug }
+				className='wax-components-field__text'
 				help={ field.hasOwnProperty('help') ? field.help : '' }
 				label={ field.label }
 				type={ field.type }
