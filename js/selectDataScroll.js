@@ -4,9 +4,10 @@ import { store as coreDataStore } from '@wordpress/core-data'
 import { decodeEntities } from '@wordpress/html-entities'
 import { AsyncPaginate } from 'react-select-async-paginate'
 import { get } from 'lodash'
-import { MainContext } from './mainContext'
+import { MainContext } from './app/context'
+import { NewLine } from './components/newLine'
 
-export const SelectDataScroll = ( { field } ) => {
+export const SelectDataScroll = ( { field, condition } ) => {
 	const mainState = React.useContext( MainContext )
 
 	let hasMore = true
@@ -66,7 +67,7 @@ export const SelectDataScroll = ( { field } ) => {
 		if ( 1 === records.length ) {
 			hasMore = false
 			return {
-				options: [ { value:records[0].id, label:decodeEntities( get( records[0], data.value ) ) } ],
+				options: [ { value:records[0].slug, label:decodeEntities( get( records[0], data.value ) ) } ],
 				hasMore: hasMore,
 			}
 		}
@@ -90,6 +91,8 @@ export const SelectDataScroll = ( { field } ) => {
 	}
 
 	return (
+		<>
+		<NewLine condition={ condition } />
 		<div className='wax-components-field'>
 			<p className='wax-components-field__label'>{ field.label }</p>
 			<AsyncPaginate
@@ -99,9 +102,10 @@ export const SelectDataScroll = ( { field } ) => {
 				loadOptions={ getTheOptions	}
 				onInputChange={ setSearchTerm }
 				onChange={ ( value ) => {
-					mainState.onChange( value, field.id )
+					mainState.onChange( value, field.slug )
 				} }
 			/>
 		</div>
+		</>
     )
 }

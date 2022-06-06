@@ -39,19 +39,81 @@
 	padding: 20px 30px;
 }
 
-.wax-custom-settings__container .components-panel__row{
+.wax-custom-settings__container.wax-custom-settings__section .components-panel__row{
 	-ms-flex-wrap: wrap;
 	    flex-wrap: wrap;
-		-webkit-column-gap: 30px;
-		   -moz-column-gap: 30px;
-		        column-gap: 30px;
-	-ms-flex-align: start;
-	    align-items: start;
+		-webkit-column-gap: 50px;
+		   -moz-column-gap: 50px;
+		        column-gap: 50px;
+	-ms-flex-align: flex-start;
+	    align-items: flex-start;
 }
 
-.wax-custom-settings__container .components-panel__row>.wax-components-field{
+.wax-components-field__repeater{
+	position: relative;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-column-gap: 50px;
+	   -moz-column-gap: 50px;
+			column-gap: 50px;
+-ms-flex-align: flex-start;
+	align-items: flex-start;
+	padding-right: 20px;
+}
+
+.wax-custom-settings__container.wax-custom-settings__repeater .components-panel__row{
+	display: block;
+}
+
+.wax-custom-settings__container.wax-custom-settings__section .components-panel__row>.wax-components-field{
 	-ms-flex-positive: 1;
 	    flex-grow: 1;
 	-ms-flex-negative: 1;
 	    flex-shrink: 1;
+}
+
+.wax-custom-settings__add-row{
+	margin-top: 20px!important;
+}
+
+.wax-repeater-newline{
+	-ms-flex: 0 0 100%;
+	flex: 0 0 100%;
+}
+
+.wax-custom-settings__remove-row{
+	position: absolute!important;
+	right: -5px!important;
+	margin-top: 48px!important;
+	width:19px!important;
+	min-width:19px!important;
+	height:19px!important;
+	min-height:19px!important;
+	text-align: center!important;
+	vertical-align: middle!important;
+	line-height: 19px!important;
+	padding: 0!important;
+	border-radius: 50%!important;
+	color:#b0b0b0!important;
+	border-color:#b0b0b0!important;
+}
+.wax-custom-settings__remove-row:hover,
+.wax-custom-settings__remove-row:focus,
+.wax-custom-settings__remove-row:active{
+	color:var(--wp-admin-theme-color-darker-10)!important;
+	border-color:var(--wp-admin-theme-color-darker-10)!important;
+}
+
+.wax-custom-settings__remove-row.components-button.has-icon .dashicon{
+
+	width:18px!important;
+	min-width:18px!important;
+	height:18px!important;
+	min-height:18px!important;
+	margin-left: 0!important;
+	margin-right: 0!important;
+	margin: auto!important;
+	font-size: 18px!important;
 }

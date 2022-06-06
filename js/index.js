@@ -1,82 +1,122 @@
 import { render, useState, useEffect } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import api from '@wordpress/api'
-import { Button, TabPanel, Panel, PanelBody, PanelRow } from '@wordpress/components'
+import { Button, TabPanel } from '@wordpress/components'
 import { dispatch } from '@wordpress/data'
-import { MainContext } from './mainContext'
+import { MainContext } from './app/context'
 import '../css/admin.scss'
-import { Notices } from './notices.js'
-import { Field } from './field.js'
+import { Notices } from './components/notices'
+import { Field } from './field'
+import { initializeValue } from './app/helpers'
 
 // Filter declarations dedicated to the current page
 const objUrlParams    = new URLSearchParams( window.location.search )
 const pageSlug        = objUrlParams.get( 'page' )
 let currentPageGroups = webaxonesApps.filter( group => group[0].page === pageSlug )
 
+console.log('currentPageGroups', currentPageGroups);
+
 const App = () => {
 
 	const [fields, setFields] = useState( [] )
 	const [tabs, setTabs] = useState( [] )
-	const [sections, setSections] = useState( [] )
-	const [tabSelected, setTabSelected] = useState( currentPageGroups[0][0].group )
+	const [tabSelected, setTabSelected] = useState( currentPageGroups[0][0].tab )
   
 	useEffect( () => {
 		const getData = async () => {
 			await api.loadPromise.then( () => {
 				const settings = new api.models.Settings()
 				settings.fetch().then( ( response ) => {
-					let fields   = []
-					let groups   = []
-					let sections = []
+					let fields    = []
+					let groups    = []
+
 					currentPageGroups.forEach( group => {
 						groups.push(
 							{
-								name: group[0].group,
-								title: group[0].group_name,
-								className: `${group[0].group}__tab`,
+								name: group[0].tab,
+								title: group[0].tab_name,
+								className: `${group[0].tab}__tab`,
 							}
 						)
-						group.forEach( field => {
-							( 'section' === field.type ) && sections.push(
-								{
-									id: field.slug,
-									tab: field.group,
-									label: field.label,
-									children: field.children || {}
-								}
-							) && field.children.forEach( child => {
-								fields.push(
-									{
-										id: child.slug,
-										label: child.label,
-										help: child.help,
-										value: null === response[ child.slug ] ? false : response[ child.slug ],
-										tab: child.group,
-										section:field.slug,
-										type: child.type,
-										args: child.args || {},
-										children: {}
-									}
-								)
-							} )
 
-							! ( 'section' === field.type ) && fields.push(
+						group.forEach( field => {
+							const initValue = [ 'section', 'repeater' ].includes( field.type ) ? field.children.map( child => { return { slug: child.slug, value: initializeValue( child ) } } ) : initializeValue( field )
+							fields.push(
 								{
-									id: field.slug,
+									slug: field.slug,
 									label: field.label,
 									help: field.help,
-									value: null === response[ field.slug ] ? false : response[ field.slug ],
-									tab: field.group,
-									section: '',
+									value: null === response[ field.slug ] ? initValue : response[ field.slug ],
+									tab: field.tab,
+									section:false,
+									repeater:false,
 									type: field.type,
 									args: field.args || {},
 									children: field.children || {}
 								}
 							)
+
+							let children = []
+
+							if ( [ 'section', 'repeater' ].includes( field.type ) ) {
+								if ( null !== response[ field.slug ] ) {
+									children.push( ...response[ field.slug ] )
+								}
+								if ( null === response[ field.slug ] ) {
+									if ( undefined === field.value ) {
+										children.push( ...field.children )
+									}
+								}
+
+								let originalChilds = []
+
+								children.forEach( child => {
+									if ( /\*[0-9]+$/.test( child.slug ) ) return
+									originalChilds.push( field.children.find( x => x.slug === child.slug ) )
+								} )
+
+								originalChilds.forEach( originalChild => {
+									const subValue = null === response[ field.slug ] ? false : response[ field.slug ].find( x => x.slug === originalChild.slug ).value
+									fields.push(
+										{
+											slug: originalChild.slug,
+											label: originalChild.label,
+											help: originalChild.help,
+											value: subValue,
+											tab: originalChild.tab,
+											section: 'section' === field.type ? field.slug : false,
+											repeater: 'repeater' === field.type ? field.slug : false,
+											type: originalChild.type,
+											args: originalChild.args || {},
+										}
+									)
+								} )
+
+								if ( 'repeater' === field.type ) {
+									children.forEach( child => {
+										if ( /\*[0-9]+$/.test( child.slug ) ) {
+											const originalField = fields.find( x => x.slug === child.slug.match( /.*(?=\*)/ )[0] )
+											const subValue = null === response[ field.slug ] ? false : response[ field.slug ].find( x => x.slug === child.slug ).value
+											const fieldToPush = {
+												slug: child.slug,
+												label: originalField.label,
+												help: originalField.help,
+												value: null === subValue ? false : subValue,
+												tab: field.tab,
+												section: false,
+												repeater: field.slug,
+												type: originalField.type,
+												args: originalField.args || {},
+											}
+											fields.push( fieldToPush )
+											field.children.push( fieldToPush )
+										}
+									} )
+								}
+							}
 						} )
 					} )
 					setTabs( groups )
-					setSections( sections )
 					setFields( fields )
 				} )
 			} )
@@ -84,11 +124,21 @@ const App = () => {
 		getData()
 	}, [] )
 
-	const onChange = ( value, id ) => {
+	const onChange = ( value, slug ) => {
 		setFields( ( prevState ) => {
 			return prevState.map( ( item ) => {
-				if ( item.id !== id ) {
+				if ( item.slug !== slug ) {
 					return item
+				}
+				if ( item.repeater ) {
+					const repeater = fields.find( x => x.slug === item.repeater )
+					const valueToUpdate = repeater.value.find( x => x.slug === item.slug ) 
+					valueToUpdate.value = value
+				}
+				if ( item.section ) {
+					const section = fields.find( x => x.slug === item.section )
+					const valueToUpdate = section.value.find( x => x.slug === item.slug ) 
+					valueToUpdate.value = value
 				}
 				return {
 					...item,
@@ -99,23 +149,10 @@ const App = () => {
 	}
 
 	return (
-		<MainContext.Provider value={ { onChange, fields, tabSelected, setTabSelected, sections } }>
+		<MainContext.Provider value={ { onChange, fields, setFields, tabSelected, setTabSelected } }>
 			<TabPanel tabs={ tabs } onSelect={ tab => setTabSelected( tab ) }>
-				{ tab => {<>{ tab.children }</>} }
+				{ tab => { <>{ tab.children }</> } }
 			</TabPanel>
-			{ sections.map( ( section, key ) => {
-				return (
-					<div key={ key } className='wax-custom-settings__container' style={ { paddingTop: 10 } }>
-						<Panel>
-							<PanelBody title={ section.label } initialOpen={ true }>
-								<PanelRow>
-									<Field sectionId={ section.id } />
-								</PanelRow>
-							</PanelBody>
-						</Panel>
-					</div>
-				)
-			} ) }
 			<div className='wax-custom-settings__container' style={ { paddingTop: 10 } }>
 				<Field />
 			</div>
@@ -125,9 +162,24 @@ const App = () => {
 					onClick={ () => {
 						const values = {}
 						fields.forEach( field => {
-							values[field.id] = field.value
-						} )
+							if ( [ 'section', 'repeater' ].includes( field.type ) ) {
+								const children = []
+								field.children.forEach( child => {
+									const originalField = fields.find( x => x.slug === child.slug )
+									children.push(
+										{
+											slug: child.slug,
+											value: originalField.value,
+										}
+									)
+								} )
+								values[field.slug] = children
+							}
 
+							if ( ! [ 'section', 'repeater' ].includes( field.type ) ) {
+								values[field.slug] = field.value
+							}
+						} )
 						const settings = new api.models.Settings( values )
 						settings.save()
 
@@ -143,7 +195,6 @@ const App = () => {
 					{ __( 'Save', 'webaxones-core' ) }
 				</Button>
 			</div>
-
 			<div className="wax-custom-settings__notices"><Notices/></div>
 		</MainContext.Provider>
 	  )

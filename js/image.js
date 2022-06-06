@@ -2,7 +2,8 @@
 import { FormFileUpload, DropZone, Button } from '@wordpress/components'
 import { __ } from '@wordpress/i18n'
 import * as wpMediaUtils from '@wordpress/media-utils'
-import { MainContext } from './mainContext'
+import { MainContext } from './app/context'
+import { NewLine } from './components/newLine'
 
 const ImagePreview = ( file ) => {
     if ( file && typeof file === 'object' && file.url !== '' ) {
@@ -11,21 +12,23 @@ const ImagePreview = ( file ) => {
 	return ''
 }
 
-export const Image = ( { field } ) => {
+export const Image = ( { field, condition } ) => {
 	const mainState = React.useContext( MainContext )
     const urlParams = new URLSearchParams( window.location.search )
     const file = urlParams.get( 'image' )
 
     if ( file && {} === field.value ) {
-		mainState.onChange( file, field.id )
+		mainState.onChange( file, field.slug )
     }
 
 	const onRemoveImage = () => {
-		mainState.onChange( { id: 0, url: '' }, field.id )
+		mainState.onChange( { id: 0, url: '' }, field.slug )
 		ImagePreview( { id: 0, url: '' } )
 	}
 
 	return ( 
+		<>
+		<NewLine field={ field } condition={ condition } />
 		<div className='wax-components-field'>
 			<div className='upload'>
 				<p className='wax-components-field__label'>{ field.label }</p>
@@ -37,8 +40,8 @@ export const Image = ( { field } ) => {
 						wpMediaUtils.uploadMedia( {
 							filesList: file.target.files,
 							onFileChange: ( [ fileObj ] ) => {
-								if( 'undefined' !== typeof fileObj.id ) {
-									mainState.onChange( { id: fileObj.id, url: fileObj.url }, field.id )
+								if( 'undefined' !== typeof fileObj.slug ) {
+									mainState.onChange( { id: fileObj.id, url: fileObj.url }, field.slug )
 								}
 							},
 							onError: console.error,
@@ -52,8 +55,8 @@ export const Image = ( { field } ) => {
 						wpMediaUtils.uploadMedia( {
 							filesList: files[0],
 							onFileChange: ( [ fileObj ] ) => {
-								if( 'undefined' !== typeof fileObj.id ) {
-									mainState.onChange( { id: fileObj.id, url: fileObj.url }, field.id )
+								if( 'undefined' !== typeof fileObj.slug ) {
+									mainState.onChange( { id: fileObj.slug, url: fileObj.url }, field.slug )
 								}
 							},
 							onError: console.error,
@@ -71,5 +74,6 @@ export const Image = ( { field } ) => {
 				}
 			</div>
 		</div>
+		</>
 	)
 }

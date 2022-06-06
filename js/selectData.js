@@ -6,9 +6,10 @@ import { __ } from '@wordpress/i18n'
 import React, { Component } from 'react'
 import Select from 'react-select'
 import { get } from 'lodash'
-import { MainContext } from './mainContext'
+import { MainContext } from './app/context'
+import { NewLine } from './components/newLine'
 
-export const SelectData = ( { field } ) => {
+export const SelectData = ( { field, condition } ) => {
 	const mainState = React.useContext( MainContext )
 	const args = field.hasOwnProperty('args') ? field.args : {}
 	const isMultiple = args.hasOwnProperty('is_multiple') ? args.is_multiple : false
@@ -51,6 +52,8 @@ export const SelectData = ( { field } ) => {
 	} )
 
 	return (
+		<>
+		<NewLine field={ field } condition={ condition } />
 		<div className='wax-components-field'>
 			<p className='wax-components-field__label'>{ field.label }</p>
 			<Select
@@ -60,9 +63,10 @@ export const SelectData = ( { field } ) => {
 				options={ options }
 				onInputChange={ setSearchTerm }
 				onChange={ ( value ) => {
-					mainState.onChange( value, field.id )
+					mainState.onChange( value, field.slug )
 				} }
 			/>
 		</div>
+		</>
 	)
 }
