@@ -8,7 +8,7 @@ export const RemoveButton = ( { fieldRepeater, fieldSlug } ) => {
 	return(
 		<Button
 			isSmall
-			className='button wax-custom-settings__remove-row'
+			className='button webaxones-field__repeater__btn--round webaxones-field__repeater__remove-row'
 			icon='no-alt'
 			label={ __( 'Remove Row', 'webaxones-core' ) }
 			onClick={ () => {

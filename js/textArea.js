@@ -8,9 +8,9 @@ export const TextArea = ( { field, condition } ) => {
 	return (
 		<>
 		<NewLine field={ field } condition={ condition } />
-		<div className='wax-components-field'>
+		<div className='webaxones-field'>
 			<TextareaControl key={ field.slug }
-				className='wax-components-field__textarea'
+				className='webaxones-field__textarea'
 				help={ field.hasOwnProperty('help') ? field.help : '' }
 				label={ field.label }
 				type={ 'number' }

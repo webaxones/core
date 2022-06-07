@@ -7,9 +7,9 @@ export const Toggle = ( { field, condition } ) => {
 	return (
 		<>
 		<NewLine field={ field } condition={ condition } />
-		<div className='wax-components-field'>
+		<div className='webaxones-field'>
 			<ToggleControl key={ field.slug }
-			 	className='wax-components-field__toggle'
+			 	className='webaxones-field__toggle'
 				label={ field.label }
 				help={ field.hasOwnProperty('help') ? field.help : '' }
 				checked={ field.value || false }

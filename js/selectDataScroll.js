@@ -93,10 +93,10 @@ export const SelectDataScroll = ( { field, condition } ) => {
 	return (
 		<>
 		<NewLine condition={ condition } />
-		<div className='wax-components-field'>
-			<p className='wax-components-field__label'>{ field.label }</p>
+		<div className='webaxones-field'>
+			<p className='webaxones-field__label'>{ field.label }</p>
 			<AsyncPaginate
-				className='wax-components-field__selectdatascroll'
+				className='webaxones-field__selectdatascroll'
 				value={ field.value }
 				isMulti={ isMultiple }
 				isClearable={ isClearable }

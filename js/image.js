@@ -19,8 +19,8 @@ export const Image = ( { field, condition } ) => {
 	const ImagePreview = media => {
 		if ( media && typeof media === 'object' && '' !== media.url ) {
 			return (
-				<div className='wax-components-field__img-preview'>
-					<img className='wax-components-field__img' src={ media.url } alt='Preview' />
+				<div className='webaxones-field__img-preview'>
+					<img className='webaxones-field__img' src={ media.url } alt='Preview' />
 				</div>
 			)
 		}
@@ -30,13 +30,13 @@ export const Image = ( { field, condition } ) => {
 	const BtnUpload = ( field, open ) => {
 		if ( field.value && typeof field.value === 'object' && '' !== field.value.url ) {
 			return (
-				<Button	isLink onClick={ open } className='wax-components-field__btn-img-upload'>
+				<Button	isLink onClick={ open } className='webaxones-field__btn-img-upload'>
 					{ __( 'Replace image', 'webaxones-core' ) }
 				</Button>
 			)
 		} else {
 			return (
-				<Button	isSecondary icon='upload' onClick={ open } className='wax-components-field__btn-img-upload'>
+				<Button	isSecondary icon='upload' onClick={ open } className='webaxones-field__btn-img-upload'>
 					{ __( 'Select or upload an image', 'webaxones-core' ) }
 				</Button>
 			)
@@ -44,10 +44,10 @@ export const Image = ( { field, condition } ) => {
 	}
 
 	return (
-		<div className='wax-components-field wax-components-field__image'>
+		<div className='webaxones-field webaxones-field__image'>
 			<NewLine field={ field } condition={ condition } />
-			<p className='wax-components-field__label'>{ field.label }</p>
-			<p className='wax-components-field__help'>{ field.help }</p>
+			<p className='webaxones-field__label'>{ field.label }</p>
+			<p className='webaxones-field__help'>{ field.help }</p>
 			{ ImagePreview( field.value ) }
 			<MediaUpload
 				onSelect={ onSelectImage }
@@ -58,7 +58,7 @@ export const Image = ( { field, condition } ) => {
 				) }
 			/>
 			{ ( field.value && typeof field.value === 'object' && '' !== field.value.url ) &&
-					<Button className='wax-components-field__btn-img-remove' onClick={ onRemoveImage } isLink isDestructive>{ __( 'Remove image', 'webaxones-core' ) }</Button> }
+					<Button className='webaxones-field__btn-img-remove' onClick={ onRemoveImage } isLink isDestructive>{ __( 'Remove image', 'webaxones-core' ) }</Button> }
 		</div>
 	)
 }

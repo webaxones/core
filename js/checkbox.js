@@ -8,9 +8,9 @@ export const Checkbox = ( { field, condition } ) => {
 	return (
 		<>
 		<NewLine field={ field } condition={ condition } />
-		<div className='wax-components-field'>
+		<div className='webaxones-field'>
 			<CheckboxControl key={ field.slug }
-			 	className='wax-components-field__checkbox'
+			 	className='webaxones-field__checkbox'
 				label={ field.label }
 				help={ field.hasOwnProperty('help') ? field.help : '' }
 				checked={ field.value || false }

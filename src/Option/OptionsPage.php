@@ -80,9 +80,8 @@ class OptionsPage extends AbstractOptionsPage
 	public function optionsPageContent(): void
 	{
 		printf(
-			'<div class="wrap wax-custom-settings"><h1>%s</h1><div id="%s" class="wax-custom-settings__content"></div></div>',
+			'<div class="wrap webaxones-options"><h1>%s</h1><div id="webaxones-options" class="webaxones-options__content"></div></div>',
 			esc_html( $this->labels->getLabel( 'page_title' ) ),
-			esc_attr( $this->getSlug() . '__content' ),
 		);
 	}
 

@@ -46,7 +46,7 @@ export const Field = ( { wrapperSlug } ) => {
 
 				if ( 'section' === field.type ) {
 					return (
-						<div key={ key } className='wax-custom-settings__container wax-custom-settings__section' style={ { paddingTop: 10 } }>
+						<div key={ key } className='webaxones__container webaxones-field__section' style={ { paddingTop: 10 } }>
 							<Panel>
 								<PanelBody title={ field.label } initialOpen={ true }>
 									<PanelRow>
@@ -60,13 +60,13 @@ export const Field = ( { wrapperSlug } ) => {
 
 				if ( 'repeater' === field.type ) {
 					return(
-						<div key={ key } className='wax-custom-settings__container wax-custom-settings__repeater' style={ { paddingTop: 10 } }>
+						<div key={ key } className='webaxones__container webaxones-field__repeater' style={ { paddingTop: 10 } }>
 							{
 								(
 									<Panel>
 										<PanelBody title={ field.label } initialOpen={ true }>
 											<PanelRow>
-												<div className='wax-components-field__repeater'>
+												<div className='webaxones-field__repeater__content'>
 													<Field wrapperSlug={ field.slug } />
 												</div>
 											</PanelRow>

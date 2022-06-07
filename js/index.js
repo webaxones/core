@@ -161,7 +161,7 @@ const App = () => {
 			<TabPanel tabs={ tabs } onSelect={ tab => setTabSelected( tab ) }>
 				{ tab => { <>{ tab.children }</> } }
 			</TabPanel>
-			<div className='wax-custom-settings__container' style={ { paddingTop: 10 } }>
+			<div className='webaxones__container' style={ { paddingTop: 10 } }>
 				<Field />
 			</div>
 			<div style={ { marginTop: 20 } }>
@@ -203,13 +203,13 @@ const App = () => {
 					{ __( 'Save', 'webaxones-core' ) }
 				</Button>
 			</div>
-			<div className="wax-custom-settings__notices"><Notices/></div>
+			<div className="webaxones__notices"><Notices/></div>
 		</MainContext.Provider>
 	  )
 }
 
 document.addEventListener( 'DOMContentLoaded', () => {
-    const htmlOutput = document.getElementById( 'wax-company-settings__content' )
+    const htmlOutput = document.getElementById( 'webaxones-options' )
     if ( htmlOutput ) {
         render(
             <App />,

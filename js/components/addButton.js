@@ -9,7 +9,7 @@ export const AddButton = ( { fieldRepeater } ) => {
 	return(
 		<Button
 			isSmall
-			className='button wax-custom-settings__add-row'
+			className='button webaxones-field__repeater__add-row'
 			onClick={ () => {
 				repeaterState.onAddRow( fieldRepeater.slug, mainState )
 				if ( fieldRepeater.children.length > 1 ) {

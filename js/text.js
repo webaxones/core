@@ -9,9 +9,9 @@ export const Text = ( { field, condition } ) => {
 	return (
 		<>
 		<NewLine field={ field } condition={ condition } />
-		<div className='wax-components-field'>
+		<div className='webaxones-field'>
 			<TextControl key={ field.slug }
-				className='wax-components-field__text'
+				className='webaxones-field__text'
 				help={ field.hasOwnProperty('help') ? field.help : '' }
 				label={ field.label }
 				type={ field.type }
