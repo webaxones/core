@@ -21,6 +21,7 @@ Within this library, an entity can be:<br>
 	- **image**
 	- **selectData**
 	- **section**
+	- **repeater**
 - a **Block Category**
 - a **Block Pattern Category**
 - a **Custom Role**
