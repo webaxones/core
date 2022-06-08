@@ -33,13 +33,14 @@ export const onAddRow = ( repeaterSlug, mainState ) => {
 				if ( /\*[0-9]+$/.test( child.slug ) ) return
 				let cloneChild = Object.assign( {}, child )
 				const originalField = mainState.fields.find( x => x.slug === cloneChild.slug )
-				if ( 'undefined' === originalField ) return
+				if ( undefined === originalField ) return
 				let cloneField = Object.assign( {}, originalField )
 				cloneField.value = initializeValue( originalField )
-				cloneChild.slug = `${cloneChild.slug}*${nextNumber}`
-				cloneField.slug = cloneChild.slug
-				tempChildren.push( cloneChild )
+				cloneField.slug = `${cloneField.slug}*${nextNumber}`
 				tempFields.push( cloneField )
+				cloneChild.slug = `${cloneChild.slug}*${nextNumber}`
+				cloneChild.value = initializeValue( child )
+				tempChildren.push( cloneChild )
 			} )
 			field.children.push( ...tempChildren )
 			

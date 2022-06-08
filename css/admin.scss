@@ -128,7 +128,6 @@
 .webaxones-field__repeater__btn--round{
 	position: absolute!important;
 	right: -5px!important;
-	margin-top: 48px!important;
 	width:19px!important;
 	min-width:19px!important;
 	height:19px!important;
@@ -149,7 +148,6 @@
 }
 
 .webaxones-field__repeater__btn--round.components-button.has-icon .dashicon{
-
 	width:18px!important;
 	min-width:18px!important;
 	height:18px!important;
@@ -158,4 +156,8 @@
 	margin-right: 0!important;
 	margin: auto!important;
 	font-size: 18px!important;
+}
+
+.webaxones-field__repeater__btn--round.webaxones-field__repeater__remove-row{
+	margin-top: 102px!important;
 }

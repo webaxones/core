@@ -7,14 +7,12 @@ import { MainContext } from './app/context'
 import '../css/admin.scss'
 import { Notices } from './components/notices'
 import { Field } from './field'
-import { initializeValue } from './app/helpers'
+import { initializeValue, getDifference, getBiggestNumber, findPosition } from './app/helpers'
 
 // Filter declarations dedicated to the current page
 const objUrlParams    = new URLSearchParams( window.location.search )
 const pageSlug        = objUrlParams.get( 'page' )
 let currentPageGroups = webaxonesApps.filter( group => group[0].page === pageSlug )
-
-console.log('currentPageGroups', currentPageGroups);
 
 const App = () => {
 
@@ -41,6 +39,7 @@ const App = () => {
 
 						group.forEach( field => {
 							const initValue = [ 'section', 'repeater' ].includes( field.type ) ? field.children.map( child => { return { slug: child.slug, value: initializeValue( child ) } } ) : initializeValue( field )
+
 							fields.push(
 								{
 									slug: field.slug,
@@ -59,21 +58,47 @@ const App = () => {
 							let children = []
 
 							if ( [ 'section', 'repeater' ].includes( field.type ) ) {
-								if ( null !== response[ field.slug ] ) {
-									field.children.forEach( child => {
-										const responseChild = response[ field.slug ].find( x => x.slug === child.slug )
-										if ( undefined === responseChild ) {
+								const childrenOrdered = []
+								childrenOrdered.push( ...field.children )
+
+								if ( undefined !== response[ field.slug ] && null !== response[ field.slug ] ) {
+									response[ field.slug ].forEach( child => {
+										if ( undefined === child.value ) {
 											children.push( { slug: child.slug, value: initializeValue( child ) } )
 										} else {
-											children.push( { slug: child.slug, value: responseChild.value } )
+											children.push( { slug: child.slug, value: child.value } )
 										}
 									} )
-
 								}
 								if ( null === response[ field.slug ] ) {
 									if ( undefined === field.value ) {
 										children.push( ...field.children )
 									}
+								}
+
+								const childrenAddedLater = null === response[ field.slug ] ? [] : getDifference( field.children, response[ field.slug ] )
+								if ( childrenAddedLater.length > 0 ) {
+									const biggestNumber = getBiggestNumber( response[ field.slug ] )
+									childrenAddedLater.forEach( childAddedLater => {
+										let previousChildSlug = ''
+										for ( let index = 1; index <= biggestNumber; index++ ) {
+											const fieldToPush = {
+												slug: 1 === index ? childAddedLater.slug : `${childAddedLater.slug}*${index}`,
+												value: initializeValue( childAddedLater ),
+											}
+											if ( '' === previousChildSlug ) {
+												let initialPosition = findPosition( childrenOrdered, childAddedLater.slug )
+												previousChildSlug = initialPosition > 0 ? children[ initialPosition -1 ].slug : childAddedLater.slug
+											}
+											let position = 0
+											if ( index > 1 ) {
+												position = findPosition( children, `${previousChildSlug}*${index}` ) + 1
+											} else {
+												position = findPosition( childrenOrdered, childAddedLater.slug )
+											}
+											children.splice( position, 0, fieldToPush )
+										}
+									} )
 								}
 
 								let originalChilds = []
@@ -104,7 +129,10 @@ const App = () => {
 									children.forEach( child => {
 										if ( /\*[0-9]+$/.test( child.slug ) ) {
 											const originalField = fields.find( x => x.slug === child.slug.match( /.*(?=\*)/ )[0] )
-											const subValue = null === response[ field.slug ] ? false : response[ field.slug ].find( x => x.slug === child.slug ).value
+											let subValue = false
+											if ( null !== response[ field.slug ] && undefined !== response[ field.slug ] ) {
+												subValue = undefined !== response[ field.slug ].find( x => x.slug === child.slug ) ? response[ field.slug ].find( x => x.slug === child.slug ).value : false
+											}
 											const fieldToPush = {
 												slug: child.slug,
 												label: originalField.label,
@@ -174,10 +202,17 @@ const App = () => {
 								const children = []
 								field.children.forEach( child => {
 									const originalField = fields.find( x => x.slug === child.slug )
+									let value = ''
+									if ( undefined === originalField ) {
+										value = initializeValue( child )
+									}
+									if ( undefined !== originalField ) {
+										value = undefined === originalField.value ? initializeValue( originalField ) : originalField.value
+									}
 									children.push(
 										{
 											slug: child.slug,
-											value: originalField.value,
+											value: value,
 										}
 									)
 								} )
@@ -185,9 +220,11 @@ const App = () => {
 							}
 
 							if ( ! [ 'section', 'repeater' ].includes( field.type ) ) {
-								values[field.slug] = field.value
+								const value = undefined === field.value ? initializeValue( field ) : field.value
+								values[field.slug] = value
 							}
 						} )
+
 						const settings = new api.models.Settings( values )
 						settings.save()
 

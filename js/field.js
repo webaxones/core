@@ -24,7 +24,6 @@ let isNewLine = false
 
 export const Field = ( { wrapperSlug } ) => {
 	const mainState = React.useContext( MainContext )
-	console.log('mainState.fields',mainState.fields);
 
 	return (
 		<RepeaterContext.Provider value={ { onAddRow, onRemoveRow } }>

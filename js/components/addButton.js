@@ -13,7 +13,7 @@ export const AddButton = ( { fieldRepeater } ) => {
 			onClick={ () => {
 				repeaterState.onAddRow( fieldRepeater.slug, mainState )
 				if ( fieldRepeater.children.length > 1 ) {
-					const childToChange = fieldRepeater.children.find( x => x.slug === fieldRepeater.children[0].slug + '*' + getBiggestNumber( fieldRepeater ) )
+					const childToChange = fieldRepeater.children.find( x => x.slug === fieldRepeater.children[0].slug + '*' + getBiggestNumber( fieldRepeater.children ) )
 					mainState.onChange( childToChange.value, childToChange.slug )
 				} else {
 					mainState.onChange( mainState.fields.find( x => x.slug === fieldRepeater.slug ), fieldRepeater.slug )
