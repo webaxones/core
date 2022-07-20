@@ -30,6 +30,10 @@ Within this library, an entity can be:<br>
     
 There is a [documentation on this repo](https://github.com/webaxones/core/wiki).  
     
-    
+> **Note**  
+
+This project is for my own use.
+You can fork it, but don't use it as is if you don't understand the code and don't expect anything to be maintained even though in truth I will maintain it for myself anyway.    
+
     
 *Thanks to Pierre Lannoy for his fucking good [DecaLog SDK](https://decalog.io/) which tracks everything and almost makes coffee.*
