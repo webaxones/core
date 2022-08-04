@@ -38,5 +38,6 @@ You can fork it, but don't use it as is if you don't understand the code and don
 
        
 PHP >=8 is required 
-    
+       
+       
 *Thanks to Pierre Lannoy for his fucking good [DecaLog SDK](https://decalog.io/) which tracks everything and almost makes coffee.*
