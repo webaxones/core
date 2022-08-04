@@ -126,6 +126,12 @@
 }
 
 .webaxones-field__repeater__btn--round{
+	display: -ms-flexbox!important;
+	display: flex!important;
+	-ms-flex-align: center!important;
+	    align-items: center!important;
+	-ms-flex-pack: center!important;
+	    justify-content: center!important;
 	position: absolute!important;
 	right: -5px!important;
 	width:19px!important;
@@ -139,6 +145,7 @@
 	border-radius: 50%!important;
 	color:#b0b0b0!important;
 	border-color:#b0b0b0!important;
+	opacity: .9;
 }
 .webaxones-field__repeater__btn--round:hover,
 .webaxones-field__repeater__btn--round:focus,
@@ -146,7 +153,6 @@
 	color:var(--wp-admin-theme-color-darker-10)!important;
 	border-color:var(--wp-admin-theme-color-darker-10)!important;
 }
-
 .webaxones-field__repeater__btn--round.components-button.has-icon .dashicon{
 	width:18px!important;
 	min-width:18px!important;
@@ -157,7 +163,17 @@
 	margin: auto!important;
 	font-size: 18px!important;
 }
-
 .webaxones-field__repeater__btn--round.webaxones-field__repeater__remove-row{
 	margin-top: 55px!important;
+}
+.webaxones-field__repeater__btn--round.webaxones-field__repeater__move-up{
+	margin-top: 25px!important;
+}
+.webaxones-field__repeater__btn--round.webaxones-field__repeater__move-down{
+	margin-top: 84px!important;
+}
+.webaxones-field__repeater__btn--round.webaxones-field__repeater__move-up .dashicon,
+.webaxones-field__repeater__btn--round.webaxones-field__repeater__move-down .dashicon{
+	padding-right: 1px;
+	padding-bottom: 1px;
 }

@@ -2,9 +2,10 @@ import { __ } from '@wordpress/i18n'
 import { MainContext, RepeaterContext } from '../app/context'
 import { Button } from '@wordpress/components'
 
-export const RemoveButton = ( { fieldRepeater, fieldSlug } ) => {
+export const RemoveButton = ( { fieldRepeaterSlug, fieldSlug } ) => {
 	const mainState = React.useContext( MainContext )
 	const repeaterState = React.useContext( RepeaterContext )
+
 	return(
 		<Button
 			isSmall
@@ -12,7 +13,7 @@ export const RemoveButton = ( { fieldRepeater, fieldSlug } ) => {
 			icon='no-alt'
 			label={ __( 'Remove Row', 'webaxones-core' ) }
 			onClick={ () => {
-				repeaterState.onRemoveRow( fieldRepeater, fieldSlug, mainState )
+				repeaterState.onRemoveRow( fieldRepeaterSlug, fieldSlug, mainState )
 				mainState.onChange( mainState.fields.find( x => x.slug === fieldSlug ), fieldSlug )
 			} }
 		>

@@ -9,7 +9,7 @@ import { SelectDataScroll } from './selectDataScroll'
 import { SelectData } from './selectData'
 import { Panel, PanelBody, PanelRow } from '@wordpress/components'
 import { getNumberFromFieldSlug } from './app/helpers'
-import { onAddRow, onRemoveRow } from './app/actions'
+import { onAddRow, onRemoveRow, onMoveRow } from './app/actions'
 import { AddButton } from './components/addButton'
 
 // MediaUploadFilter for image component
@@ -26,7 +26,7 @@ export const Field = ( { wrapperSlug } ) => {
 	const mainState = React.useContext( MainContext )
 
 	return (
-		<RepeaterContext.Provider value={ { onAddRow, onRemoveRow } }>
+		<RepeaterContext.Provider value={ { onAddRow, onRemoveRow, onMoveRow } }>
 		<>
 			{ mainState.fields.map( ( field, key ) => {
 
@@ -78,15 +78,16 @@ export const Field = ( { wrapperSlug } ) => {
 					)
 				}
 
-				if ( field.hasOwnProperty( 'repeater' ) && field.repeater && /\*[0-9]+$/.test( field.slug ) ) {
+			
+
+				if ( field.hasOwnProperty( 'repeater' ) && field.repeater ) {
 					actualCounter = getNumberFromFieldSlug( field.slug )
-					isNewLine = actualCounter > previousCounter ? true : false
+					const actualFieldIndex = mainState.fields.findIndex( x => x.slug === field.slug )
+					if ( typeof mainState.fields[ actualFieldIndex - 1 ] === 'undefined' || mainState.fields[ actualFieldIndex - 1 ] === null || ! mainState.fields[ actualFieldIndex - 1 ].repeater ) {
+						previousCounter = 0
+					}
+					isNewLine = actualCounter !== previousCounter ? true : false
 					previousCounter = actualCounter
-				}
-				if ( field.hasOwnProperty( 'repeater' ) && field.repeater && ! /\*[0-9]+$/.test( field.slug ) ) {
-					actualCounter = 1
-					previousCounter = 1
-					isNewLine = false
 				}
 
 				switch ( field.type ) {
