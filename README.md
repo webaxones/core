@@ -37,7 +37,9 @@ This project is for my own use.
 You can fork it, but don't use it as is if you don't understand the code and don't expect anything to be maintained even though in truth I will maintain it for myself anyway.    
 
        
-PHP >=8 is required 
-       
-       
+PHP >=8 is required  
+
+  
+    
+
 *Thanks to Pierre Lannoy for his fucking good [DecaLog SDK](https://decalog.io/) which tracks everything and almost makes coffee.*
