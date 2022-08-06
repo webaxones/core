@@ -2,7 +2,7 @@
 
 **Entity processing**<br><br>
 « An entity is an abstraction that we consider as a reality »<br>
-*Le Robert*
+*Robert's dictionary*
 
 Within this library, an entity can be:<br>
 
