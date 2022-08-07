@@ -97,7 +97,11 @@ class AdminScript extends AbstractAsset implements PhpToJsInterface
 	 */
 	public function stringifyData( array $data ): string
 	{
-		return 'let webaxonesApps = ' . wp_json_encode( $data );
+		if ( ! defined( 'WEBAXONES_APPS_DECLARED' ) ) {
+			define( 'WEBAXONES_APPS_DECLARED', 'declared' );
+			return 'let webaxonesApps = ' . wp_json_encode( $data );
+		}
+		return 'webaxonesApps = ' . wp_json_encode( $data );
 	}
 
 	/**
