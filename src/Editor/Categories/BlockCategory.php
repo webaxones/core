@@ -34,9 +34,6 @@ class BlockCategory extends AbstractEditorCategory
 					'slug' => $this->getSlug(),
 				],
 				$this->args,
-				[
-					'icon' => $this->settings['icon'],
-				],
 			]
 		);
 	}
