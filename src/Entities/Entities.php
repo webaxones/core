@@ -17,11 +17,16 @@ final class Entities
 {
 	public static function process( array $declarations ): void
 	{
-		$script = new AdminScript();
-		$hook   = new Hook();
-		$hook->register( $script );
-
+		$pageSlug = isset( $_GET['page'] ) ? $_GET['page'] : '';
 		foreach ( $declarations as $declaration ) {
+			$adminScriptRegistered = false;
+			if ( is_admin() && ! $adminScriptRegistered && 'Webaxones\Core\Option\SettingGroup' === $declaration['entity'] && $pageSlug === $declaration['settings']['page_slug'] ) {
+				$script = new AdminScript();
+				$hook   = new Hook();
+				$hook->register( $script );
+				$adminScriptRegistered = true;
+			}
+
 			try {
 				$entity       = new Entity( $declaration );
 				$entityHandle = $entity->createEntity();
