@@ -89,7 +89,7 @@ abstract class AbstractEditorStyle implements EntityInterface, HookInterface, Ac
 	 */
 	public function getHookName(): string
 	{
-		return 'after_setup_theme';
+		return 'init';
 	}
 
 	/**
@@ -133,33 +133,21 @@ abstract class AbstractEditorStyle implements EntityInterface, HookInterface, Ac
 	public function getStyleName(): string
 	{
 		$settings = $this->getSettings();
-		return $settings['name'];
+		return $settings['name'] ?? '';
 	}
 
 	/**
-	 * Set Args to give to process
+	 * Set Arguments dedicated to process final function
 	 *
 	 * @return void
 	 */
 	public function setArgs(): void
 	{
-		$args          = [];
-		$args['name']  = $this->styleName ?? '';
-		$args['label'] = $this->labels->processLabels()['label'];
-		if ( array_key_exists( 'is_default', $this->settings ) ) {
-			$args['is_default'] = $this->settings['is_default'];
-		}
-		if ( array_key_exists( 'inline_style', $this->settings ) ) {
-			$args['inline_style'] = $this->settings['inline_style'];
-		}
-		if ( array_key_exists( 'style_handle', $this->settings ) ) {
-			$args['style_handle'] = $this->settings['style_handle'];
-		}
-		$this->args = $args;
+		$this->args = [];
 	}
 
 	/**
-	 * Get args dedicated to process
+	 * Get Arguments dedicated to process final function
 	 *
 	 * @return array
 	 */

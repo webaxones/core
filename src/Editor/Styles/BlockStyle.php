@@ -12,11 +12,43 @@ use \DecaLog\Engine as Decalog;
 class BlockStyle extends AbstractEditorStyle
 {
 	/**
+	 * StyleSheet URI
+	 *
+	 * @var string
+	 * @throws
+	 */
+	protected string $styleSheetURI = '';
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setArgs(): void
+	{
+		$args          = [];
+		$args['name']  = $this->getStyleName();
+		$labels        = $this->labels->processLabels();
+		$args['label'] = $labels['label'];
+		if ( array_key_exists( 'is_default', $this->settings ) ) {
+			$args['is_default'] = $this->settings['is_default'];
+		}
+		if ( array_key_exists( 'inline_style', $this->settings ) ) {
+			$args['inline_style'] = $this->settings['inline_style'];
+		}
+		if ( array_key_exists( 'style_handle', $this->settings ) ) {
+			$args['style_handle'] = $this->settings['style_handle'];
+		}
+		if ( array_key_exists( 'style_uri', $this->settings ) ) {
+			$this->styleSheetURI = $this->settings['style_uri'];
+		}
+		$this->args = $args;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function getHookName(): string
 	{
-		return 'init';
+		return 'after_setup_theme';
 	}
 
 	/**
@@ -46,6 +78,9 @@ class BlockStyle extends AbstractEditorStyle
 	 */
 	public function addBlockStyle(): void
 	{
+		if ( array_key_exists( 'style_handle', $this->getArgs() ) ) {
+			wp_register_style( $this->args['style_handle'], $this->styleSheetURI, [], wp_get_theme()->get( 'Version' ) );
+		}
 		register_block_style( $this->getSlug(), $this->getArgs() );
 	}
 
