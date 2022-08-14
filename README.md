@@ -24,6 +24,7 @@ Within this library, an entity can be:<br>
 	- **repeater**
 - a **Block Category**
 - a **Block Pattern Category**
+- a **Block Style (PHP)**
 - a **Custom Role**
     
     
