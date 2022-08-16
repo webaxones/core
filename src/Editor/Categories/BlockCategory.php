@@ -31,9 +31,9 @@ class BlockCategory extends AbstractEditorCategory
 			$block_categories,
 			[
 				[
-					'slug' => $this->getSlug(),
+					'slug'  => $this->getSlug(),
+					'title' => $this->args['label'],
 				],
-				$this->args,
 			]
 		);
 	}
