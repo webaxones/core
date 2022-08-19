@@ -8,7 +8,7 @@ use Exception;
 use \DecaLog\Engine as Decalog;
 use Webaxones\Core\Entities\Entity;
 use Webaxones\Core\Hook\Hook;
-use Webaxones\Core\Admin\AdminScript;
+use Webaxones\Core\Asset\AdminScript;
 
 /**
  * Entities processing

@@ -1,5 +1,5 @@
 <?php
-namespace Webaxones\Core\Admin;
+namespace Webaxones\Core\Asset;
 
 defined( 'ABSPATH' ) || exit;
 

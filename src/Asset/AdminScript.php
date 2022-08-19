@@ -1,5 +1,5 @@
 <?php
-namespace Webaxones\Core\Admin;
+namespace Webaxones\Core\Asset;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -48,7 +48,7 @@ class AdminScript extends AbstractAsset implements PhpToJsInterface
 	 */
 	public function enqueueAsset(): void
 	{
-		if( function_exists( 'wp_enqueue_media' ) ) {
+		if ( function_exists( 'wp_enqueue_media' ) ) {
 			wp_enqueue_media();
 		}
 
