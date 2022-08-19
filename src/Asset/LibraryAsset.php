@@ -5,12 +5,16 @@ defined( 'ABSPATH' ) || exit;
 
 use Exception;
 
+use Webaxones\Core\Utils\Contracts\HookInterface;
+use Webaxones\Core\Utils\Contracts\ActionInterface;
 use Webaxones\Core\Utils\Contracts\PhpToJsInterface;
+use Webaxones\Core\Utils\Contracts\AssetInterface;
 
 /**
- * Manage AdminScript
+ * Manage Library Asset which is composed of 2 files: 1 JS file and 1 CSS file
+ * Add Inline script to send PHP data to JS asset file
  */
-class AdminScript extends AbstractAsset implements PhpToJsInterface
+class LibraryAsset implements hookInterface, ActionInterface, PhpToJsInterface, AssetInterface
 {
 	/**
 	 * {@inheritdoc}
@@ -40,19 +44,61 @@ class AdminScript extends AbstractAsset implements PhpToJsInterface
 	}
 
 	/**
-	 * Enqueue script
-	 *
-	 * @return void
+	 * {@inheritdoc}
+	 */
+	public function checkCacheDirectory(): string
+	{
+		$wpCacheDirectory = wp_normalize_path( WP_CONTENT_DIR . '/cache' );
+		if ( ! is_dir( $wpCacheDirectory ) ) {
+			global $wp_filesystem;
+			WP_Filesystem();
+			$wp_filesystem->mkdir( $wpCacheDirectory );
+		}
+		return $wpCacheDirectory;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function checkAssetsDirectory( string $wpCacheDirectory ): void
+	{
+		$webaxonesAssetsDirectory = $wpCacheDirectory . '/webaxones/assets';
+		$vendorAssetsDirectory    = wp_normalize_path( WEBAXONES_VENDOR_PATH . 'webaxones/core/src/assets' );
+
+		if ( is_dir( $vendorAssetsDirectory ) && ! is_dir( $webaxonesAssetsDirectory ) ) {
+			global $wp_filesystem;
+			WP_Filesystem();
+			$wp_filesystem->mkdir( $wpCacheDirectory . '/webaxones' );
+			$wp_filesystem->mkdir( $webaxonesAssetsDirectory );
+
+			$this->copyAssetsDirectory( $vendorAssetsDirectory, $webaxonesAssetsDirectory );
+		}
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function copyAssetsDirectory( string $vendorAssetsDirectory, string $webaxonesAssetsDirectory ): void
+	{
+		WP_Filesystem();
+		copy_dir( $vendorAssetsDirectory, $webaxonesAssetsDirectory );
+	}
+
+	/**
+	 * {@inheritdoc}
 	 *
 	 * @throws Exception
 	 */
 	public function enqueueAsset(): void
 	{
 		if ( function_exists( 'wp_enqueue_media' ) ) {
+			// Required for the process to work
 			wp_enqueue_media();
 		}
 
-		$this->checkAndPrepareAssets();
+		$wpCacheDirectory = $this->checkCacheDirectory();
+
+		$this->checkAssetsDirectory( $wpCacheDirectory );
 
 		$script_asset_path = WP_CONTENT_DIR . '\cache\webaxones\assets\js\index.asset.php';
 		if ( ! file_exists( $script_asset_path ) ) {

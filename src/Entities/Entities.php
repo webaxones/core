@@ -8,7 +8,7 @@ use Exception;
 use \DecaLog\Engine as Decalog;
 use Webaxones\Core\Entities\Entity;
 use Webaxones\Core\Hook\Hook;
-use Webaxones\Core\Asset\AdminScript;
+use Webaxones\Core\Asset\LibraryAsset;
 
 /**
  * Entities processing
@@ -19,12 +19,12 @@ final class Entities
 	{
 		$pageSlug = isset( $_GET['page'] ) ? $_GET['page'] : '';
 		foreach ( $declarations as $declaration ) {
-			$adminScriptRegistered = false;
-			if ( is_admin() && ! $adminScriptRegistered && 'Webaxones\Core\Option\SettingGroup' === $declaration['entity'] && $pageSlug === $declaration['settings']['page_slug'] ) {
-				$script = new AdminScript();
+			$libraryAssetRegistered = false;
+			if ( is_admin() && ! $libraryAssetRegistered && 'Webaxones\Core\Option\SettingGroup' === $declaration['entity'] && $pageSlug === $declaration['settings']['page_slug'] ) {
+				$script = new LibraryAsset();
 				$hook   = new Hook();
 				$hook->register( $script );
-				$adminScriptRegistered = true;
+				$libraryAssetRegistered = true;
 			}
 
 			try {
