@@ -32,6 +32,6 @@ class Taxonomy extends AbstractClassification
 	public function registerClassification(): void
 	{
 		register_taxonomy( $this->slug, $this->objectType, $this->args );
-		Decalog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->slug . ' » Custom Taxonomy registered.' );
+		Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->slug . ' » Custom Taxonomy registered.' );
 	}
 }

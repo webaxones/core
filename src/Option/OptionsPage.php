@@ -94,6 +94,6 @@ class OptionsPage extends AbstractOptionsPage
 	{
 		$this->setArgs();
 		$this->getAddPageFunction()( ...$this->getArgs() );
-		Decalog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->slug . ' » Options Page added.' );
+		Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->slug . ' » Options Page added.' );
 	}
 }

@@ -64,6 +64,6 @@ class AcfOptionsPage extends AbstractOptionsPage
 		$this->setArgs();
 
 		acf_add_options_page( $this->getArgs() );
-		Decalog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->slug . ' » ACF Options Page added.' );
+		Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->slug . ' » ACF Options Page added.' );
 	}
 }

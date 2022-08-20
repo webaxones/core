@@ -33,7 +33,7 @@ final class Entities
 				$hook         = new Hook();
 				$hook->register( $entityHandle );
 			} catch ( Exception $e ) {
-				Decalog::eventsLogger( 'webaxones-entities' )->error( $e->getMessage() );
+				Decalog::eventsLogger( 'webaxones-core' )->error( $e->getMessage() );
 			}
 		}
 	}

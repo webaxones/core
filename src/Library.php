@@ -27,7 +27,7 @@ class Library
 			define( 'WEBAXONES_VENDOR_PATH', $vendorPath );
 		}
 
-		Decalog::initLibrary( 'webaxones-entities', 'Webaxones Entities Library', '1.0.0' );
+		Decalog::initLibrary( 'webaxones-core', 'Webaxones Core Library', '1.0.0' );
 
 		$hook = new Hook();
 		$i18n = new I18n( $textDomain );

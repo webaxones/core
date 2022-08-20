@@ -317,7 +317,7 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 					$field['slug'],
 					$args
 				);
-				DecaLog::eventsLogger( 'webaxones-entities' )->info( '« ' . $field['slug'] . ' » Settings field of « ' . $this->getSlug() . ' » Settings group registered. register_setting arguments: ' . wp_json_encode( $args ) );
+				DecaLog::eventsLogger( 'webaxones-core' )->info( '« ' . $field['slug'] . ' » Settings field of « ' . $this->getSlug() . ' » Settings group registered. register_setting arguments: ' . wp_json_encode( $args ) );
 			}
 		);
 	}

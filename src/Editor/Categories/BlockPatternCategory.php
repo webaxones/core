@@ -68,12 +68,12 @@ class BlockPatternCategory extends AbstractEditorCategory
 	{
 		if ( 'add' === $this->getAction() && ! $this->editorCategoryAlreadyExists() ) {
 			$this->addEditorCategory();
-			Decalog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->getSlug() . ' » Block pattern category registered.' );
+			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Block pattern category registered.' );
 		}
 
 		if ( 'remove' === $this->getAction() && $this->editorCategoryAlreadyExists() ) {
 			$this->removeEditorCategory();
-			Decalog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->getSlug() . ' » Block pattern category unregistered.' );
+			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Block pattern category unregistered.' );
 		}
 	}
 }
