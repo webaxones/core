@@ -49,7 +49,7 @@ class Hook
 			$args     = $actionSettings[2] ?? 1;
 
 			add_action( $actionName, [ $object, $method ], $priority, $args );
-			Decalog::eventsLogger( 'webaxones-entities' )->info( $method . ' action added.' );
+			Decalog::eventsLogger( 'webaxones-entities' )->info( 'Hook: ' . $method . ' action added.' );
 		}
 	}
 
@@ -70,7 +70,7 @@ class Hook
 			$args     = $filterSettings[2] ?? 1;
 
 			add_filter( $filterName, [ $object, $method ], $priority, $args );
-			Decalog::eventsLogger( 'webaxones-entities' )->info( $method . ' filter added.' );
+			Decalog::eventsLogger( 'webaxones-entities' )->info( 'Hook: ' . $method . ' filter added.' );
 		}
 	}
 }

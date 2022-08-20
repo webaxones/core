@@ -11,13 +11,14 @@ use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 use Webaxones\Core\Utils\Contracts\EntityInterface;
 use Webaxones\Core\Utils\Contracts\HookInterface;
 use Webaxones\Core\Utils\Contracts\ActionInterface;
+use Webaxones\Core\Utils\Contracts\FilterInterface;
 
 use Webaxones\Core\Label\Labels;
 
 /**
  * Editor category declaration
  */
-abstract class AbstractEditorCategory implements EntityInterface, HookInterface, ActionInterface
+abstract class AbstractEditorCategory implements EntityInterface, HookInterface, ActionInterface, FilterInterface
 {
 	use ClassNameTrait;
 
@@ -89,7 +90,15 @@ abstract class AbstractEditorCategory implements EntityInterface, HookInterface,
 	 */
 	public function getActions(): array
 	{
-		return [ $this->getHookName() => [ 'processEditorCategory', 10, 1 ] ];
+		return [];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getFilters(): array
+	{
+		return [];
 	}
 
 	/**

@@ -12,6 +12,14 @@ use \DecaLog\Engine as Decalog;
 class BlockPatternCategory extends AbstractEditorCategory
 {
 	/**
+	 * {@inheritdoc}
+	 */
+	public function getActions(): array
+	{
+		return [ $this->getHookName() => [ 'processEditorCategory', 10, 1 ] ];
+	}
+
+	/**
 	 * Get action to execute on block pattern category
 	 *
 	 * @return string

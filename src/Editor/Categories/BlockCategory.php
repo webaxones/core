@@ -20,13 +20,20 @@ class BlockCategory extends AbstractEditorCategory
 	}
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function getFilters(): array
+	{
+		return [ $this->getHookName() => [ 'processEditorCategory', 10, 1 ] ];
+	}
+
+	/**
 	 * Add block category
 	 *
 	 * @return array
 	 */
 	public function processEditorCategory( $block_categories ): array
 	{
-		Decalog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->getSlug() . ' » Block category declared.' );
 		return array_merge(
 			$block_categories,
 			[
