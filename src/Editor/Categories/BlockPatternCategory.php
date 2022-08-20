@@ -56,7 +56,7 @@ class BlockPatternCategory extends AbstractEditorCategory
 	 *
 	 * @return array
 	 */
-	public function processCategory(): void
+	public function processEditorCategory(): void
 	{
 		if ( 'add' === $this->getAction() && ! $this->editorCategoryAlreadyExists() ) {
 			$this->addEditorCategory();

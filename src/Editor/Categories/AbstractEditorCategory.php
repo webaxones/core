@@ -89,7 +89,7 @@ abstract class AbstractEditorCategory implements EntityInterface, HookInterface,
 	 */
 	public function getActions(): array
 	{
-		return [ $this->getHookName() => [ 'processCategory', 10, 1 ] ];
+		return [ $this->getHookName() => [ 'processEditorCategory', 10, 1 ] ];
 	}
 
 	/**

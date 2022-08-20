@@ -24,7 +24,7 @@ class BlockCategory extends AbstractEditorCategory
 	 *
 	 * @return array
 	 */
-	public function processCategory( $block_categories ): array
+	public function processEditorCategory( $block_categories ): array
 	{
 		Decalog::eventsLogger( 'webaxones-entities' )->info( '« ' . $this->getSlug() . ' » Block category declared.' );
 		return array_merge(
