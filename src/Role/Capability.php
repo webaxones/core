@@ -126,7 +126,7 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 	 *
 	 * @return object
 	 */
-	public function setRole( string $roleSlug ): object
+	public function setRole( string $roleSlug ): object|null
 	{
 		return get_role( $roleSlug );
 	}
