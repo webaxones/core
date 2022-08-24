@@ -1,6 +1,6 @@
 <?php
 
-namespace Webaxones\Core\Capability;
+namespace Webaxones\Core\Role;
 
 defined( 'ABSPATH' ) || exit;
 
