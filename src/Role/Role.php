@@ -73,7 +73,7 @@ class Role implements EntityInterface, RoleInterface, HookInterface, ActionInter
 	protected array $capabilitiesToRemove;
 
 	/**
-	 * Abstract Role Class Constructor
+	 * Role Class Constructor
 	 *
 	 * @param  array $parameters
 	 *
