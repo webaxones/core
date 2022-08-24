@@ -122,11 +122,11 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 	/**
 	 * Set the role to add a capability to
 	 *
-	 * @param  void   $roleSlug
+	 * @param  string   $roleSlug
 	 *
 	 * @return object
 	 */
-	public function setRole( $roleSlug ): object
+	public function setRole( string $roleSlug ): object
 	{
 		return get_role( $roleSlug );
 	}
