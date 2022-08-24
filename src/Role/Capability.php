@@ -150,7 +150,7 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 	}
 
 	/**
-	 * Check if capability already exist on role
+	 * Check if capability already exists on role
 	 *
 	 * @param  string $capability
 	 *
