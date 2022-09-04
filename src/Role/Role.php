@@ -17,7 +17,9 @@ use Webaxones\Core\Label\Labels;
 use \DecaLog\Engine as Decalog;
 
 /**
- * Custom Role declaration
+ * Handles creating, deleting, and updating a custom role
+ * 
+ * Creates new role by cloning a superior role provided as a parameter and the cabilities to remove from the clone
  */
 class Role implements EntityInterface, RoleInterface, HookInterface, ActionInterface
 {
@@ -75,8 +77,8 @@ class Role implements EntityInterface, RoleInterface, HookInterface, ActionInter
 	/**
 	 * Role Class Constructor
 	 *
-	 * @param  array $parameters
-	 *
+	 * @param  array                        $parameters
+	 * @param  \Webaxones\Core\Label\Labels $labels
 	 * @throws Exception
 	 */
 	public function __construct( array $parameters, Labels $labels )
@@ -221,9 +223,9 @@ class Role implements EntityInterface, RoleInterface, HookInterface, ActionInter
 	}
 
 	/**
-	 * Final process callback function
+	 * Final process callback function: add role || remove role || update role
 	 *
-	 * @return array
+	 * @return void
 	 */
 	public function finalProcess(): void
 	{
