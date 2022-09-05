@@ -131,7 +131,7 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 			return get_role( $this->settings['target'] );
 		}
 		if ( 'user' === $this->settings['target_type'] ) {
-			return \get_user_by( 'ID', intval( $this->settings['target'] ) );
+			return get_user_by( 'ID', intval( $this->settings['target'] ) );
 		}
 		return null;
 	}
@@ -172,7 +172,7 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 	public function addCapability(): void
 	{
 		if ( $this->capabilityAlreadyExistsOnTarget( $this->getSlug() ) ) {
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Capability already exists on target.' );
+			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Capability already exists on target "' . $this->settings['target_type'] . ' » : « ' . $this->settings['target'] . ' ».' );
 		} else {
 			$this->target->add_cap( $this->getSlug(), true );
 			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Capability added.' );
@@ -185,7 +185,7 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 	public function removeCapability(): void
 	{
 		if ( ! $this->capabilityAlreadyExistsOnTarget( $this->getSlug() ) ) {
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Capability doesn’t exists on target.' );
+			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Capability doesn’t exists on target « ' . $this->settings['target_type'] . ' » : « ' . $this->settings['target'] . ' ».' );
 		} else {
 			$this->target->remove_cap( $this->getSlug() );
 			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Capability removed.' );
