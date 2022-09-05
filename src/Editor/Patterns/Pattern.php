@@ -1,6 +1,6 @@
 <?php
 
-namespace Webaxones\Core\Pattern;
+namespace Webaxones\Core\Patterns;
 
 defined( 'ABSPATH' ) || exit;
 
