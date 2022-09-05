@@ -15,7 +15,9 @@ use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 use \DecaLog\Engine as Decalog;
 
 /**
- * Custom Capability declaration
+ * Handles creating, deleting custom capability
+ *
+ * Capability can be added to a Role or a User
  */
 class Capability implements EntityInterface, HookInterface, ActionInterface
 {
@@ -43,7 +45,7 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 	protected string $slug;
 
 	/**
-	 * Target object
+	 * Target object: WP_Role or WP_User
 	 *
 	 * @var object|null
 	 */
@@ -92,7 +94,7 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 	 */
 	public function getActions(): array
 	{
-		return [ $this->getHookName() => [ 'finalProcess', 10 ] ];
+		return [ $this->getHookName() => [ 'finalProcess' ] ];
 	}
 
 	/**

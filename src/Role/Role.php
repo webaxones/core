@@ -109,7 +109,7 @@ class Role implements EntityInterface, RoleInterface, HookInterface, ActionInter
 	 */
 	public function getActions(): array
 	{
-		return [ $this->getHookName() => [ 'finalProcess', 10, 1 ] ];
+		return [ $this->getHookName() => [ 'finalProcess' ] ];
 	}
 
 	/**
