@@ -43,11 +43,11 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 	protected string $slug;
 
 	/**
-	 * Role object
+	 * Target object
 	 *
-	 * @var object
+	 * @var object|null
 	 */
-	protected object $role;
+	protected ?object $target;
 
 	/**
 	 * Action to execute
@@ -68,13 +68,15 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 		if ( ! array_key_exists( 'settings', $parameters ) || empty( $parameters['settings'] ) ) {
 			throw new Exception( 'Settings missing in content ' . $this->getCurrentClassShortName() . ' declaration' );
 		}
-
 		$this->settings = $parameters['settings'];
 		$this->slug     = $this->sanitizeSlug();
-		if ( ! array_key_exists( 'role_to_add_cap_to', $this->settings ) || empty( $this->settings['role_to_add_cap_to'] ) ) {
-			throw new Exception( 'Role to add capability to is missing in content: ' . $this->getCurrentClassShortName() . ' declaration' );
+		if ( ! array_key_exists( 'target', $this->settings ) || empty( $this->settings['target'] ) ) {
+			throw new Exception( 'Target to add capability to is missing in: ' . $this->getCurrentClassShortName() . ' declaration' );
 		}
-		$this->role   = $this->setRole( $this->settings['role_to_add_cap_to'] );
+		if ( ! array_key_exists( 'target_type', $this->settings ) || empty( $this->settings['target_type'] ) ) {
+			throw new Exception( 'target_type is missing in: ' . $this->getCurrentClassShortName() . ' declaration' );
+		}
+		$this->target = $this->getTarget();
 		$this->action = $this->settings['action'];
 	}
 
@@ -91,7 +93,7 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 	 */
 	public function getActions(): array
 	{
-		return [ $this->getHookName() => [ 'finalProcess', 11, 1 ] ];
+		return [ $this->getHookName() => [ 'finalProcess', 10 ] ];
 	}
 
 	/**
@@ -120,25 +122,19 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 	}
 
 	/**
-	 * Set the role to add a capability to
+	 * Get the target to add a capability to
 	 *
-	 * @param  string   $roleSlug
-	 *
-	 * @return object
+	 * @return object|null
 	 */
-	public function setRole( string $roleSlug ): object|null
+	public function getTarget(): object|null
 	{
-		return get_role( $roleSlug );
-	}
-
-	/**
-	 * Get the role to add a capability to
-	 *
-	 * @return object
-	 */
-	public function getRole(): object
-	{
-		return $this->role;
+		if ( 'role' === $this->settings['target_type'] ) {
+			return get_role( $this->settings['target'] );
+		}
+		if ( 'user' === $this->settings['target_type'] ) {
+			return \get_user_by( 'id', intval( $this->settings['target'] ) );
+		}
+		return null;
 	}
 
 	/**
@@ -150,31 +146,34 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 	}
 
 	/**
-	 * Check if capability already exists on role
+	 * Check if capability already exists on target
 	 *
 	 * @param  string $capability
 	 *
 	 * @return bool
 	 */
-	public function capabilityAlreadyExistsOnRole( string $capability ): bool
+	public function capabilityAlreadyExistsOnTarget( string $capability ): bool
 	{
 		if ( empty( $capability ) ) {
 			return false;
 		}
-		$role         = $this->getRole();
-		$capabilities = $role->capabilities;
+		$capabilities = $this->target->capabilities;
 		return in_array( $capability, (array) $capabilities, true );
 	}
 
 	/**
-	 * Add capability to role
+	 * Add capability to target
 	 *
 	 * @return void
 	 */
 	public function addCapability(): void
 	{
-		$role = $this->getRole();
-		$role->add_cap( $this->getSlug(), true );
+		if ( ! $this->capabilityAlreadyExistsOnTarget( $this->getSlug() ) ) {
+			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Capability already exists on target.' );
+		} else {
+			$this->target->add_cap( $this->getSlug(), true );
+			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Capability added.' );
+		}
 	}
 
 	/**
@@ -182,8 +181,12 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 	 */
 	public function removeCapability(): void
 	{
-		$role = $this->getRole();
-		$role->remove_cap( $this->getSlug(), true );
+		if ( ! $this->capabilityAlreadyExistsOnTarget( $this->getSlug() ) ) {
+			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Capability doesn’t exists on target.' );
+		} else {
+			$this->target->remove_cap( $this->getSlug(), true );
+			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Capability removed.' );
+		}
 	}
 
 	/**
@@ -193,14 +196,12 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 	 */
 	public function finalProcess(): void
 	{
-		if ( 'add' === $this->getAction() && ! $this->capabilityAlreadyExistsOnRole( $this->getSlug() ) ) {
+		if ( 'add' === $this->getAction() ) {
 			$this->addCapability();
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Capability added.' );
 		}
 
-		if ( 'remove' === $this->getAction() && $this->capabilityAlreadyExistsOnRole( $this->getSlug() ) ) {
+		if ( 'remove' === $this->getAction() ) {
 			$this->removeCapability();
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Capability removed.' );
 		}
 	}
 }
