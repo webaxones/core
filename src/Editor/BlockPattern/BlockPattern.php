@@ -70,14 +70,13 @@ class BlockPattern implements EntityInterface, HookInterface, ActionInterface
 			throw new Exception( 'Settings missing in content ' . $this->getCurrentClassShortName() . ' declaration' );
 		}
 
-		$this->labels         = $labels;
+		$this->labels   = $labels;
 		$this->settings = array_merge(
 			$parameters['settings'],
 			$this->labels->processLabels(),
 		);
-		// $this->args['labels'] = $this->labels->processLabels();
-		$this->slug           = $this->sanitizeSlug();
-		$this->action         = $this->settings['action'];
+		$this->slug     = $this->sanitizeSlug();
+		$this->action   = $this->settings['action'];
 	}
 
 	/**

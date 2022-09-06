@@ -16,7 +16,7 @@ class BlockPatternCategory extends AbstractEditorCategory
 	 */
 	public function getActions(): array
 	{
-		return [ $this->getHookName() => [ 'processBlockPatternCategory', 10, 1 ] ];
+		return [ $this->getHookName() => [ 'processBlockPatternCategory', 10 ] ];
 	}
 
 	/**
