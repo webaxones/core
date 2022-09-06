@@ -1,6 +1,6 @@
 <?php
 
-namespace Webaxones\Core\Editor\Patterns;
+namespace Webaxones\Core\Editor\BlockPattern;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,11 +16,9 @@ use Webaxones\Core\Label\Labels;
 use \DecaLog\Engine as Decalog;
 
 /**
- * Handles creating, deleting, and updating a custom block pattern
- *
- * Creates new role by cloning a superior role provided as a parameter and the cabilities to remove from the clone
+ * Handles creating and deleting a custom block pattern
  */
-class Pattern implements EntityInterface, HookInterface, ActionInterface
+class BlockPattern implements EntityInterface, HookInterface, ActionInterface
 {
 	use ClassNameTrait;
 
@@ -60,7 +58,7 @@ class Pattern implements EntityInterface, HookInterface, ActionInterface
 	protected string $action;
 
 	/**
-	 * Pattern Class Constructor
+	 * Block Pattern Class Constructor
 	 *
 	 * @param  array                        $parameters
 	 * @param  \Webaxones\Core\Label\Labels $labels
@@ -72,9 +70,12 @@ class Pattern implements EntityInterface, HookInterface, ActionInterface
 			throw new Exception( 'Settings missing in content ' . $this->getCurrentClassShortName() . ' declaration' );
 		}
 
-		$this->settings       = $parameters['settings'];
 		$this->labels         = $labels;
-		$this->args['labels'] = $this->labels->processLabels();
+		$this->settings = array_merge(
+			$parameters['settings'],
+			$this->labels->processLabels(),
+		);
+		// $this->args['labels'] = $this->labels->processLabels();
 		$this->slug           = $this->sanitizeSlug();
 		$this->action         = $this->settings['action'];
 	}
@@ -177,12 +178,10 @@ class Pattern implements EntityInterface, HookInterface, ActionInterface
 	{
 		if ( 'add' === $this->getAction() ) {
 			$this->addPattern();
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Block Pattern added.' );
 		}
 
 		if ( 'remove' === $this->getAction() ) {
 			$this->removePattern();
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Block Pattern removed.' );
 		}
 	}
 }
