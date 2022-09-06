@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
 use \DecaLog\Engine as Decalog;
 
 /**
- * Custom block pattern category declaration
+ * Handles creating, deleting custom Block pattern category
  */
 class BlockPatternCategory extends AbstractEditorCategory
 {
@@ -16,7 +16,7 @@ class BlockPatternCategory extends AbstractEditorCategory
 	 */
 	public function getActions(): array
 	{
-		return [ $this->getHookName() => [ 'processEditorCategory', 10, 1 ] ];
+		return [ $this->getHookName() => [ 'processBlockPatternCategory', 10, 1 ] ];
 	}
 
 	/**
@@ -46,7 +46,12 @@ class BlockPatternCategory extends AbstractEditorCategory
 	 */
 	public function addEditorCategory(): void
 	{
-		register_block_pattern_category( $this->slug, $this->args );
+		if ( $this->editorCategoryAlreadyExists() ) {
+			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Block pattern category already exists.' );
+		} else {
+			register_block_pattern_category( $this->slug, $this->args );
+			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Block pattern category registered.' );
+		}
 	}
 
 	/**
@@ -56,24 +61,35 @@ class BlockPatternCategory extends AbstractEditorCategory
 	 */
 	public function removeEditorCategory(): void
 	{
-		unregister_block_pattern_category( $this->slug );
+		if ( ! $this->editorCategoryAlreadyExists() ) {
+			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Block pattern category doesn’t exist.' );
+		} else {
+			unregister_block_pattern_category( $this->slug );
+			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Block pattern category unregistered.' );
+		}
 	}
+
 
 	/**
 	 * Process block pattern category
 	 *
 	 * @return array
 	 */
-	public function processEditorCategory(): void
+	public function processBlockPatternCategory(): void
 	{
-		if ( 'add' === $this->getAction() && ! $this->editorCategoryAlreadyExists() ) {
+		if ( 'add' === $this->getAction() ) {
+			$this->args = array_merge(
+				$this->args,
+				[
+					'label' => $this->args['label'],
+				],
+			);
+
 			$this->addEditorCategory();
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Block pattern category registered.' );
 		}
 
-		if ( 'remove' === $this->getAction() && $this->editorCategoryAlreadyExists() ) {
+		if ( 'remove' === $this->getAction() ) {
 			$this->removeEditorCategory();
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Block pattern category unregistered.' );
 		}
 	}
 }

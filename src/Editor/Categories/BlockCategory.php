@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
 use \DecaLog\Engine as Decalog;
 
 /**
- * Custom block category declaration
+ * Handles creating, deleting custom Block category
  */
 class BlockCategory extends AbstractEditorCategory
 {
@@ -24,7 +24,7 @@ class BlockCategory extends AbstractEditorCategory
 	 */
 	public function getFilters(): array
 	{
-		return [ $this->getHookName() => [ 'processEditorCategory', 10, 1 ] ];
+		return [ $this->getHookName() => [ 'processBlockCategory' ] ];
 	}
 
 	/**
@@ -32,14 +32,14 @@ class BlockCategory extends AbstractEditorCategory
 	 *
 	 * @return array
 	 */
-	public function processEditorCategory( $block_categories ): array
+	public function processBlockCategory( $block_categories ): array
 	{
 		return array_merge(
 			$block_categories,
 			[
 				[
 					'slug'  => $this->getSlug(),
-					'title' => $this->args['label'],
+					'title' => $this->args['title'],
 				],
 			]
 		);
