@@ -24,6 +24,13 @@ abstract class AbstractOptionsPage implements EntityInterface, OptionsPageInterf
 	use ClassNameTrait;
 
 	/**
+	 * Option page slug
+	 *
+	 * @var string
+	 */
+	protected string $slug;
+
+	/**
 	 * Option page input settings
 	 *
 	 * @var array

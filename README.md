@@ -26,6 +26,7 @@ Within this library, an entity can be:<br>
 - a **Block Pattern Category**
 - a **Block Style (PHP)**
 - a **Custom Role**
+- a **Custom Capability**
     
     
     
