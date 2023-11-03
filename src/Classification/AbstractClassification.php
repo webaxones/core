@@ -133,7 +133,7 @@ abstract class AbstractClassification implements EntityInterface, Classification
 	/**
 	 * {@inheritdoc}
 	 */
-	public function processVisibilities(): array
+	public function processVisibilities(): array|bool
 	{
 		$settings = $this->getSettings();
 

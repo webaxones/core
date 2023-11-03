@@ -9,9 +9,9 @@ interface ClassificationInterface
 	/**
 	 * Process classification visibilities
 	 *
-	 * @return array
+	 * @return array|bool
 	 */
-	public function processVisibilities(): array;
+	public function processVisibilities(): array|bool;
 
 	/**
 	 * Process classification data accessibilities
