@@ -95,14 +95,20 @@ abstract class AbstractClassification implements EntityInterface, Classification
 		$args            = [];
 		$args['labels']  = $this->labels->processLabels();
 		$args['rewrite'] = $this->processRewrite();
-		$args            = array_merge(
-			$args,
-			$this->processVisibilities(),
-			$this->processCapabilities(),
-			$this->processAccessibilities(),
-			$this->processCapacities(),
-		);
-		$this->args      = $args;
+		if ( is_array( $this->processVisibilities() ) ) {
+			$args = array_merge(
+				$args,
+				$this->processVisibilities(),
+				$this->processCapabilities(),
+				$this->processAccessibilities(),
+				$this->processCapacities(),
+			);
+		}
+		if ( ! is_array( $this->processVisibilities() ) ) {
+			$args['public'] = $this->processVisibilities();
+		}
+
+		$this->args = $args;
 	}
 
 	/**
@@ -133,7 +139,7 @@ abstract class AbstractClassification implements EntityInterface, Classification
 	/**
 	 * {@inheritdoc}
 	 */
-	public function processVisibilities(): array|bool
+	public function processVisibilities(): mixed
 	{
 		$settings = $this->getSettings();
 
