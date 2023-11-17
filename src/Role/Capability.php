@@ -159,8 +159,7 @@ class Capability implements EntityInterface, HookInterface, ActionInterface
 			return false;
 		}
 
-		$capabilities = $this->target->allcaps;
-		if ( isset( $capabilities[ $capability ] ) ) {
+		if ( $this->target->has_cap( $capability ) ) {
 			return true;
 		}
 		return false;
