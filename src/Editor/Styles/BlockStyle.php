@@ -104,16 +104,13 @@ class BlockStyle extends AbstractEditorStyle
 	{
 		if ( 'add' === $this->getAction() ) {
 			if ( $this->blockStyleAlreadyExists() ) {
-				Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' - ' . $this->getStyleName() . ' » Block style already exist.' );
 				return;
 			}
 			$this->addBlockStyle();
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' - ' . $this->getStyleName() . ' » Block style registered.' );
 		}
 
 		if ( 'remove' === $this->getAction() ) {
 			if ( ! $this->blockStyleAlreadyExists() ) {
-				Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' - ' . $this->getStyleName() . ' » Block style doesn’t exist.' );
 				return;
 			}
 			if ( array_key_exists( 'label', $this->getArgs() ) ) {
@@ -122,7 +119,6 @@ class BlockStyle extends AbstractEditorStyle
 				$this->args = $args;
 			}
 			$this->removeBlockStyle();
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' - ' . $this->getStyleName() . ' » Block style unregistered.' );
 		}
 	}
 }
