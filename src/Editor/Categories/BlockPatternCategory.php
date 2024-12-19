@@ -46,11 +46,8 @@ class BlockPatternCategory extends AbstractEditorCategory
 	 */
 	public function addEditorCategory(): void
 	{
-		if ( $this->editorCategoryAlreadyExists() ) {
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Block pattern category already exists.' );
-		} else {
+		if ( ! $this->editorCategoryAlreadyExists() ) {
 			register_block_pattern_category( $this->slug, $this->args );
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Block pattern category registered.' );
 		}
 	}
 
@@ -61,11 +58,8 @@ class BlockPatternCategory extends AbstractEditorCategory
 	 */
 	public function removeEditorCategory(): void
 	{
-		if ( ! $this->editorCategoryAlreadyExists() ) {
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Block pattern category doesn’t exist.' );
-		} else {
+		if ( $this->editorCategoryAlreadyExists() ) {
 			unregister_block_pattern_category( $this->slug );
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Block pattern category unregistered.' );
 		}
 	}
 

@@ -157,11 +157,8 @@ class BlockPattern implements EntityInterface, HookInterface, ActionInterface
 	 */
 	public function removePattern(): void
 	{
-		if ( ! $this->patternAlreadyExists( $this->getSlug() ) ) {
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Block Pattern doesn’t exists.' );
-		} else {
+		if ( $this->patternAlreadyExists( $this->getSlug() ) ) {
 			unregister_block_pattern( $this->getSlug() );
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Block Pattern removed.' );
 		}
 	}
 

@@ -1,6 +1,6 @@
 {
 	"name": "core",
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"description": "**Entity processing** « An entity is an abstraction that we consider as a reality » *Le Robert*",
 	"main": "index.js",
 	"scripts": {
