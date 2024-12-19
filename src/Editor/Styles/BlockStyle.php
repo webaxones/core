@@ -4,7 +4,7 @@ namespace Webaxones\Core\Editor\Styles;
 
 defined( 'ABSPATH' ) || exit;
 
-use \DecaLog\Engine as Decalog;
+
 
 /**
  * Custom block style declaration

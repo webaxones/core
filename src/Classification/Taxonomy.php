@@ -5,7 +5,7 @@ namespace Webaxones\Core\Classification;
 defined( 'ABSPATH' ) || exit;
 
 use Webaxones\Core\Label\Labels;
-use \DecaLog\Engine as Decalog;
+
 
 /**
  * Custom taxonomy declaration
@@ -32,6 +32,5 @@ class Taxonomy extends AbstractClassification
 	public function registerClassification(): void
 	{
 		register_taxonomy( $this->slug, $this->objectType, $this->args );
-		Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->slug . ' » Custom Taxonomy registered.' );
 	}
 }

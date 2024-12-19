@@ -1,28 +1,27 @@
 {
-    "name": "webaxones/core",
-    "description": "WordPress custom code",
-    "type": "library",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Webaxones\\Core\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Loïc Antignac",
-            "email": "contact@webaxones.com"
-        }
-    ],
-    "require": {
-		"php": ">=8",
-        "perfopsone/decalog": "^3.0"
+	"name": "webaxones/core",
+	"description": "WordPress custom code",
+	"type": "library",
+	"license": "MIT",
+	"autoload": {
+		"psr-4": {
+			"Webaxones\\Core\\": "src/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Loïc Antignac",
+			"email": "contact@webaxones.com"
+		}
+	],
+	"require": {
+		"php": ">=8"
 	},
 	"minimum-stability": "stable",
-    "prefer-stable": true,
-    "config": {
-        "allow-plugins": {
-            "inpsyde/composer-assets-compiler": true
-        }
-    }
+	"prefer-stable": true,
+	"config": {
+		"allow-plugins": {
+			"inpsyde/composer-assets-compiler": true
+		}
+	}
 }

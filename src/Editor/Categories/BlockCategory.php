@@ -4,7 +4,7 @@ namespace Webaxones\Core\Editor\Categories;
 
 defined( 'ABSPATH' ) || exit;
 
-use \DecaLog\Engine as Decalog;
+
 
 /**
  * Handles creating, deleting custom Block category

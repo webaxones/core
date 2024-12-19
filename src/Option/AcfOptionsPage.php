@@ -4,7 +4,7 @@ namespace Webaxones\Core\Option;
 
 defined( 'ABSPATH' ) || exit;
 
-use \DecaLog\Engine as Decalog;
+
 use Exception;
 
 /**
@@ -65,11 +65,9 @@ class AcfOptionsPage extends AbstractOptionsPage
 		$this->setArgs();
 
 		if ( ! function_exists( 'acf_add_options_page' ) ) {
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->slug . ' » ACF Options Page NOT added: « acf_add_options_page » doesn’t exists. Please verify that ACF plugin is active.' );
 			return;
 		}
 		acf_add_options_page( $this->getArgs() );
 
-		Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->slug . ' » ACF Options Page added.' );
 	}
 }

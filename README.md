@@ -44,4 +44,3 @@ PHP >=8 is required  
   
     
 
-*Thanks to Pierre Lannoy for his fucking good [DecaLog SDK](https://decalog.io/) which tracks everything and almost makes coffee.*

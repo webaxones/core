@@ -13,7 +13,7 @@ use Webaxones\Core\Utils\Contracts\ActionInterface;
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
 use Webaxones\Core\Label\Labels;
-use \DecaLog\Engine as Decalog;
+
 
 /**
  * Handles creating and deleting a custom block pattern
@@ -145,11 +145,8 @@ class BlockPattern implements EntityInterface, HookInterface, ActionInterface
 	 */
 	public function addPattern(): void
 	{
-		if ( $this->patternAlreadyExists( $this->getSlug() ) ) {
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Block Pattern already exists.' );
-		} else {
+		if ( ! $this->patternAlreadyExists( $this->getSlug() ) ) {
 			register_block_pattern( $this->getSlug(), $this->getSettings() );
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Block Pattern added.' );
 		}
 	}
 

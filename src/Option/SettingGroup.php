@@ -16,7 +16,7 @@ use Webaxones\Core\Utils\Contracts\PhpToJsInterface;
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
 use Webaxones\Core\Label\Labels;
-use \Decalog\Engine as Decalog;
+
 
 /**
  * Custom Setting group declaration
@@ -317,7 +317,6 @@ class SettingGroup implements EntityInterface, HookInterface, ActionInterface, S
 					$field['slug'],
 					$args
 				);
-				DecaLog::eventsLogger( 'webaxones-core' )->info( '« ' . $field['slug'] . ' » Settings field of « ' . $this->getSlug() . ' » Settings group registered. register_setting arguments: ' . wp_json_encode( $args ) );
 			}
 		);
 	}

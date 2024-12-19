@@ -14,7 +14,7 @@ use Webaxones\Core\Utils\Contracts\ActionInterface;
 use Webaxones\Core\Utils\Concerns\ClassNameTrait;
 
 use Webaxones\Core\Label\Labels;
-use \DecaLog\Engine as Decalog;
+
 
 /**
  * Handles creating, deleting, and updating a custom role
@@ -231,19 +231,16 @@ class Role implements EntityInterface, RoleInterface, HookInterface, ActionInter
 	{
 		if ( 'add' === $this->getAction() && ! $this->roleAlreadyExists( $this->getSlug() ) ) {
 			$this->addRole();
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Role added.' );
 		}
 
 		if ( 'remove' === $this->getAction() && $this->roleAlreadyExists( $this->getSlug() ) && ! $this->isPredefinedRole() ) {
 			$this->removeRole();
-			Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Role removed.' );
 		}
 
 		if ( 'update' === $this->getAction() && $this->roleAlreadyExists( $this->getSlug() ) ) {
 			$this->removeRole();
 			if ( ! $this->roleAlreadyExists( $this->getSlug() ) ) {
 				$this->addRole();
-				Decalog::eventsLogger( 'webaxones-core' )->info( '« ' . $this->getSlug() . ' » Custom Role updated.' );
 			}
 		}
 	}
